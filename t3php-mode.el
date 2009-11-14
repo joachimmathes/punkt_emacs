@@ -39,7 +39,7 @@
 ;; This file is *NOT* part of GNU Emacs.
 
 ;;; Code:
-(defconst t3php-version "0.0.0"
+(defconst t3php-version "0.0.1"
   "`t3php-mode' version number.")
 
 ;;;; User definable variables
