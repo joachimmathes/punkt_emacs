@@ -39,7 +39,7 @@
 ;; This file is *NOT* part of GNU Emacs.
 
 ;;; Code:
-(defconst ts-version "0.1"
+(defconst ts-version "0.0.1"
   "`ts-mode' version number.")
 
 ;;;; User definable variables
