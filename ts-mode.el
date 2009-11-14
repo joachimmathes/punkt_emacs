@@ -4,13 +4,8 @@
 ;;
 ;; Author: Joachim Mathes <joachim <underscore> mathes <at> web <dot> de>
 ;; Created: July 2009
-;; Version: 0.1
-;; Last-Updated: Thu Aug 13 00:18:18 CEST 2009
-;;           By: Joachim Mathes
-;;     Update #: 4
+;; Version: 0.0.1 $Id$
 ;; Keywords: files
-;; URL: http://www.emacswiki.org/emacs/ts-mode.el
-;; EmacsWiki: TypoScriptMode
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -29,6 +24,9 @@
 
 ;;; Commentary:
 
+;; This is a major mode for editing TypoScript input files.  It is developed to
+;; support syntax highlighting, indentation and folding of blocks.
+
 ;; Installation:
 
 ;; To install just drop this file into a directory on your load-path and
@@ -38,15 +36,9 @@
 ;;    (setq auto-mode-alist (cons '("\\.ts$" . ts-mode) auto-mode-alist))
 ;;    (autoload 'ts-mode "ts-mode" "TypoScript file editing mode." t)
 
-;; Description:
-
-;; This is a major mode for editing TypoScript input files.  It is developed to
-;; support syntax highlighting, indentation and folding of blocks.
-
 ;; This file is *NOT* part of GNU Emacs.
 
 ;;; Code:
-
 (defconst ts-version "0.1"
   "`ts-mode' version number.")
 
