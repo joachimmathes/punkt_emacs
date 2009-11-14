@@ -68,7 +68,6 @@ comma `,'"
                     "s")
             formatter))
     (setq formatter (reverse formatter))
-    (princ formatter)
 
     (save-excursion
       (goto-char (point-min))
@@ -84,7 +83,7 @@ comma `,'"
 	      (insert (char-to-string separator)))
     	  (setq element-position (1+ element-position)))
         (forward-line)))))
-  (princ "Operating...done"))
+  (princ "done"))
 
 (provide 'csv-align)
 
