@@ -37,6 +37,8 @@ The SEPARATOR parameter specifies the column separator.  The default value is a
 comma `,'"
   (interactive "cCSV Separator:")
   (princ "Operating...")
+
+  ;; Analyze csv lines  
   (let ((formatter (list))
         (line-elements-lengths (list)))
     (save-excursion
@@ -62,6 +64,7 @@ comma `,'"
             (setq line-elements-lengths (nreverse line-elements-lengths-temp)))
           (forward-line))))
 
+    ;; Build line formatter
     (dolist (padding line-elements-lengths)
       (push (concat "%-"
                     (number-to-string padding)
@@ -69,6 +72,7 @@ comma `,'"
             formatter))
     (setq formatter (reverse formatter))
 
+    ;; Align csv lines
     (save-excursion
       (goto-char (point-min))
       (while (not (eobp))
