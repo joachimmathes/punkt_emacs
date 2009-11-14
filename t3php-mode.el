@@ -1007,7 +1007,7 @@ by function `t3php-toc-content'"
     (unless toc-data (message "%s" "Don't know which toc line to visit."))
     
     ;; --- t3php TOC BUFFER ---
-
+    (princ t3php-block-name)
     (setq match
 	  (cond
 	   ((and (markerp t3php-marker) (marker-buffer t3php-marker))
@@ -1017,9 +1017,7 @@ by function `t3php-toc-content'"
 	    (goto-char (marker-position t3php-marker))
 	    (looking-at (concat
 			 "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
-			 "\\(\\w+?\\)\\s-*("
-			 t3php-block-name
-			 "\"")))
+			 t3php-block-name)))
 	   (t
 	    ;; Marker is lost. A backup method might be implemented in the
 	    ;; future. For now just print an error message.
