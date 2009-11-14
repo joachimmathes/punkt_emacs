@@ -4,7 +4,7 @@
 ;;
 ;; Author: Joachim Mathes <joachim <underscore> mathes <at> web <dot> de>
 ;; Created: November 2009
-;; Version: $Id$
+;; Version: 0.1.0 $Id$
 ;; Keywords: files
 
 ;; This file is free software; you can redistribute it and/or modify
