@@ -2,10 +2,15 @@
 
 ;; Copyright (C) 2009  Joachim Mathes
 ;;
-;; Author: Joachim Mathes <joachim <underscore> mathes <at> web <dot> de>
+;; Author: Joachim Mathes <joachim_mathes@web.de>
 ;; Created: August 2009
-;; Version: 0.1.0 $Id$
+;; Version: 0.0.0
+;; Last-Updated: 
+;;           By: Joachim Mathes
+;;     Update #: 0
 ;; Keywords: files
+;; URL: http://www.emacswiki.org/emacs/t3php-mode.el
+;; EmacsWiki: Typo3PHPMode
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,9 +29,6 @@
 
 ;;; Commentary:
 
-;; This is a major mode for editing TYPO3 PHP files.  It is developed to
-;; support syntax highlighting and code creation.
-
 ;; Installation:
 
 ;; To install just drop this file into a directory on your load-path and
@@ -36,11 +38,20 @@
 ;;    (setq auto-mode-alist (cons '("\\.php$" . t3php-mode) auto-mode-alist))
 ;;    (autoload 't3php-mode "t3php-mode" "TYPO3 php file editing mode." t)
 
+;; Description:
+
+;; This is a major mode for editing TYPO3 PHP files.  It is developed to
+;; support syntax highlighting and code creation.
+
 ;; This file is *NOT* part of GNU Emacs.
 
+;;; History:
+;; 
+
 ;;; Code:
+
 (defconst t3php-version "0.0.0"
-  "TYPO3 PHP Mode version number.")
+  "`t3php-mode' version number.")
 
 ;; User definable variables
 
@@ -145,14 +156,9 @@ list-colors-display"
 
 ;;;; Constants
 
-(defconst t3php-block-stmt-1-kwds
-  '("do" "else" "finally" "try"))
-(defconst t3php-block-stmt-2-kwds
-  '("for" "if" "while" "switch" "foreach" "elseif" "catch all"))
-
-(defconst t3php-php-tags
-  (eval-when-compile
-    (regexp-opt
+(defconst t3php-php-tags 
+  (eval-when-compile 
+    (regexp-opt 
      '("<?php" "?>" "<?" "<?="))))
 
 (defconst t3php-keywords
@@ -291,6 +297,15 @@ k                Kill *t3php-toc* buffer.
 
 ;;;; Internal variables
 
+(defvar t3php-mode-syntax-table nil
+  "Syntax table used in T3PHP Mode buffers.")
+
+(defvar t3php-mode-map ()
+  "Key map used in T3PHP TOC Mode buffers.")
+
+(defvar t3php-mode-hook nil
+  "Hook called by `t3php-mode'.")
+
 (defvar t3php-highlight-overlays [nil nil]
   "A vector of different overlay to do highlighting.
 This vector concerns only highlighting of horizontal lines.")
@@ -319,12 +334,18 @@ This vector concerns only highlighting of horizontal lines.")
 (defvar t3php-toc-last-follow-point nil
   "Remembers last follow point in *t3php-toc* buffer.")
 
+(defvar t3php-mode-abbrev-table nil
+  "Abbrev table used while in t3php mode.")
+(define-abbrev-table 't3php-mode-abbrev-table ())
+
+
 ;;;; Functions
 
 ;;;###autoload
-(define-derived-mode t3php-mode c-mode "TYPO3 PHP"
+(defun t3php-mode ()
   "Major mode for editing TYPO3 php files.
-Bug reports, suggestions for new features and critics should go to `joachim_mathes@web.de'.
+Bug reports, suggestions for new features and critics should go to
+`joachim_mathes@web.de'.
 
 This mode knows about syntax highlighting and code creation.
 
@@ -333,128 +354,76 @@ COMMANDS
 VARIABLES
 
 t3php-newline-function\t\tbehaviour after pressing `RET'"
-
-  (c-add-language 't3php-mode 'c-mode)
-
-  ;; PHP doesn't have CPP style macros.
-  (set (make-local-variable 'c-opt-cpp-start) nil)
-  (set (make-local-variable 'c-opt-cpp-prefix) nil)
-  (c-set-offset 'cpp-macro nil)
-
-  ;; Define block statements to keep track of nested statements
-  ;; (set (make-local-variable 'c-block-stmt-1-key) t3php-block-stmt-1-key)
-  ;; (set (make-local-variable 'c-block-stmt-2-key) t3php-block-stmt-2-key)
-
+  (interactive)
   ;; Set up local variables
-;;  (make-local-variable 'font-lock-defaults)
-  ;;(font-lock-add-keywords 't3php-mode '(t3php-font-lock-keywords-1))
+  (kill-all-local-variables)
+  (make-local-variable 'font-lock-defaults)
+  (make-local-variable 'comment-start)
+  (make-local-variable 'comment-end)
+  (make-local-variable 'comment-start-skip)
+  (make-local-variable 'indent-line-function)
+  (make-local-variable 'defun-prompt-regexp)
+  (make-local-variable 'beginning-of-defun-function)
+  (make-local-variable 'end-of-defun-function)
+  (make-local-variable 'open-paren-in-column-0-is-defun-start)
 
- (add-hook 'c-mode-hook
-  (lambda ()
-   (font-lock-add-keywords nil
-         (list
-
-    ;; Fontify class declaration
-    '("\\<\\(class\\|interface\\)\\s-+\\(\\sw+\\)?"
-      (1 font-lock-keyword-face) (2 font-lock-type-face nil t))
-
-    ;; Fontify function declaration
-    '("\\<\\(function\\)\\s-+&?\\(\\sw+\\)\\s-*("
-      (1 font-lock-keyword-face)
-      (2 font-lock-function-name-face nil t))
-
-    ;; Fontify class hierarchy
-    '("\\<\\(self\\|parent\\)\\>" (1 font-lock-constant-face nil nil))
-
-    ;; Fontify method and variable features
-    '("\\<\\(private\\|protected\\|public\\)\\s-+\\$?\\sw+"
-      (1 font-lock-keyword-face))
-
-    ;; Fontify method features
-    '("^\\s-*\\(abstract\\|static\\|final\\)\\s-+\\$?\\sw+"
-      (1 font-lock-keyword-face))
-
-    ;; Fontify variable features
-    '("^\\s-*\\(static\\|const\\)\\s-+\\$?\\sw+"
-      (1 font-lock-keyword-face))
-
-    ;; Fontify variables and function calls
-    '("\\$\\(this\\|that\\)\\W" (1 font-lock-constant-face nil nil))
-    `(,(concat "\\$\\(" t3php-superglobals "\\)\\W")
-      (1 font-lock-constant-face nil nil)) ;; $_GET & co
-    '("\\$\\(\\sw+\\)" (1 font-lock-variable-name-face)) ;; $variable
-    '("->\\(\\sw+\\)" (1 font-lock-variable-name-face t t)) ;; ->variable
-    '("->\\(\\sw+\\)\\s-*(" . (1 t3php-default-face t t)) ;; ->function_call
-    '("\\(\\sw+\\)::\\sw+\\s-*(?" . (1 font-lock-type-face)) ;; class::member
-    '("::\\(\\sw+\\>[^(]\\)" . (1 t3php-default-face)) ;; class::constant
-    '("\\<\\sw+\\s-*[[(]" . t3php-default-face) ;; word( or word[
-    '("\\<[0-9]+" . t3php-default-face) ;; number (also matches word)
-
-    ;; Exclude casts from bare-word treatment (may contain spaces)
-    `(,(concat "(\\s-*\\(" t3php-types "\\)\\s-*)")
-      1 font-lock-type-face)
-
-    ;; PHP5: function declarations may contain classes as parameters type
-    `(,(concat "[(,]\\s-*\\(\\sw+\\)\\s-+&?\\$\\sw+\\>")
-      1 font-lock-type-face)
-
-    ;; Warn about '$' immediately after ->
-    '("\\$\\sw+->\\s-*\\(\\$\\)\\(\\sw+\\)"
-      (1 font-lock-warning-face) (2 t3php-default-face))
-
-    ;; Warn about $word.word -- it could be a valid concatenation,
-    ;; but without any spaces we'll assume $word->word was meant.
-    '("\\$\\sw+\\(\\.\\)\\sw"
-      1 font-lock-warning-face)
-
-    ;; Warn about ==> instead of =>
-    '("==+>" . font-lock-warning-face)
-
-    ;; Warn on any words not already fontified
-    '("\\<\\sw+\\>" . font-lock-warning-face)
+  (when (not t3php-mode-syntax-table)
+    (setq t3php-mode-syntax-table (make-syntax-table))
+    ;; Parenthesis
+    (modify-syntax-entry ?\( "()" t3php-mode-syntax-table)
+    (modify-syntax-entry ?\) ")(" t3php-mode-syntax-table)
+    (modify-syntax-entry ?\[ "(]" t3php-mode-syntax-table)
+    (modify-syntax-entry ?\] ")[" t3php-mode-syntax-table)
+    (modify-syntax-entry ?\{ "(}" t3php-mode-syntax-table)
+    (modify-syntax-entry ?\} "){" t3php-mode-syntax-table)
+    ;; String quote characters
+    (modify-syntax-entry ?\' "\"" t3php-mode-syntax-table)
+    ;; Comment delimiters
+    (modify-syntax-entry ?/  ". 124b" t3php-mode-syntax-table)
+    (modify-syntax-entry ?*  ". 23"   t3php-mode-syntax-table)
+    (modify-syntax-entry ?#  "< b"    t3php-mode-syntax-table)
+    (modify-syntax-entry ?\n "> b"    t3php-mode-syntax-table)
+    (modify-syntax-entry ?\_ "w"      t3php-mode-syntax-table))
 
 
-))))
+  (set-syntax-table t3php-mode-syntax-table)
 
-
-
-  ;; Extend syntax table for shell style comments
-  (modify-syntax-entry ?#  "< b" t3php-mode-syntax-table)
-  (modify-syntax-entry ?\n "> b" t3php-mode-syntax-table)
-
-  ;; ;; Define function prompts
   (setq defun-prompt-regexp "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function.*")
+  (setq open-paren-in-column-0-is-defun-start 0)
 
+  (if t3php-mode-map
+      nil
+    (setq t3php-mode-map (make-sparse-keymap))
+    (define-key t3php-mode-map "\r"        't3php-newline)
+    (define-key t3php-mode-map "}"         't3php-electric-brace)
+    (define-key t3php-mode-map ")"         't3php-electric-brace)
+    (define-key t3php-mode-map "\C-c\C-t"  't3php-toc))
+  (use-local-map t3php-mode-map)
 
-  ;; Extend keymap
-  (define-key t3php-mode-map "\C-c\C-t"  't3php-toc)
-;;  (use-local-map t3php-mode-map)
-
-  ;; Do not force newline at end of file.
-  (set (make-local-variable 'require-final-newline) nil)
-  (set (make-local-variable 'next-line-add-newlines) nil)
-
-  ;; Set TYPO3 PHP coding standards
-  (set (make-local-variable 'tab-width) 4)
-  (set (make-local-variable 'indent-tabs-mode) nil)
-  (set (make-local-variable 'c-basic-offset) 4)
-  (c-set-offset 'block-open' -)
-  (c-set-offset 'block-close' 0)
+  (setq major-mode           't3php-mode
+        mode-name            "TYPO3 PHP mode"
+        font-lock-defaults   '(t3php-font-lock-keywords-3)
+        comment-start        "// "
+        comment-end          ""
+        comment-start-skip   "// "
+        indent-line-function 't3php-indent-line)
 
   ;; Initialize the overlays for highlighting horizontal lines.
   (dotimes (index (length t3php-highlight-overlays))
     (when (not (aref t3php-highlight-overlays index))
       (aset t3php-highlight-overlays index (make-overlay 1 1))
+      (overlay-put (aref t3php-highlight-overlays index) 
+		   'category 't3php-toc-hl)
       (overlay-put (aref t3php-highlight-overlays index)
-  		   'category 't3php-toc-hl)
-      (overlay-put (aref t3php-highlight-overlays index)
-  		   'font-lock-face `(:background ,t3php-toc-hl-line-color))))
+		   'font-lock-face `(:background ,t3php-toc-hl-line-color))))
 
   ;; Run abbrev mode
+  (setq local-abbrev-table t3php-mode-abbrev-table)
   (abbrev-mode t)
 
-
-)
+  ;; Run the mode hook.
+  (if t3php-mode-hook
+      (run-hooks 't3php-mode-hook)))
 
 (defun t3php-highlight (index begin end &optional buffer)
   "Highlight a region with overlay INDEX.
@@ -479,6 +448,69 @@ overlays. Different indices map to different overlays."
   ;; hook removes itself.
   (remove-hook 'pre-command-hook 't3php-highlight-shall-vanish)
   (t3php-unhighlight 1))
+
+(defun t3php-indent-line ()
+  "Indent current line"
+  (let ((cp (point))                ; current point
+	(cc (current-column))       ; current column
+	(ci (current-indentation))  ; current indentation
+	(cl (line-number-at-pos))   ; current line
+	(counter 0)
+	ps                          ; parser state
+	psp			    ; parser state position
+	save-indent-column)
+
+    ;; Evaluate parser state
+    (save-excursion
+      (beginning-of-line)
+      (setq ps (t3php-parser-state))
+
+      (cond
+       ;; Check if parser state position is:
+       ;; -> Inside a comment
+       ((nth 8 ps)
+	(setq psp (nth 8 ps))
+	(goto-char psp)
+	(setq save-indent-column (+ (current-column)
+				    1)))
+       ;; Check if parser state position is:
+       ;; -> Inside a parenthetical grouping
+       ((nth 1 ps)
+	(setq psp (nth 1 ps))
+	(cond
+	 ;; Check if point is looking at a string and a closing curly brace
+	 ((looking-at "[ \t[:alnum:]]*[)}]")
+	  (goto-char psp)
+	  (back-to-indentation)
+	  (setq save-indent-column (current-column)))
+	 ;; Check if previous non empty line is a `case' line
+	 ((t3php-look-for-case-line)
+	  (goto-char psp)
+	  (back-to-indentation)
+	  (setq save-indent-column (+ (current-column)
+				      (* 2 t3php-block-indentation))))
+	 (t
+	  (goto-char psp)
+	  (back-to-indentation)
+	  (setq save-indent-column (+ (current-column)
+				      t3php-block-indentation)))))
+       ;; Check if parser state position is:
+       ;; -> nil
+       (t
+       	;; Skip empty lines
+       	(forward-line -1)
+       	(while (and (looking-at "^[ \t]*\n")
+       		    (not (bobp)))
+       	  (forward-line -1))
+       	(back-to-indentation)
+	(setq save-indent-column (current-column)))))
+
+    ;; Set indentation value on current line
+    (back-to-indentation)
+    (backward-delete-char-untabify (current-column))
+    (indent-to save-indent-column)
+    (if (> cc ci)
+	(forward-char (- cc ci)))))
 
 (defun t3php-look-for-case-line ()
   "Check if previous non empty line is a `case' line."
@@ -549,14 +581,14 @@ t3php-toc-block-name-color\t\tcolor used to highlight block names"
   (interactive)
   ;; Set up local variables
   (kill-all-local-variables)
-
+  
   (setq major-mode         't3php-toc-mode
 	mode-name          "TYPO3 PHP TOC"
 	truncate-lines     t)
 
-  (add-hook 'pre-command-hook
+  (add-hook 'pre-command-hook 
 	    't3php-toc-pre-command-hook nil t)
-  (add-hook 'post-command-hook
+  (add-hook 'post-command-hook 
 	    't3php-toc-post-command-hook nil t)
 
   (if t3php-toc-mode-map
@@ -597,7 +629,7 @@ buffer."
   (if (or (not (string= t3php-toc-last-file (buffer-file-name)))
 	  rescan)
       (t3php-toc-erase-toc-buffer))
-
+  
   (setq t3php-toc-last-file (buffer-file-name))
 
   (set-marker t3php-toc-return-marker (point))
@@ -643,19 +675,19 @@ buffer."
       (message "Building *t3php-toc* buffer...")
 
       (setq buffer-read-only nil)
-      (insert (format
+      (insert (format 
 "TABLE OF CONTENTS of %s
 SPC=view TAB=goto RET=goto+hide [f]ollow [r]escan [q]uit [k]ill [?]Help
 -----------------------------------------------------------------------
 " (abbreviate-file-name t3php-toc-last-file)))
-
+      
       ;; Set text properties of *t3php-toc* buffer header
       (put-text-property (point-min) (point) 'font-lock-face font-lock-comment-face)
       (put-text-property (point-min) (point) 'intangible t)
       ;; Fill the buffer with a table of methods
       (dolist (line
 	       (t3php-toc-format
-		(t3php-toc-content
+		(t3php-toc-content 
 		 (get-file-buffer t3php-toc-last-file))))
 	(insert line))
       (goto-line 4)
@@ -681,7 +713,7 @@ SPC=view TAB=goto RET=goto+hide [f]ollow [r]escan [q]uit [k]ill [?]Help
 Activates the hl-line overlay on the current line.
 Handles follow mode if activated."
   (when (get-buffer t3php-toc-buffer-name)
-    (t3php-highlight 0
+    (t3php-highlight 0 
 		     (line-beginning-position)
 		     (line-beginning-position 2)
 		     (get-buffer t3php-toc-buffer-name)))
@@ -735,18 +767,18 @@ in the table of contents in the future. It could be usefull to find the next
 meaningfull line by text properties."
   (interactive "p")
 
-  (if (not arg)
+  (if (not arg) 
       (setq arg 1))
   (if (<= (- (line-number-at-pos (point)) arg) 3)
-      (progn
+      (progn 
       (goto-line 4)
       (recenter))
     (forward-line (* -1 arg))))
 
 (defun t3php-toc-quit ()
-  "Hide the *t3php-toc* window and do not move point."
+  "Hide the *t3php-toc* window and do not move point." 
   (interactive)
-  (unless (one-window-p)
+  (unless (one-window-p) 
     (delete-window))
   (switch-to-buffer (marker-buffer t3php-toc-return-marker))
   (t3php-re-enlarge)
@@ -818,10 +850,10 @@ This is a list of lists containing the method name, method start and end positio
 
     ;; Switch to t3php buffer.
     (set-buffer t3php-buffer)
-
+    
     (let ((start (point-min))
 	  (end (point-max))
-	  (block-end (point-min))
+	  (block-end (point-min)) 
 	  tbs
 	  list-of-blocks)
       (save-excursion
@@ -868,7 +900,7 @@ This is a list of lists containing the method name, method start and end positio
 			(progn
 			  (set-marker block-marker block-start)
 			  (push block-marker t3php-toc-marker-list)
-			  (push (list
+			  (push (list 
 				 (line-number-at-pos block-start)  ; block start
 				 (line-number-at-pos block-end)    ; block end
 				 block-name                        ; block name
@@ -921,8 +953,8 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 
       (setq formatted-line
 	    (if (> (length block-name) max-block-name-length)
-		(format formatter (concat (substring block-name
-						     0
+		(format formatter (concat (substring block-name 
+						     0 
 						     max-block-name-length)
 					  "...")
 			block-start block-end)
@@ -930,9 +962,9 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
       ;; The asterisk `*' holds the block information like `block-name' and
       ;; `block-marker' as a text property.
       (put-text-property 0 1 'data `(,block-marker ,block-name) formatted-line)
-
+      
       (push formatted-line formatted-content))
-
+    
     ;; Remove last newline character of last element in `formatted-content'.
     (unless (null formatted-content)
       (push (substring (pop formatted-content) 0 -1) formatted-content))
@@ -950,7 +982,7 @@ list. The fourth item is made of their sum plus an aditional value. Thus we have
 a list like this: (max-block-name-length max-block-inf-from-size
 max-block-inf-to-size max-block-inf-size). CONTENT is the list of lists returned
 by function `t3php-toc-content'"
-  (let ((max-from 0)
+  (let ((max-from 0) 
 	(max-to 0)
 	(formatting-information (list)))
       (dolist (line content)
@@ -959,8 +991,8 @@ by function `t3php-toc-content'"
       ;; The block size information string shall look like this:
       ;; [ 1234-5678 ]
       ;; Thus evaluate the string length with respect to this.
-      (push (+ (length (number-to-string max-from))
-	       (length (number-to-string max-to))
+      (push (+ (length (number-to-string max-from)) 
+	       (length (number-to-string max-to)) 
 	       5)
 	    formatting-information) ; number of characters `[ - ]' = 5
 
@@ -984,13 +1016,13 @@ by function `t3php-toc-content'"
 	 match)
 
     (unless toc-data (message "%s" "Don't know which toc line to visit."))
-
+    
     ;; --- t3php TOC BUFFER ---
 
     (setq match
 	  (cond
 	   ((and (markerp t3php-marker) (marker-buffer t3php-marker))
-	    ;; Marker is available and buffer still exists.
+	    ;; Marker is available and buffer still exists. 
 	    (switch-to-buffer-other-window (marker-buffer t3php-marker))
 	    ;; --- t3php TOC BUFFER -> t3php BUFFER ---
 	    (goto-char (marker-position t3php-marker))
@@ -1002,10 +1034,10 @@ by function `t3php-toc-content'"
 	    ;; Marker is lost. A backup method might be implemented in the
 	    ;; future. For now just print an error message.
 	    (message "Marker is lost."))))
-
+    
     (when match
       (goto-char (match-beginning 0))
-      (if (not (= (point) (point-max)))
+      (if (not (= (point) (point-max))) 
 	  (recenter 1))
       (t3php-highlight 1 (match-beginning 0) (match-end 0) (current-buffer))
       (add-hook 'pre-command-hook 't3php-highlight-shall-vanish))
@@ -1016,9 +1048,9 @@ by function `t3php-toc-content'"
     (if (not match)
 	(progn
 	  (select-window toc-window)
-	  ;; --- t3php TOC BUFFER -> t3php BUFFER ---
+	  ;; --- t3php TOC BUFFER -> t3php BUFFER --- 
 	  (message "Cannot find location."))
-
+      
       ;; Now VISIT-MODE decides what to do next.
       (cond
        ((eq visit-mode 'view)
