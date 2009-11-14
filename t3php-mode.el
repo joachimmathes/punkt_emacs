@@ -1016,7 +1016,8 @@ by function `t3php-toc-content'"
 	    ;; --- t3php TOC BUFFER -> t3php BUFFER ---
 	    (goto-char (marker-position t3php-marker))
 	    (looking-at (concat
-			 "^[ \t]*begin[ \t]+measurement[ \t]+\""
+			 "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
+			 "\\(\\w+?\\)\\s-*("
 			 t3php-block-name
 			 "\"")))
 	   (t
