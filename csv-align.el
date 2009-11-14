@@ -36,7 +36,7 @@
 The SEPARATOR parameter specifies the column separator.  The default value is a
 comma `,'"
   (interactive "cCSV Separator:")
-  (princ "Operating...")
+  (message "Operating...")
 
   ;; Analyze csv lines  
   (let ((formatter (list))
@@ -87,7 +87,7 @@ comma `,'"
 	      (insert (char-to-string separator)))
     	  (setq element-position (1+ element-position)))
         (forward-line)))))
-  (princ "done"))
+  (message "done"))
 
 (provide 'csv-align)
 
