@@ -40,7 +40,7 @@ comma `,'"
   (let ((formatter (list))
         (line-elements-lengths (list)))
     (save-excursion
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (while (not (eobp))
         (let ((element-position 0)
               (line-elements-lengths-temp (list)))
@@ -71,7 +71,7 @@ comma `,'"
     (princ formatter)
 
     (save-excursion
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (while (not (eobp))
         (let ((element-position 0))
         (beginning-of-line)
