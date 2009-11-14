@@ -377,7 +377,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 
   (set-syntax-table t3php-mode-syntax-table)
 
-  (setq defun-prompt-regexp "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function.*")
+  (setq defun-prompt-regexp "^\\s-*\\(?:\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\|class\\).*")
   (setq open-paren-in-column-0-is-defun-start 0)
 
   (if t3php-mode-map
