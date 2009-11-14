@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2009  Joachim Mathes
 ;;
-;; Author: Joachim Mathes <joachim_mathes@web.de>
+;; Author: Joachim Mathes <joachim <underscore> mathes <at> web <dot> de>
 ;; Created: August 2009
 ;; Version: 0.0.1 $Id$
 ;; Keywords: files
