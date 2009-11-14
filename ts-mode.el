@@ -140,8 +140,6 @@ list-colors-display'"
      (list (concat "\\<\\(" kw1 "\\)\\>") 1 'ts-classes-face t)
      ;; Conditional expressions `[...]'
      '("^[ \t]*\\(\\[.+?\\]\\)[ \t]*$" 1 'ts-conditional-face)
-     ;; Comment lines beginning with hash symbol `#'
-     '("^[ \t]*\\(#.*\\)$" 1 'font-lock-comment-face)
      ;; HTML special character encodings on the right side of the operator
      '("\\(=\\|=<\\|>\\|:=\\)" "\\(&[#[:alnum:]]+;\\)" nil nil (0 'ts-html-face))
      ;; HTML tags
@@ -201,6 +199,7 @@ ts-fold-background-color\t\tbackground color of folded measurement block"
     ;; Comment delimiters
     (modify-syntax-entry ?/ ". 124b" ts-mode-syntax-table)
     (modify-syntax-entry ?* ". 23" ts-mode-syntax-table)
+    (modify-syntax-entry ?#  "< b" t3php-mode-syntax-table)
     (modify-syntax-entry ?\n "> b" ts-mode-syntax-table)
     (modify-syntax-entry ?\" "." ts-mode-syntax-table)
     (modify-syntax-entry ?. "." ts-mode-syntax-table))
