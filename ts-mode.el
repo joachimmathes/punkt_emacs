@@ -458,14 +458,7 @@ Argument ARG prefix."
 		 (string= "0" (current-word t))))
 
 
-    (message (current-word))
-
-)
-
-
-)
-
-
+    (message (current-word))))
 
 (provide 'ts-mode)
 
