@@ -437,7 +437,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (insert (concat "/**\n"
 		    "*\n*\n"))
     (dolist (argument method-arguments)
-      (insert (concat "* @param "
+      (insert (concat "* @param $"
 		      argument
 		      "\n")))
     (insert (concat "* @return\n"
