@@ -423,6 +423,57 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (if t3php-mode-hook
       (run-hooks 't3php-mode-hook)))
 
+(defun t3php-insert-method (method-name method-modificator)
+  "Insert signature and header comment for METHOD-NAME."
+  (interactive "sMethod name: \nsMethod modificator: ")
+  (let ((method-argument)
+	(method-arguments (list))
+	(argument-position 0)
+	(start-point (point)))
+    (while (not (string= (setq method-argument (call-interactively 't3php-read-method-arguments)) ""))
+      (push method-argument method-arguments))
+    (insert (concat "/**\n"
+		    "*\n*\n"))
+    (dolist (argument method-arguments)
+      (insert (concat "* @param "
+		      argument
+		      "\n")))
+    (insert (concat "* @return\n"
+		    "* @author "
+		    t3php-developer
+		    "\n"
+		    "* @since "
+		    (t3php-current-date)
+		    "\n"
+		    "*/\n"
+		    ))
+    (insert (if (not (string=  method-modificator ""))
+		(concat method-modificator " "))
+	    "function "
+	    method-name
+	    "(")
+    (dolist (argument method-arguments)
+      (insert "$" argument)
+      (if (< argument-position (1- (length method-arguments)))
+	  (insert ", "))
+      (setq argument-position (1+ argument-position)))
+    (insert ") {\n\n}")
+    (indent-region start-point (point))
+    (previous-line)
+    (beginning-of-line)
+    (indent-for-tab-command)))
+
+(defun t3php-read-method-arguments (method-argument)
+  "Read method ARGUMENT from minibuffer."
+  (interactive "sParam: ")
+  method-argument)
+
+(defun t3php-current-date ()
+  "Insert the current date.
+Uses `current-date-time-format' for the formatting the date/time."
+  (format-time-string t3php-date-format (current-time)))
+
+
 (defun t3php-highlight (index begin end &optional buffer)
   "Highlight a region with overlay INDEX.
 The region is described by the delimiters BEGIN and END.  If no optional BUFFER
