@@ -425,13 +425,14 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (if t3php-mode-hook
       (run-hooks 't3php-mode-hook)))
 
-(defun t3php-insert-method (method-name method-modificator)
+(defun t3php-insert-method (method-name)
   "Insert signature and header comment for METHOD-NAME."
-  (interactive "sMethod name: \nsMethod modificator: ")
+  (interactive "sMethod name: ")
   (let ((method-argument)
 	(method-arguments (list))
 	(argument-position 0)
 	(start-point (point)))
+    (setq method-modificator (t3php-read-method-modificator))
     (while (not (string= (setq method-argument (call-interactively 't3php-read-method-arguments)) ""))
       (push method-argument method-arguments))
     (insert (concat "/**\n"
@@ -464,6 +465,16 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (previous-line)
     (beginning-of-line)
     (indent-for-tab-command)))
+
+(defun t3php-read-method-modificator ()
+  "Read METHOD-MODIFICATOR from minibuffer."
+  (let ((method-modificator (completing-read "Modificator: "
+					     '(("public" 1)
+					       ("private" 2)
+					       ("protected" 3))
+					     nil
+					     nil)))
+    method-modificator))
 
 (defun t3php-read-method-arguments (method-argument)
   "Read METHOD-ARGUMENT from minibuffer."
