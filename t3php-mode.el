@@ -392,10 +392,12 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (if t3php-mode-map
       nil
     (setq t3php-mode-map (make-sparse-keymap))
-    (define-key t3php-mode-map "\r"        't3php-newline)
-    (define-key t3php-mode-map "}"         't3php-electric-brace)
-    (define-key t3php-mode-map ")"         't3php-electric-brace)
-    (define-key t3php-mode-map "\C-c\C-t"  't3php-toc))
+    (define-key t3php-mode-map "\r"    't3php-newline)
+    (define-key t3php-mode-map "}"     't3php-electric-brace)
+    (define-key t3php-mode-map ")"     't3php-electric-brace)
+    (define-key t3php-mode-map "\C-ct" 't3php-toc)
+    (define-key t3php-mode-map "\C-cf" 't3php-insert-method)
+    )
   (use-local-map t3php-mode-map)
 
   (setq major-mode           't3php-mode
