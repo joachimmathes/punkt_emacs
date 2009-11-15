@@ -54,7 +54,7 @@
   :type 'face
   :group 'php)
 
-(defcustom t3php-developer "Joachim Mathes <mathes@punkt.de>"
+(defcustom t3php-developer "Lisa Fremont <lisa@fremont.de>"
   "Developer for php-doc."
   :type 'string
   :group 'typo3php)
