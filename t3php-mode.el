@@ -466,7 +466,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (indent-for-tab-command)))
 
 (defun t3php-read-method-arguments (method-argument)
-  "Read method ARGUMENT from minibuffer."
+  "Read METHOD-ARGUMENT from minibuffer."
   (interactive "sParam: ")
   method-argument)
 
@@ -632,7 +632,7 @@ t3php-toc-block-name-color\t\tcolor used to highlight block names"
   (interactive)
   ;; Set up local variables
   (kill-all-local-variables)
-  
+
   (setq major-mode         't3php-toc-mode
 	mode-name          "TYPO3 PHP TOC"
 	truncate-lines     t)
@@ -680,7 +680,7 @@ buffer."
   (if (or (not (string= t3php-toc-last-file (buffer-file-name)))
 	  rescan)
       (t3php-toc-erase-toc-buffer))
-  
+
   (setq t3php-toc-last-file (buffer-file-name))
 
   (set-marker t3php-toc-return-marker (point))
@@ -731,7 +731,7 @@ buffer."
 SPC=view TAB=goto RET=goto+hide [f]ollow [r]escan [q]uit [k]ill [?]Help
 -----------------------------------------------------------------------
 " (abbreviate-file-name t3php-toc-last-file)))
-      
+
       ;; Set text properties of *t3php-toc* buffer header
       (put-text-property (point-min) (point) 'font-lock-face font-lock-comment-face)
       (put-text-property (point-min) (point) 'intangible t)
@@ -901,7 +901,7 @@ This is a list of lists containing the method name, method start and end positio
 
     ;; Switch to t3php buffer.
     (set-buffer t3php-buffer)
-    
+
     (let ((start (point-min))
 	  (end (point-max))
 	  (block-end (point-min))
@@ -1013,9 +1013,9 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
       ;; The asterisk `*' holds the block information like `block-name' and
       ;; `block-marker' as a text property.
       (put-text-property 0 1 'data `(,block-marker ,block-name) formatted-line)
-      
+
       (push formatted-line formatted-content))
-    
+
     ;; Remove last newline character of last element in `formatted-content'.
     (unless (null formatted-content)
       (push (substring (pop formatted-content) 0 -1) formatted-content))
@@ -1067,7 +1067,7 @@ by function `t3php-toc-content'"
 	 match)
 
     (unless toc-data (message "%s" "Don't know which toc line to visit."))
-    
+
     ;; --- t3php TOC BUFFER ---
     (princ t3php-block-name)
     (setq match
@@ -1084,7 +1084,7 @@ by function `t3php-toc-content'"
 	    ;; Marker is lost. A backup method might be implemented in the
 	    ;; future. For now just print an error message.
 	    (message "Marker is lost."))))
-    
+
     (when match
       (goto-char (match-beginning 0))
       (if (not (= (point) (point-max)))
@@ -1100,7 +1100,7 @@ by function `t3php-toc-content'"
 	  (select-window toc-window)
 	  ;; --- t3php TOC BUFFER -> t3php BUFFER ---
 	  (message "Cannot find location."))
-      
+
       ;; Now VISIT-MODE decides what to do next.
       (cond
        ((eq visit-mode 'view)
