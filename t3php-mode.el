@@ -54,9 +54,20 @@
   :type 'face
   :group 'php)
 
+(defcustom t3php-developer "Joachim Mathes <mathes@punkt.de>"
+  "Developer for php-doc."
+  :type 'string
+  :group 'typo3php)
+
+(defcustom t3php-date-format "%Y-%m-%d"
+  "Date format for php-doc.
+See `format-time-string' function for further detail."
+  :type 'string
+  :group 'typo3php)
+
+
 (defcustom t3php-block-indentation 4
   "The indentation relative to a predecessing line which begins a new block."
-
   :type 'integer
   :group 'typoscript)
 
@@ -69,7 +80,6 @@
 
 (defcustom t3php-php-manual-url "http://www.php.net/manual/en/"
   "URL at which to find PHP manual.
-
 You can replace \"en\" with your ISO language code."
   :type 'string
   :group 'typo3php)
@@ -180,7 +190,6 @@ list-colors-display"
                   "_SERVER" "_FILES" "_REQUEST")))
   "PHP superglobal variables.")
 
-;; Set up font locking
 (defconst t3php-font-lock-keywords-1
   (list
    ;; Fontify PHP tag
