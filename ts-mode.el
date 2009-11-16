@@ -199,7 +199,7 @@ ts-fold-background-color\t\tbackground color of folded measurement block"
     ;; Comment delimiters
     (modify-syntax-entry ?/ ". 124b" ts-mode-syntax-table)
     (modify-syntax-entry ?* ". 23" ts-mode-syntax-table)
-    (modify-syntax-entry ?#  "< b" t3php-mode-syntax-table)
+    (modify-syntax-entry ?#  "< b" ts-mode-syntax-table)
     (modify-syntax-entry ?\n "> b" ts-mode-syntax-table)
     (modify-syntax-entry ?\" "." ts-mode-syntax-table)
     (modify-syntax-entry ?. "." ts-mode-syntax-table))
