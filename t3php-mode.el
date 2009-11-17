@@ -52,18 +52,18 @@
 (defcustom t3php-default-face 'default
   "Default face in `t3php-mode' buffers."
   :type 'face
-  :group 'php)
+  :group 't3php)
 
 (defcustom t3php-developer "Lisa Fremont <lisa@fremont.de>"
   "Developer for php-doc."
   :type 'string
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-date-format "%Y-%m-%d"
   "Date format for php-doc.
 See `format-time-string' function for further detail."
   :type 'string
-  :group 'typo3php)
+  :group 't3php)
 
 
 (defcustom t3php-block-indentation 4
@@ -76,18 +76,18 @@ See `format-time-string' function for further detail."
   :type '(choice (const newline)
 		 (const newline-and-indent)
 		 (const reindent-then-newline-and-indent))
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-php-manual-url "http://www.php.net/manual/en/"
   "URL at which to find PHP manual.
 You can replace \"en\" with your ISO language code."
   :type 'string
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-php-search-url "http://www.php.net/"
   "URL at which to search for documentation on a word."
   :type 'string
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-toc-keep-other-windows t
   "If true, split the selected window to display the *t3php-toc* buffer.
@@ -95,7 +95,7 @@ You can replace \"en\" with your ISO language code."
 When nil, all other windows except the selected one will be deleted, so that the
 *t3php-toc* window fills half the frame."
   :type 'boolean
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-toc-split-windows-horizontally nil
   "If true, create toc windows by splitting horizontally.
@@ -122,12 +122,12 @@ Splitting a window `horizontally' looks like this:
 |       |         |   |   |
 +-------+         +---+---+"
   :type 'boolean
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-toc-split-windows-fraction .3
   "Fraction of the width or height of the window to be used for toc window."
   :type 'number
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-toc-follow-mode nil
   "If true, point in *t3php-toc* will make PHP window to follow.
@@ -135,7 +135,7 @@ Splitting a window `horizontally' looks like this:
 It will show the corresponding part of the document.  This flag can be toggled
 from within the *t3php-toc* buffer with the `f' key."
   :type 'boolean
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-toc-hl-line-color "DarkSlateBlue"
   "The color used to highlight the horizontal line.
@@ -143,7 +143,7 @@ from within the *t3php-toc* buffer with the `f' key."
   The default value is `DarkSlateBlue'. For a list of all available colors use `M-x
 list-colors-display"
   :type 'color
-  :group 'typo3php)
+  :group 't3php)
 
 (defcustom t3php-toc-block-name-color "sea green"
   "The color used to highlight function names in the TOC.
@@ -151,7 +151,7 @@ list-colors-display"
   The default value is `sea green'.  For a list of all available colors use `M-x
 `list-colors-display'"
   :type 'color
-  :group 'typo3php)
+  :group 't3php)
 
 ;;;; Constants
 
