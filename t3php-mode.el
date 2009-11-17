@@ -398,6 +398,8 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map ")"     't3php-electric-brace)
     (define-key t3php-mode-map "\C-ct" 't3php-toc)
     (define-key t3php-mode-map "\C-cf" 't3php-insert-method)
+    (define-key t3php-mode-map "\C-cd" 't3php-search-documentation)
+    (define-key t3php-mode-map "\C-cw" 't3php-browse-manual)
     )
   (use-local-map t3php-mode-map)
 
