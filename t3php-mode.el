@@ -365,6 +365,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (make-local-variable 'end-of-defun-function)
   (make-local-variable 'open-paren-in-column-0-is-defun-start)
   (make-local-variable 'show-trailing-whitespace)
+  (make-local-variable 'parse-sexp-ignore-comments)
 
   (when (not t3php-mode-syntax-table)
     (setq t3php-mode-syntax-table (make-syntax-table))
@@ -399,8 +400,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map "\C-ct" 't3php-toc)
     (define-key t3php-mode-map "\C-cf" 't3php-insert-method)
     (define-key t3php-mode-map "\C-cd" 't3php-search-documentation)
-    (define-key t3php-mode-map "\C-cw" 't3php-browse-manual)
-    )
+    (define-key t3php-mode-map "\C-cw" 't3php-browse-manual))
   (use-local-map t3php-mode-map)
 
   (setq major-mode 't3php-mode
@@ -410,7 +410,8 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
         comment-end ""
         comment-start-skip "// "
         indent-line-function 't3php-indent-line
-        show-trailing-whitespace 1)
+        show-trailing-whitespace t
+	parse-sexp-ignore-comments t)
 
   ;; Initialize the overlays for highlighting horizontal lines.
   (dotimes (index (length t3php-highlight-overlays))
