@@ -440,6 +440,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (setq method-modificator (t3php-read-method-modificator))
     (while (not (string= (setq method-argument (call-interactively 't3php-read-method-arguments)) ""))
       (push method-argument method-arguments))
+    (setq method-arguments (reverse method-arguments))
     (insert (concat "/**\n"
 		    "*\n*\n"))
     (dolist (argument method-arguments)
@@ -483,7 +484,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 
 (defun t3php-read-method-arguments (method-argument)
   "Read METHOD-ARGUMENT from minibuffer."
-  (interactive "sParam: ")
+  (interactive "sParameter: ")
   method-argument)
 
 (defun t3php-current-date ()
