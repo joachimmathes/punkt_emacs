@@ -456,15 +456,16 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 		    "\n"
 		    "*/\n"
 		    ))
-    (insert (if (not (string=  method-modificator ""))
-		(concat method-modificator " "))
-	    "function "
-	    method-name
-	    "(")
+    (insert
+     (if (not (eq method-modificator nil))
+                (concat method-modificator " "))
+            "function "
+            method-name
+            "(")
     (dolist (argument method-arguments)
       (insert "$" argument)
       (if (< argument-position (1- (length method-arguments)))
-	  (insert ", "))
+          (insert ", "))
       (setq argument-position (1+ argument-position)))
     (insert ") {\n\n}")
     (indent-region start-point (point))
@@ -475,9 +476,12 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 (defun t3php-read-method-modificator ()
   "Read METHOD-MODIFICATOR from minibuffer."
   (let ((method-modificator (completing-read "Modificator: "
-					     '(("public" 1)
-					       ("private" 2)
-					       ("protected" 3))
+                                             '(("public" 1)
+                                               ("private" 2)
+                                               ("protected" 3))
+                                             nil
+					     nil
+					     nil
 					     nil
 					     nil)))
     method-modificator))
