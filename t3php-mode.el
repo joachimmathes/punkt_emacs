@@ -503,7 +503,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (if (eq show-trailing-whitespace nil)
       (setq show-trailing-whitespace t)
     (setq show-trailing-whitespace nil))
-  (redisplay))
+  (redisplay t))
 
 (defun t3php-highlight (index begin end &optional buffer)
   "Highlight a region with overlay INDEX.
