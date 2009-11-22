@@ -399,6 +399,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map ")"         't3php-electric-brace)
     (define-key t3php-mode-map "\C-ct"     't3php-toc)
     (define-key t3php-mode-map "\C-c\C-if" 't3php-insert-method)
+    (define-key t3php-mode-map "\C-c\C-id" 't3php-insert-current-date)
     (define-key t3php-mode-map "\C-cd"     't3php-search-documentation)
     (define-key t3php-mode-map "\C-cw"     't3php-browse-manual)
     (define-key t3php-mode-map "\C-c\C-tw" 't3php-toggle-trailing-whitespace-visibilty))
@@ -491,6 +492,11 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   "Read METHOD-ARGUMENT from minibuffer."
   (interactive "sParameter: ")
   method-argument)
+
+(defun t3php-insert-current-date ()
+  "Insert the current date into buffer."
+  (interactive)
+  (insert (t3php-current-date)))
 
 (defun t3php-current-date ()
   "Insert the current date.
