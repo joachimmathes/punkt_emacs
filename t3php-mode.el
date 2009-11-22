@@ -1122,8 +1122,6 @@ by function `t3php-toc-content'"
 
     (when match
       (goto-char (match-beginning 0))
-      (if (not (= (point) (point-max)))
-	  (recenter 1))
       (t3php-highlight 1 (match-beginning 0) (match-end 0) (current-buffer))
       (add-hook 'pre-command-hook 't3php-highlight-shall-vanish))
 
@@ -1139,10 +1137,12 @@ by function `t3php-toc-content'"
       ;; Now VISIT-MODE decides what to do next.
       (cond
        ((eq visit-mode 'view)
-	(select-window toc-window))
+	(select-window toc-window)
+	(recenter))
        ((eq visit-mode 'goto)
 	(t3php-unhighlight 1)
-	(select-window show-window))
+	(select-window show-window)
+	(recenter))
        ((eq visit-mode 'hide)
 	(select-window toc-window)
 	(t3php-unhighlight 1)
