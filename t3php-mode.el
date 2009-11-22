@@ -394,13 +394,14 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (if t3php-mode-map
       nil
     (setq t3php-mode-map (make-sparse-keymap))
-    (define-key t3php-mode-map "\r"    't3php-newline)
-    (define-key t3php-mode-map "}"     't3php-electric-brace)
-    (define-key t3php-mode-map ")"     't3php-electric-brace)
-    (define-key t3php-mode-map "\C-ct" 't3php-toc)
-    (define-key t3php-mode-map "\C-cf" 't3php-insert-method)
-    (define-key t3php-mode-map "\C-cd" 't3php-search-documentation)
-    (define-key t3php-mode-map "\C-cw" 't3php-browse-manual))
+    (define-key t3php-mode-map "\r"        't3php-newline)
+    (define-key t3php-mode-map "}"         't3php-electric-brace)
+    (define-key t3php-mode-map ")"         't3php-electric-brace)
+    (define-key t3php-mode-map "\C-ct"     't3php-toc)
+    (define-key t3php-mode-map "\C-cf"     't3php-insert-method)
+    (define-key t3php-mode-map "\C-cd"     't3php-search-documentation)
+    (define-key t3php-mode-map "\C-cw"     't3php-browse-manual)
+    (define-key t3php-mode-map "\C-c\C-tw" 't3php-toggle-trailing-whitespace-visibilty))
   (use-local-map t3php-mode-map)
 
   (setq major-mode 't3php-mode
@@ -496,6 +497,13 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 Uses `current-date-time-format' for the formatting the date/time."
   (format-time-string t3php-date-format (current-time)))
 
+(defun t3php-toggle-trailing-whitespace-visibilty ()
+  "Toggle visbility of trailing whitespaces."
+  (interactive)
+  (if (eq show-trailing-whitespace nil)
+      (setq show-trailing-whitespace t)
+    (setq show-trailing-whitespace nil))
+  (redisplay))
 
 (defun t3php-highlight (index begin end &optional buffer)
   "Highlight a region with overlay INDEX.
