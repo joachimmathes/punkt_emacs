@@ -36,6 +36,11 @@
 ;;    (setq auto-mode-alist (cons '("\\.php$" . t3php-mode) auto-mode-alist))
 ;;    (autoload 't3php-mode "t3php-mode" "TYPO3 php file editing mode." t)
 
+;; This code is loosely based on and inspired by`php-mode.el' - a major mode
+;; for editing PHP code. So, my special thanks go to Turadg Aleahmad who is
+;; the original author of `php-mode.el' and Aaron S. Hawley, its current
+;; maintainer.
+
 ;; This file is *NOT* part of GNU Emacs.
 
 ;;; Code:
