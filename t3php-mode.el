@@ -670,7 +670,8 @@ t3php-toc-block-name-color\t\tcolor used to highlight block names"
 
   (setq major-mode         't3php-toc-mode
 	mode-name          "TYPO3 PHP TOC"
-	truncate-lines     t)
+	truncate-lines     t
+	show-paren-mode    nil)
 
   (add-hook 'pre-command-hook
 	    't3php-toc-pre-command-hook nil t)
