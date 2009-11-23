@@ -439,7 +439,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 	(method-arguments (list))
 	(argument-position 0)
 	(start-point (point)))
-    (setq method-modificator (t3php-read-method-modificator))
+    (setq method-modifier (t3php-read-method-modifier))
     (while (not (string= (setq method-argument (call-interactively 't3php-read-method-arguments)) ""))
       (push method-argument method-arguments))
     (setq method-arguments (reverse method-arguments))
@@ -459,8 +459,8 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 		    "*/\n"
 		    ))
     (insert
-     (if (not (eq method-modificator nil))
-                (concat method-modificator " "))
+     (if (not (eq method-modifier nil))
+                (concat method-modifier " "))
             "function "
             method-name
             "(")
@@ -475,9 +475,9 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (beginning-of-line)
     (indent-for-tab-command)))
 
-(defun t3php-read-method-modificator ()
-  "Read METHOD-MODIFICATOR from minibuffer."
-  (let ((method-modificator (completing-read "Modificator: "
+(defun t3php-read-method-modifier ()
+  "Read METHOD-MODIFIER from minibuffer."
+  (let ((method-modifier (completing-read "Modifier: "
                                              '(("public" 1)
                                                ("private" 2)
                                                ("protected" 3))
@@ -486,7 +486,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 					     nil
 					     nil
 					     nil)))
-    method-modificator))
+    method-modifier))
 
 (defun t3php-read-method-arguments (method-argument)
   "Read METHOD-ARGUMENT from minibuffer."
@@ -920,8 +920,8 @@ meaningfull line by text properties."
 
 (defun t3php-toc-content (t3php-buffer)
   "Returns table of contents of methods
-
-This is a list of lists containing the method name, method start and end position."
+This is a list of lists containing the method modifier, method name, 
+method start and end position."
   (save-current-buffer
     ;; Processing a buffer with lots of markers slows processing, like inserting
     ;; or deleting text, in a buffer. Unreferenced markers are garbage collected
@@ -962,15 +962,17 @@ This is a list of lists containing the method name, method start and end positio
 		       (beginning-of-line)
 		       (point)))))
 	      (if block-start
-		  (let ((block-name
+		  (let (block-name 
+			block-modifier)
 			 ;; Save method name
-			 (save-excursion
-			   (goto-char block-start)
-			   (looking-at
-			    (concat
-			     "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
-			     "\\(\\w+?\\)\\s-*("))
-			   (match-string 1))))
+		    (save-excursion
+		      (goto-char block-start)
+		      (looking-at
+		       (concat
+			"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
+			"\\(\\w+?\\)\\s-*("))
+		      (setq block-name (match-string 2)
+			    block-modifier (match-string 1))) 
 		    ;; Look for measurment block end
 		    (save-excursion
 		      (goto-char block-start)
@@ -990,7 +992,8 @@ This is a list of lists containing the method name, method start and end positio
 				 (line-number-at-pos block-start)  ; block start
 				 (line-number-at-pos block-end)    ; block end
 				 block-name                        ; block name
-				 block-marker)                     ; block marker
+				 block-marker                      ; block marker
+				 block-modifier)
 				list-of-blocks))
 		      (throw 'no-valid-block t)))
 		(throw 'no-valid-block t))))))
@@ -1009,7 +1012,10 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 	 block-end
 	 block-name
 	 block-marker
-	 (formatter (concat "* %-"
+	 block-modifier
+	 (symbolized-block-modifier "[P]")
+	 (formatter (concat "%s "
+			    "%-"
 			    (number-to-string (+ max-block-name-length 6))
 			    "s"
 			    "[ %"
@@ -1023,7 +1029,33 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
       (setq block-end (nth 1 line))
       (setq block-name (nth 2 line))
       (setq block-marker (nth 3 line))
+      (setq block-modifier (nth 4 line))
 
+
+      ;; Set text properties for block-modifier
+      (cond ((string= "private" block-modifier)
+	     (put-text-property 0 (length symbolized-block-modifier)
+				'font-lock-face `(:foreground
+						  "firebrick")
+				symbolized-block-modifier))
+	    ((string= "protected" block-modifier) 
+	     (put-text-property 0 (length symbolized-block-modifier)
+				'font-lock-face `(:foreground
+						  "goldenrod")
+				symbolized-block-modifier)) 
+	    ((string= "public" block-modifier) 	     
+	     (put-text-property 0 (length symbolized-block-modifier)
+				'font-lock-face `(:foreground
+						  "forest green")
+				symbolized-block-modifier))
+	    ((eq nil block-modifier)
+	     (put-text-property 0 (length symbolized-block-modifier)
+				'font-lock-face `(:foreground
+						  "forest green")
+				symbolized-block-modifier))) 
+
+
+      ;; Set text properties for block-name
       (remove-text-properties 0 (length block-name)
 			 '(face nil) block-name)
       (put-text-property 0 (length block-name)
@@ -1044,7 +1076,7 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 						     max-block-name-length)
 					  "...")
 			block-start block-end)
-	      (format formatter block-name block-start block-end)))
+	      (format formatter symbolized-block-modifier block-name block-start block-end)))
       ;; The asterisk `*' holds the block information like `block-name' and
       ;; `block-marker' as a text property.
       (put-text-property 0 1 'data `(,block-marker ,block-name) formatted-line)
