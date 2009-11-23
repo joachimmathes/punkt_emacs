@@ -867,9 +867,12 @@ meaningfull line by text properties."
   (interactive)
   (unless (one-window-p)
     (delete-window))
-  (switch-to-buffer (marker-buffer t3php-toc-return-marker))
-  (t3php-re-enlarge)
-  (goto-char (marker-position t3php-toc-return-marker)))
+  (if (eq nil (marker-position t3php-toc-return-marker))
+      (progn (switch-to-buffer nil)
+	     (message "No associated buffer found."))
+    (switch-to-buffer (marker-buffer t3php-toc-return-marker))
+    (t3php-re-enlarge)
+    (goto-char (marker-position t3php-toc-return-marker))))
 
 (defun t3php-toc-view-line ()
   "Show the corresponding location in the t3php buffer."
@@ -904,9 +907,12 @@ meaningfull line by text properties."
   (kill-buffer "*t3php-toc*")
   (unless (one-window-p)
     (delete-window))
-  (switch-to-buffer (marker-buffer t3php-toc-return-marker))
-  (t3php-re-enlarge)
-  (goto-char (marker-position t3php-toc-return-marker)))
+  (if (eq nil (marker-position t3php-toc-return-marker))
+      (progn (switch-to-buffer nil)
+	     (message "No associated buffer found."))
+    (switch-to-buffer (marker-buffer t3php-toc-return-marker))
+    (t3php-re-enlarge)
+    (goto-char (marker-position t3php-toc-return-marker))))
 
 (defun t3php-toc-beginning-of-buffer ()
   "Go to the beginning of the *t3php-toc* buffer."
