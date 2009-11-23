@@ -145,8 +145,8 @@ list-colors-display"
   :type 'color
   :group 't3php)
 
-(defcustom t3php-toc-block-name-color "sea green"
-  "The color used to highlight function names in the TOC.
+(defcustom t3php-toc-method-name-color "sea green"
+  "The color used to highlight method names in the TOC.
 
   The default value is `sea green'.  For a list of all available colors use `M-x
 `list-colors-display'"
@@ -920,7 +920,7 @@ meaningfull line by text properties."
 
 (defun t3php-toc-content (t3php-buffer)
   "Returns table of contents of methods
-This is a list of lists containing the method modifier, method name, 
+This is a list of lists containing the method modifier, method name,
 method start and end position."
   (save-current-buffer
     ;; Processing a buffer with lots of markers slows processing, like inserting
@@ -939,147 +939,146 @@ method start and end position."
 
     (let ((start (point-min))
 	  (end (point-max))
-	  (block-end (point-min))
+	  (method-end (point-min))
 	  tbs
-	  list-of-blocks)
+	  list-of-methods)
       (save-excursion
 	(goto-char start)
 
-	(catch 'no-valid-block
+	(catch 'no-valid-method
 	  (while t
-	    (let ((block-marker (make-marker))
-		  (block-start
-		   ;; Look for method block start
+	    (let ((method-marker (make-marker))
+		  (method-start
+		   ;; Look for method method start
 		   (save-excursion
-		     (goto-char block-end)
+		     (goto-char method-end)
 		     (setq tbs (re-search-forward
 				"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function.*" nil t))
-		     ;; If search was successfull set block-start to the beginning
+		     ;; If search was successfull set method-start to the beginning
 		     ;; of the line; return nil otherwise
 		     (if (not tbs)
 			 nil
 		       (goto-char tbs)
 		       (beginning-of-line)
 		       (point)))))
-	      (if block-start
-		  (let (block-name 
-			block-modifier)
+	      (if method-start
+		  (let (method-name
+			method-modifier)
 			 ;; Save method name
 		    (save-excursion
-		      (goto-char block-start)
+		      (goto-char method-start)
 		      (looking-at
 		       (concat
 			"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
 			"\\(\\w+?\\)\\s-*("))
-		      (setq block-name (match-string 2)
-			    block-modifier (match-string 1))) 
-		    ;; Look for measurment block end
+		      (setq method-name (match-string 2)
+			    method-modifier (match-string 1)))
+		    ;; Look for measurment method end
 		    (save-excursion
-		      (goto-char block-start)
-		      (setq block-end (re-search-forward "}" nil t)))
+		      (goto-char method-start)
+		      (setq method-end (re-search-forward "}" nil t))) ; TODO: look for corresponding closing curly brace
 		    ;; The following local variables are defined up to here:
-		    ;; [1] block-start: point of measurement block start, at the beginning
-		    ;;                  of the line; nil otherwise
-		    ;; [2] block-name : name of measurement block
-		    ;; [3] block-end  : point of measurment block end, at the end of the
-		    ;;                  `end measurement' string; nil otherwise
-		    (if (and (<= block-start end)
-			     (<= block-end end))
+		    ;; [1] method-start   : point of measurement method start
+		    ;; [2] method-end     : point of method end
+		    ;; [3] method-name    : name of method
+		    ;; [4] method-modifier: name of method modifier
+		    (if (and (<= method-start end)
+			     (<= method-end end))
 			(progn
-			  (set-marker block-marker block-start)
-			  (push block-marker t3php-toc-marker-list)
+			  (set-marker method-marker method-start)
+			  (push method-marker t3php-toc-marker-list)
 			  (push (list
-				 (line-number-at-pos block-start)  ; block start
-				 (line-number-at-pos block-end)    ; block end
-				 block-name                        ; block name
-				 block-marker                      ; block marker
-				 block-modifier)
-				list-of-blocks))
-		      (throw 'no-valid-block t)))
-		(throw 'no-valid-block t))))))
-      (reverse list-of-blocks))))
+				 (line-number-at-pos method-start)  ; method start
+				 (line-number-at-pos method-end)    ; method end
+				 method-name                        ; method name
+				 method-marker                      ; method marker
+				 method-modifier)                   ; method modifier
+				list-of-methods))
+		      (throw 'no-valid-method t)))
+		(throw 'no-valid-method t))))))
+      (reverse list-of-methods))))
 
 (defun t3php-toc-format (content)
   "Return a list of formatted lines for the table of contents.
 CONTENT is the list of lists returned by function `t3php-toc-content'."
   (let* ((formatting-information (t3php-toc-formatting-information content))
 	 (formatted-content (list))
-	 (max-block-name-length (nth 0 formatting-information))
-	 (max-block-inf-from-length (nth 1 formatting-information))
-	 (max-block-inf-to-length (nth 2 formatting-information))
-	 (max-block-inf-length (nth 3 formatting-information))
-	 block-start
-	 block-end
-	 block-name
-	 block-marker
-	 block-modifier
-	 (symbolized-block-modifier "[P]")
+	 (max-method-name-length (nth 0 formatting-information))
+	 (max-method-inf-from-length (nth 1 formatting-information))
+	 (max-method-inf-to-length (nth 2 formatting-information))
+	 (max-method-inf-length (nth 3 formatting-information))
+	 method-start
+	 method-end
+	 method-name
+	 method-marker
+	 method-modifier
+	 (symbolized-method-modifier "[P]")
 	 (formatter (concat "%s "
 			    "%-"
-			    (number-to-string (+ max-block-name-length 6))
+			    (number-to-string (+ max-method-name-length 6))
 			    "s"
 			    "[ %"
-			    (number-to-string max-block-inf-from-length)
+			    (number-to-string max-method-inf-from-length)
 			    "d-%-"
-			    (number-to-string max-block-inf-to-length)
+			    (number-to-string max-method-inf-to-length)
 			    "d ]\n"))
 	 formatted-line)
     (dolist (line content)
-      (setq block-start (nth 0 line))
-      (setq block-end (nth 1 line))
-      (setq block-name (nth 2 line))
-      (setq block-marker (nth 3 line))
-      (setq block-modifier (nth 4 line))
+      (setq method-start (nth 0 line))
+      (setq method-end (nth 1 line))
+      (setq method-name (nth 2 line))
+      (setq method-marker (nth 3 line))
+      (setq method-modifier (nth 4 line))
 
 
-      ;; Set text properties for block-modifier
-      (cond ((string= "private" block-modifier)
-	     (put-text-property 0 (length symbolized-block-modifier)
+      ;; Set text properties for method-modifier
+      (cond ((string= "private" method-modifier)
+	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "firebrick")
-				symbolized-block-modifier))
-	    ((string= "protected" block-modifier) 
-	     (put-text-property 0 (length symbolized-block-modifier)
+				symbolized-method-modifier))
+	    ((string= "protected" method-modifier)
+	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "goldenrod")
-				symbolized-block-modifier)) 
-	    ((string= "public" block-modifier) 	     
-	     (put-text-property 0 (length symbolized-block-modifier)
+				symbolized-method-modifier))
+	    ((string= "public" method-modifier)
+	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "forest green")
-				symbolized-block-modifier))
-	    ((eq nil block-modifier)
-	     (put-text-property 0 (length symbolized-block-modifier)
+				symbolized-method-modifier))
+	    ((eq nil method-modifier)
+	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "forest green")
-				symbolized-block-modifier))) 
+				symbolized-method-modifier)))
 
 
-      ;; Set text properties for block-name
-      (remove-text-properties 0 (length block-name)
-			 '(face nil) block-name)
-      (put-text-property 0 (length block-name)
+      ;; Set text properties for method-name
+      (remove-text-properties 0 (length method-name)
+			 '(face nil) method-name)
+      (put-text-property 0 (length method-name)
 			 'font-lock-face `(:foreground
-					   ,t3php-toc-block-name-color)
-			 block-name)
-      (put-text-property 0 (length block-name)
-			 'help-echo block-name
-			 block-name)
-      (put-text-property 0 (length block-name)
+					   ,t3php-toc-method-name-color)
+			 method-name)
+      (put-text-property 0 (length method-name)
+			 'help-echo method-name
+			 method-name)
+      (put-text-property 0 (length method-name)
 			 'fontified t
-			 block-name)
+			 method-name)
 
       (setq formatted-line
-	    (if (> (length block-name) max-block-name-length)
-		(format formatter (concat (substring block-name
+	    (if (> (length method-name) max-method-name-length)
+		(format formatter (concat (substring method-name
 						     0
-						     max-block-name-length)
+						     max-method-name-length)
 					  "...")
-			block-start block-end)
-	      (format formatter symbolized-block-modifier block-name block-start block-end)))
-      ;; The asterisk `*' holds the block information like `block-name' and
-      ;; `block-marker' as a text property.
-      (put-text-property 0 1 'data `(,block-marker ,block-name) formatted-line)
+			method-start method-end)
+	      (format formatter symbolized-method-modifier method-name method-start method-end)))
+      ;; The asterisk `*' holds the method information like `method-name' and
+      ;; `method-marker' as a text property.
+      (put-text-property 0 1 'data `(,method-marker ,method-name) formatted-line)
 
       (push formatted-line formatted-content))
 
@@ -1091,14 +1090,14 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 
 (defun t3php-toc-formatting-information (content)
   "Return a list of formatting information for the table of contents.
-The first item is the maximum string length allowed for measurement block
+The first item is the maximum string length allowed for method
 names.  The value is limited by the current window width with respect to the
 length of a string, which shows the measurement block start and end lines
 aligned to the right border of the window.  The string sizes of the latter values
 are also evaluated and provide the second and third item of the information
-list. The fourth item is made of their sum plus an aditional value. Thus we have
+list.  The fourth item is made of their sum plus an aditional value.  Thus we have
 a list like this: (max-block-name-length max-block-inf-from-size
-max-block-inf-to-size max-block-inf-size). CONTENT is the list of lists returned
+max-block-inf-to-size max-block-inf-size).  CONTENT is the list of lists returned
 by function `t3php-toc-content'"
   (let ((max-from 0)
 	(max-to 0)
@@ -1136,7 +1135,6 @@ by function `t3php-toc-content'"
     (unless toc-data (message "%s" "Don't know which toc line to visit."))
 
     ;; --- t3php TOC BUFFER ---
-    (princ t3php-block-name)
     (setq match
 	  (cond
 	   ((and (markerp t3php-marker) (marker-buffer t3php-marker))
