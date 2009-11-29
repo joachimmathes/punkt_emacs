@@ -80,6 +80,11 @@ See `format-time-string' function for further detail."
   :type 'string
   :group 't3php)
 
+(defcustom t3php-year-format "%Y"
+  "Year format for php-doc.
+See `format-time-string' function for further detail."
+  :type 'string
+  :group 't3php)
 
 (defcustom t3php-block-indentation 4
   "The indentation relative to a predecessing line which begins a new block."
@@ -515,10 +520,20 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (interactive)
   (insert (t3php-current-date)))
 
-(defun t3php-current-date ()
-  "Insert the current date.
-Uses `current-date-time-format' for the formatting the date/time."
-  (format-time-string t3php-date-format (current-time)))
+ (defun t3php-current-date ()
+   "Return the current date.
+Uses customizable `t3php-date-format' for formatting the date."
+   (format-time-string t3php-date-format (current-time)))
+
+(defun t3php-insert-current-year ()
+  "Insert the current date into buffer."
+  (interactive)
+  (insert (format-time-string t3php-year-format (current-time))))
+
+(defun t3php-current-year ()
+   "Return the current year.
+Uses customizable `t3php-year-format' for formatting the year."
+   (format-time-string t3php-year-format (current-time)))
 
 (defun t3php-toggle-trailing-whitespace-visibilty ()
   "Toggle visbility of trailing whitespaces."
