@@ -972,7 +972,7 @@ method start and end position."
 		      (goto-char method-start)
 		      (looking-at
 		       (concat
-			"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
+			"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
 			"\\(\\w+?\\)\\s-*("))
 		      (setq method-name (match-string 2)
 			    method-modifier (match-string 1)))
@@ -1147,7 +1147,7 @@ by function `t3php-toc-content'"
 	    ;; --- t3php TOC BUFFER -> t3php BUFFER ---
 	    (goto-char (marker-position t3php-marker))
 	    (looking-at (concat
-			 "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+"
+			 "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
 			 t3php-block-name)))
 	   (t
 	    ;; Marker is lost. A backup method might be implemented in the
