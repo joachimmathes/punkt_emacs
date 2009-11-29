@@ -1073,10 +1073,11 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 
       (setq formatted-line
 	    (if (> (length method-name) max-method-name-length)
-		(format formatter (concat (substring method-name
-						     0
-						     max-method-name-length)
-					  "...")
+		(format formatter symbolized-method-modifier
+			(concat (substring method-name
+					   0
+					   max-method-name-length)
+				"...")
 			method-start method-end)
 	      (format formatter symbolized-method-modifier method-name method-start method-end)))
       ;; The asterisk `*' holds the method information like `method-name' and
