@@ -1089,7 +1089,8 @@ method start and end position."
 		    ;; Look for measurment method end
 		    (save-excursion
 		      (goto-char method-start)
-		      (setq method-end (re-search-forward "}" nil t))) ; TODO: look for corresponding closing curly brace
+		      (end-of-defun)
+		      (setq method-end (point)))
 		    ;; The following local variables are defined up to here:
 		    ;; [1] method-start   : point of measurement method start
 		    ;; [2] method-end     : point of method end
