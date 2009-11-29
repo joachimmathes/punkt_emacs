@@ -710,8 +710,7 @@ t3php-toc-block-name-color\t\tcolor used to highlight block names"
     (define-key t3php-toc-mode-map "\C-m" 't3php-toc-goto-line-and-hide)
     (define-key t3php-toc-mode-map "f"    't3php-toc-toggle-follow)
     (define-key t3php-toc-mode-map "r"    't3php-toc-rescan)
-    (define-key t3php-toc-mode-map "q"    't3php-toc-quit)
-    (define-key t3php-toc-mode-map "k"    't3php-toc-quit-and-kill))
+    (define-key t3php-toc-mode-map "k"    't3php-toc-kill))
   (use-local-map t3php-toc-mode-map))
 
 (defun t3php-toc (&optional rescan)
@@ -773,7 +772,7 @@ buffer."
       (setq buffer-read-only nil)
       (insert (format
 "TABLE OF CONTENTS of %s
-SPC=view TAB=goto RET=goto+hide [f]ollow [r]escan [q]uit [k]ill [?]Help
+SPC=view TAB=goto RET=goto+hide [f]ollow [r]escan  [k]ill [?]Help
 -----------------------------------------------------------------------
 " (abbreviate-file-name t3php-toc-last-file)))
 
@@ -871,18 +870,6 @@ meaningfull line by text properties."
       (recenter))
     (forward-line (* -1 arg))))
 
-(defun t3php-toc-quit ()
-  "Hide the *t3php-toc* window and do not move point."
-  (interactive)
-  (unless (one-window-p)
-    (delete-window))
-  (if (eq nil (marker-position t3php-toc-return-marker))
-      (progn (switch-to-buffer nil)
-	     (message "No associated buffer found."))
-    (switch-to-buffer (marker-buffer t3php-toc-return-marker))
-    (t3php-re-enlarge)
-    (goto-char (marker-position t3php-toc-return-marker))))
-
 (defun t3php-toc-view-line ()
   "Show the corresponding location in the t3php buffer."
   (interactive)
@@ -910,7 +897,7 @@ meaningfull line by text properties."
   (switch-to-buffer-other-window (get-file-buffer t3php-toc-last-file))
   (t3php-toc t))
 
-(defun t3php-toc-quit-and-kill ()
+(defun t3php-toc-kill ()
   "Kill the *t3php-toc* buffer."
   (interactive)
   (kill-buffer "*t3php-toc*")
