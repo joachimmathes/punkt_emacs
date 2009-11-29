@@ -419,6 +419,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map "}"         't3php-electric-brace)
     (define-key t3php-mode-map ")"         't3php-electric-brace)
     (define-key t3php-mode-map "\C-ct"     't3php-toc)
+    (define-key t3php-mode-map "\C-c\C-ic" 't3php-insert-class)
     (define-key t3php-mode-map "\C-c\C-if" 't3php-insert-method)
     (define-key t3php-mode-map "\C-c\C-id" 't3php-insert-current-date)
     (define-key t3php-mode-map "\C-cd"     't3php-search-documentation)
@@ -442,9 +443,9 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (when (not (aref t3php-highlight-overlays index))
       (aset t3php-highlight-overlays index (make-overlay 1 1))
       (overlay-put (aref t3php-highlight-overlays index)
-		   'category 't3php-toc-hl)
+                   'category 't3php-toc-hl)
       (overlay-put (aref t3php-highlight-overlays index)
-		   'font-lock-face `(:background ,t3php-toc-hl-line-color))))
+                   'font-lock-face `(:background ,t3php-toc-hl-line-color))))
 
   ;; Run abbrev mode
   (setq local-abbrev-table t3php-mode-abbrev-table)
@@ -453,6 +454,89 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   ;; Run the mode hook.
   (if t3php-mode-hook
       (run-hooks 't3php-mode-hook)))
+
+(defun t3php-insert-class ()
+  "Insert class into empty php buffer.
+This function inserts:
+* php tags
+* copyright with current date and t3php-developer
+* a comment block which contains SCM ID tag `$Id$', author, date
+  and leaves room for a class description
+* a special comment for inserting a function index automatically
+  with the TYPO3 extension `Extension Development Evaluator'
+* a class header comment"
+  (interactive)
+
+  (insert "<?php\n"
+"/***************************************************************\n"
+" *  Copyright notice\n"
+" *\n"
+" *  (c) "  (t3php-current-year) " " t3php-developer "\n"
+" *  All rights reserved\n"
+" *\n"
+" *  This script is part of the TYPO3 project. The TYPO3 project is\n"
+" *  free software; you can redistribute it and/or modify\n"
+" *  it under the terms of the GNU General Public License as published by\n"
+" *  the Free Software Foundation; either version 2 of the License, or\n"
+" *  (at your option) any later version.\n"
+" *\n"
+" *  The GNU General Public License can be found at\n"
+" *  http://www.gnu.org/copyleft/gpl.html.\n"
+" *\n"
+" *  This script is distributed in the hope that it will be useful,\n"
+" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+" *  GNU General Public License for more details.\n"
+" *\n"
+" *  This copyright notice MUST APPEAR in all copies of the script!\n"
+" ***************************************************************/\n"
+"/**\n"
+" * [CLASS/FUNCTION INDEX of SCRIPT]\n"
+" *\n"
+" * Hint: use extdeveval to insert/update function index above.\n"
+" */\n"
+"\n\n\n\n\n"
+"/**\n"
+" *\n"
+" *\n"
+" * @author     " t3php-developer "\n"
+" * @package    TYPO3\n"
+" * @subpackage\n"
+" * @since      " (t3php-current-date) "\n"
+" */\n"
+"class "
+(substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
+" {\n\n"
+"}\n\n\n"
+"/*******************************************************************************\n"
+" * TYPO3 XCLASS INCLUSION (for class extension/overriding)\n"
+" ******************************************************************************/\n"
+"if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
+(t3php-path-to-extension-file)
+"']) {\n"
+"    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
+(t3php-path-to-extension-file)
+"']);\n"
+"}\n"
+"?>"))
+
+(defun t3php-path-to-extension-file ()
+  "Return path to extension file."
+  (if (not (string-match-p
+            (concat
+             t3php-path-to-typo3-extension-directory
+             t3php-typo3-extension-directory) buffer-file-name))
+      (concat "<PATH-TO-FILE>/"
+              (file-name-nondirectory buffer-file-name)
+	      t3php-path-to-typo3-extension-directory
+	      t3php-typo3-extension-directory)
+    (string-match (concat t3php-path-to-typo3-extension-directory
+                          "\\("
+                          t3php-typo3-extension-directory
+                          ".*\\)")
+                  (file-name-directory buffer-file-name))
+    (concat (match-string 1 (file-name-directory buffer-file-name))
+            (file-name-nondirectory buffer-file-name))))
 
 (defun t3php-insert-method (method-name)
   "Insert signature and header comment for METHOD-NAME."
