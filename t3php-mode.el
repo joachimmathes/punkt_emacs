@@ -707,7 +707,7 @@ t3php-toc-block-name-color\t\tcolor used to highlight block names"
     (define-key t3php-toc-mode-map "p"    't3php-toc-previous)
     (define-key t3php-toc-mode-map " "    't3php-toc-view-line)
     (define-key t3php-toc-mode-map "\C-i" 't3php-toc-goto-line)
-    (define-key t3php-toc-mode-map "\C-m" 't3php-toc-goto-line-and-hide)
+    (define-key t3php-toc-mode-map "\C-m" 't3php-toc-goto-line-and-kill)
     (define-key t3php-toc-mode-map "f"    't3php-toc-toggle-follow)
     (define-key t3php-toc-mode-map "r"    't3php-toc-rescan)
     (define-key t3php-toc-mode-map "k"    't3php-toc-kill))
@@ -772,7 +772,7 @@ buffer."
       (setq buffer-read-only nil)
       (insert (format
 "TABLE OF CONTENTS of %s
-SPC=view TAB=goto RET=goto+hide [f]ollow [r]escan  [k]ill [?]Help
+SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
 -----------------------------------------------------------------------
 " (abbreviate-file-name t3php-toc-last-file)))
 
@@ -880,10 +880,10 @@ meaningfull line by text properties."
   (interactive)
   (t3php-toc-visit-location 'goto))
 
-(defun t3php-toc-goto-line-and-hide ()
-  "Go to the location and hide the *t3php-toc* window."
+(defun t3php-toc-goto-line-and-kill ()
+  "Go to the location and kill the *t3php-toc* window."
   (interactive)
-  (t3php-toc-visit-location 'hide))
+  (t3php-toc-visit-location 'goto-and-kill))
 
 (defun t3php-toc-toggle-follow ()
   "Toggle follow mode in *t3php-toc* buffer."
@@ -900,7 +900,7 @@ meaningfull line by text properties."
 (defun t3php-toc-kill ()
   "Kill the *t3php-toc* buffer."
   (interactive)
-  (kill-buffer "*t3php-toc*")
+  (kill-buffer t3php-toc-buffer-name)
   (unless (one-window-p)
     (delete-window))
   (if (eq nil (marker-position t3php-toc-return-marker))
@@ -1176,10 +1176,11 @@ by function `t3php-toc-content'"
 	(t3php-unhighlight 1)
 	(select-window show-window)
 	(recenter))
-       ((eq visit-mode 'hide)
+       ((eq visit-mode 'goto-and-kill)
 	(select-window toc-window)
 	(t3php-unhighlight 1)
-	(unless (one-window-p)
+	(kill-buffer t3php-toc-buffer-name)
+        (unless (one-window-p)
 	  (delete-window))
 	(if (window-live-p show-window)
 	    (set-buffer show-buffer)
