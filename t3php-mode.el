@@ -59,6 +59,16 @@
   :type 'face
   :group 't3php)
 
+(defcustom t3php-typo3-extension-directory "ext/"
+  "TYPO3 extension directory."
+  :type 'string
+  :group 't3php)
+
+(defcustom t3php-path-to-typo3-extension-directory "typo3conf/"
+  "TYPO3 extension directory."
+  :type 'string
+  :group 't3php)
+
 (defcustom t3php-developer "Lisa Fremont <lisa@fremont.de>"
   "Developer for php-doc."
   :type 'string
