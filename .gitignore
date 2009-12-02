@@ -1,2 +1,2 @@
 doc/*.*
-!doc/typo3-emacs.texi
+!doc/*.texi
