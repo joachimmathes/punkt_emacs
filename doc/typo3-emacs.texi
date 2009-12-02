@@ -16,6 +16,9 @@ TS
 @macro toc {}
 table of contents
 @end macro
+@macro ext {extkey}
+@emph{\extkey\}
+@end macro
 @c %**end of header
 
 @copying
@@ -130,6 +133,7 @@ Mode customization group directly
 @noindent
 The following user-customizable variables are provided.
 
+@anchor{x-t3php-developer}
 @deftypevar string t3php-developer
 The current developer or author of the PHP code. The value of this
 variable is used in the php-doc comments.
@@ -143,6 +147,7 @@ The face which is used in a PHP buffer for certain syntactic elements.
 Default: @samp{default}
 @end deftypevar
 
+@anchor{x-t3php-typo3-extension-directory}
 @deftypevar string t3php-typo3-extension-directory
 The path to the TYPO3 extensions' directory relative to the TYPO3 root
 directory.
@@ -150,6 +155,7 @@ directory.
 Default: @samp{ext/}
 @end deftypevar
 
+@anchor{x-t3php-path-to-typo3-extension-directory}
 @deftypevar string t3php-path-to-typo3-extension-directory
 The path to the TYPO3 extensions directory relative to the TYPO3 root
 directory.
@@ -163,6 +169,7 @@ The date format which is used for php-doc comments.
 Default: @samp{%Y-%m-%d}
 @end deftypevar
 
+@anchor{x-t3php-year-format}
 @deftypevar string t3php-year-format
 The year format which is used in php-doc comments.
 
@@ -221,13 +228,13 @@ deleted. If the variable is set to true (@samp{t}) the current window is
 split and the @toc{} is displayed in the newly created window. When
 @code{nil}, all other windows except the selected one will be deleted, so
 that the @toc{} window fills an adjustable
-(@pxref{x-stswf,,skampi-toc-split-windows-fraction}) amount of the
+(@pxref{x-stswf,,t3php-toc-split-windows-fraction}) amount of the
 frame.
 
 Default: @samp{t}.
 @end deftypevar
 
-@deftypevar boolean skampi-toc-split-windows-horizontally
+@deftypevar boolean t3php-toc-split-windows-horizontally
 This variable determines the splitting mode, if the @toc{} is
 displayed. If true, split the current window horizontally. Otherwise
 split the window vertically.
@@ -276,7 +283,7 @@ Default: @samp{DarkSlateBlue}.
 
 @deftypevar color t3php-toc-block-name-color
 The color used to highlight the lines in the @toc{}, which refer to
-the corresponding measurement block name.
+the corresponding method.
 
 Default: @samp{sea green}.
 @end deftypevar
@@ -291,7 +298,7 @@ be described in the following sections.
 @menu
 * Syntax highlighting::
 * Line indentation::
-* Inserting methods::
+* Inserting code templates::
 * Inserting classes::
 * Table of contents::
 @end menu
@@ -300,12 +307,10 @@ be described in the following sections.
 @node Syntax highlighting, Line indentation, Using t3php Mode, Using t3php Mode
 @comment  node-name,  next,  previous,  up
 @section Syntax highlighting
-Syntax highlighting is a convenient feature of an editor to
-improve the appearance hence the readability of code. @typothree{} Mode
-supports the highlighting of comments, i.e. lines which begin with
-@samp{#}. Furthermore certain keywords (@code{begin}, @code{end}, @code{measurement},
-@code{do}, @code{od}, @code{for}, @code{to}, @code{if}, @code{fi},
-@code{then}, @code{print}) are highlighted.
+Syntax highlighting is a convenient feature of an editor to improve the
+appearance hence the readability of code. @typothree{} Mode supports the
+highlighting of single line and multiline comments, keywords and several
+syntactic structures.
 
 In XEmacs syntax highlighting should be enabled automatically. In GNU
 Emacs you may have to add these lines to your @file{~/.emacs} file:
@@ -315,7 +320,7 @@ Emacs you may have to add these lines to your @file{~/.emacs} file:
 @end lisp
 
 @c ---------------------------------------------------------------------
-@node Line indentation, Inserting methods, Syntax highlighting, Using t3php Mode
+@node Line indentation, Inserting code templates, Syntax highlighting, Using t3php Mode
 @comment  node-name,  next,  previous,  up
 @section Line indentation
 A PHP code line is indented automatically when the @key{TAB} key is
@@ -328,28 +333,187 @@ Depending on the current value of the customizable variable
 automatically after pressing @kbd{@key{RET}}. @xref{Customization}, for
 details.
 
-@c ---------------------------------------------------------------------
-@node Inserting methods, Inserting classes, Folding, Using t3php Mode
+@c =====================================================================
+@node Inserting code templates, Table of contents, , Using t3php Mode
 @comment  node-name,  next,  previous,  up
-@section Inserting methods
+@section Inserting code templates
+The following sections describe functions and their respective key
+bindings to insert templates for methods and classes.
+
+@menu
+* Inserting methods::
+* Inserting classes::
+@end menu
+
+@c ---------------------------------------------------------------------
+@node Inserting methods, Inserting classes, , Inserting code templates
+@comment  node-name,  next,  previous,  up
+@subsection Inserting methods
 
 @deffn {Interactive Command} t3php-insert-method
+Insert the rudimentary method framework code with respect to TYPO3 coding
+standards. The function asks interactively for the method name, an
+auto-completed modifier (@code{public}, @code{protected},
+@code{private}) and method arguments until an empty string is provided.
+The inserted code consists of
+@itemize
+@item
+a class header comment in PHPdoc style which contains
+@itemize @minus
+@item
+empty lines for method descriptions
+@item
+@code{@@param} and variable name
+@item
+@code{@@return}
+@item
+@code{@@author} (default: @samp{t3php-developer})
+@item
+@code{@@since} (default: @samp{t3php-date-format})
+@end itemize
+@item
+the method signature
+@end itemize
 
-The command is bound to the key combination @kbd{C-c C-if}.
+Key binding: @kbd{C-c C-if}.
 @end deffn
+@noindent
+The following example was inserted with parameters
+@itemize
+@item
+Method name: @code{foobar}
+@item
+Modifier: @code{public}
+@item
+Parameter: @code{foo}
+@item
+Parameter: @code{bar}
+@end itemize
+@smallformat
+@verbatim
+1  /**
+2   *
+3   *
+4   * @param $foo
+5   * @param $bar
+6   * @return
+7   * @author Lisa Fremont <lisa@fremont.de>
+8   * @since 2009-12-02
+9   */
+10 public function foobar($foo, $bar) {
+11    
+12 }
+@end verbatim
+@end smallformat
 
 @c ---------------------------------------------------------------------
-@node Inserting classes, Table of contents, Inserting methods, Using t3php Mode
+@node Inserting classes, , Inserting methods, Inserting code templates
 @comment  node-name,  next,  previous,  up
-@section Inserting classes
-
+@subsection Inserting classes
 @deffn {Interactive Command} t3php-insert-class
+Insert the rudimentary class framework code with respect to TYPO3 coding
+standards. The inserted code consists of
+@itemize
+@item
+PHP tags
+@item
+a copyright notice where date and author are inserted automatically with
+respect to customizable variables @samp{t3php-year-format} and
+@samp{t3php-developer}. @xref{x-t3php-year-format,, t3php-year-format} and
+@ref{x-t3php-developer,, x-t3php-developer}, for more information.
+@item
+a marker comment for the class and function index which can be inserted
+by TYPO3 extension @ext{extdeval}. The following empty lines might be
+filled with required files.
+@item
+a class header comment in PHPdoc style which contains
+@itemize @minus
+@item
+@code{@@author} (default: @samp{t3php-developer})
+@item
+@code{@@package} (default: @samp{TYPO3})
+@item
+@code{@@subpackage} (default: empty)
+@item
+@code{@@since} (default: @samp{t3php-date-format})
+@end itemize
+@item
+the class definition
+@item
+a TYPO3 XCLASS inclusion code snippet for class extension and/or
+overriding. The associative array @code{TYPO3_CONF_VARS} has a key which
+refers to the current class path and file name, which is inserted
+dynamically. The information is extracted from the customizable
+variables @samp{t3php-path-to-typo3-extension-directory} and the buffer
+file name. See @ref{x-t3php-typo3-extension-directory,,
+t3php-typo3-extension-directory}, for more information.
+@end itemize
 
-The command is bound to the key combination @kbd{C-c C-ic}.
+Key binding: @kbd{C-c C-ic}.
 @end deffn
+@noindent
+The following code example was inserted in an empty file named
+@file{class.bar.php}:
+@smallformat
+@verbatim
+1  <?php
+2  /***************************************************************
+3   *  Copyright notice
+4   *
+5   *  (c) 2009 Lisa Fremont <lisa@fremont.de>
+6   *  All rights reserved
+7   *
+8   *  This script is part of the TYPO3 project. The TYPO3 project is
+9   *  free software; you can redistribute it and/or modify
+10  *  it under the terms of the GNU General Public License as published by
+11  *  the Free Software Foundation; either version 2 of the License, or
+12  *  (at your option) any later version.
+13  *
+14  *  The GNU General Public License can be found at
+15  *  http://www.gnu.org/copyleft/gpl.html.
+16  *
+17  *  This script is distributed in the hope that it will be useful,
+18  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+19  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+20  *  GNU General Public License for more details.
+21  *
+22  *  This copyright notice MUST APPEAR in all copies of the script!
+23  ***************************************************************/
+24 /**
+25  * [CLASS/FUNCTION INDEX of SCRIPT]
+26  *
+27  * Hint: use extdeveval to insert/update function index above.
+28  */
+29 
+30 
+31 
+32 
+33 
+34 /**
+35  *
+36  *
+37  * @author     Lisa Fremont <lisa@fremont.de>
+38  * @package    TYPO3
+39  * @subpackage
+40  * @since      2009-12-02
+41  */
+42 class tslib_content {
+43 
+44 }
+45 
+46 
+47 /*******************************************************************************
+48  * TYPO3 XCLASS INCLUSION (for class extension/overriding)
+49  ******************************************************************************/
+50 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/foo/class.bar.php']) {
+51     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/foo/class.bar.php']);
+52 }
+53 ?>
+@end verbatim
+@end smallformat
 
 @c ---------------------------------------------------------------------
-@node Table of contents, , Inserting classes, Using t3php Mode
+@node Table of contents, , Inserting code templates, Using t3php Mode
 @comment  node-name,  next,  previous,  up
 @section The table of contents
 
