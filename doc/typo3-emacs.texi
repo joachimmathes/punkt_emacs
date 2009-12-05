@@ -68,12 +68,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @end ifnottex
 
 @menu
-* Introduction::                @typothree{} and Emacs
-* Installation::                Prepare Emacs
-* Customization::               Customize T3PHP- and TS-Mode
-* Using TYPO3 PHP Mode::        Features, commands and key bindings
-* Using TypoScript Mode::       Features, commands and key bindings
-* ToDo::                        Features for the future
+* Introduction::     @typothree{} and Emacs
+* Installation::     Prepare Emacs
+* T3PHP mode::       Features, commands and key bindings
+* Using TS mode::    Features, commands and key bindings
 * Key Index::
 * Variable Index::
 * Function Index::
@@ -93,7 +91,7 @@ for free from @uref{http://ftp.gnu.org/pub/gnu/emacs/}. @xref{Top,
 on GNU Emacs version 23.1.1.
 
 @c =====================================================================
-@node Installation, Customization, Introduction, Top
+@node Installation, T3PHP mode, Introduction, Top
 @comment  node-name,  next,  previous,  up
 @chapter Installation
 The following description considers the installation of @t3php{} Mode,
@@ -120,9 +118,25 @@ If you just want to test @t3php{} Mode or are not eager to modify your
 buffer by typing @kbd{M-x t3php-mode}.
 
 @c =====================================================================
-@node Customization, Using SKaMPI Mode, Installation, Top
+@node T3PHP mode, Using TS mode, Installation, Top
 @comment  node-name,  next,  previous,  up
-@chapter Customization
+@chapter T3PHP mode
+@typothree{} Mode supports different display and editing features, which will
+be described in the following sections.
+
+@menu
+* Customization::
+* Syntax highlighting::
+* Line indentation::
+* Inserting code templates::
+* Inserting classes::
+* Buffer outline::
+@end menu
+
+@c ---------------------------------------------------------------------
+@node Customization, Syntax highlighting, , T3PHP mode
+@comment  node-name,  next,  previous,  up
+@section Customization
 @t3php{} Mode defines a customization group in Emacs, which is a member
 of the Emacs standard customization group @code{Languages}, whose parent
 Emacs group is @code{Programming}. Use @kbd{M-x customize} to browse
@@ -288,23 +302,8 @@ the corresponding method.
 Default: @samp{sea green}.
 @end deftypevar
 
-@c =====================================================================
-@node Using t3php Mode, ToDo, Customization, Top
-@comment  node-name,  next,  previous,  up
-@chapter Using t3php Mode
-@typothree{} Mode supports different display and editing features, which will
-be described in the following sections.
-
-@menu
-* Syntax highlighting::
-* Line indentation::
-* Inserting code templates::
-* Inserting classes::
-* Table of contents::
-@end menu
-
 @c ---------------------------------------------------------------------
-@node Syntax highlighting, Line indentation, Using t3php Mode, Using t3php Mode
+@node Syntax highlighting, Line indentation, Customization, T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Syntax highlighting
 Syntax highlighting is a convenient feature of an editor to improve the
@@ -320,7 +319,7 @@ Emacs you may have to add these lines to your @file{~/.emacs} file:
 @end lisp
 
 @c ---------------------------------------------------------------------
-@node Line indentation, Inserting code templates, Syntax highlighting, Using t3php Mode
+@node Line indentation, Inserting code templates, Syntax highlighting, T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Line indentation
 A PHP code line is indented automatically when the @key{TAB} key is
@@ -334,7 +333,7 @@ automatically after pressing @kbd{@key{RET}}. @xref{Customization}, for
 details.
 
 @c =====================================================================
-@node Inserting code templates, Table of contents, , Using t3php Mode
+@node Inserting code templates, , Line indentation, T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Inserting code templates
 The following sections describe functions and their respective key
@@ -407,7 +406,7 @@ Parameter: @code{bar}
 @end smallformat
 
 @c ---------------------------------------------------------------------
-@node Inserting classes, , Inserting methods, Inserting code templates
+@node Inserting classes,  Buffer outline, Inserting methods, Inserting code templates
 @comment  node-name,  next,  previous,  up
 @subsection Inserting classes
 @deffn {Interactive Command} t3php-insert-class
@@ -419,7 +418,7 @@ PHP tags
 @item
 a copyright notice where date and author are inserted automatically with
 respect to customizable variables @samp{t3php-year-format} and
-@samp{t3php-developer}. @xref{x-t3php-year-format,, t3php-year-format} and
+@samp{t3php-developer}. @pxref{x-t3php-year-format,, t3php-year-format} and
 @ref{x-t3php-developer,, x-t3php-developer}, for more information.
 @item
 a marker comment for the class and function index which can be inserted
@@ -513,9 +512,9 @@ The following code example was inserted in an empty file named
 @end smallformat
 
 @c ---------------------------------------------------------------------
-@node Table of contents, , Inserting code templates, Using t3php Mode
+@node Buffer outline, , Inserting classes, T3PHP mode
 @comment  node-name,  next,  previous,  up
-@section The table of contents
+@section Buffer outline
 
 @kindex @kbd{C-c C-t}
 @kindex @kbd{n}
@@ -531,61 +530,70 @@ The following code example was inserted in an empty file named
 @kindex @kbd{@key{RET}}
 @kindex @kbd{f}
 @kindex @kbd{r}
-@kindex @kbd{q}
 @kindex @kbd{k}
 @kindex @kbd{?}
 
-The @toc{} buffer summarizes the measurement blocks of the @typothree{}
-buffer and provides comfortable navigation through the @typothree{}
-buffer. @xref{fig:toc}, for an example. It presents a table of contents
-and how it is displayed. The first three lines are intangible and show
-the file name of the current @typothree{} input file and the shortcuts of
-the most important commands. Each measurement block in the current
-@typothree{} buffer is referred to by its measurement block name. The
-maximally displayed line width of a measurement block name is limited to
-40 characters. Thus, a longer block name is chopped to a length of 40
-characters and ellipse characters (@code{...}) are concatenated. When
-you move the mouse cursor onto a measurement block name the complete
-name is displayed nevertheless. On graphical displays, it is displayed
-as a @emph{tooltip}, sometimes known as @emph{balloon help}. On some
-systems, it is shown in the echo area. On text-only terminals, if Emacs
-cannot follow the mouse, it cannot show the complete name on mouse-over.
+The @toc{} buffer summarizes the methods of the PHP buffer and provides
+comfortable navigation through the PHP buffer. The first three lines are
+intangible and show the file name of the current PHP input file and the
+shortcuts of the most important commands.
+
+Each method in the current PHP buffer is referred to by its name. The
+maximally displayed line width of a method name is limited to 40
+characters. Thus, a longer name is chopped to a length of 40 characters
+and ellipse characters (@code{...}) are concatenated. When you move the
+mouse cursor over a method name the complete name is displayed
+nevertheless. On graphical displays, it is displayed as a @emph{tooltip}
+or @emph{balloon help} as it is called sometimes. On some systems, it is
+shown in the echo area. On text-only terminals, Emacs can't follow the
+mouse, and therefore is not able to show the complete name on
+mouse-over.
+
+The color of the leftmost column @code{[P]} shows the method modifier:
+@itemize
+@item
+@code{private} = @samp{firebrick}
+@item
+@code{protected} = @samp{goldenrod}
+@item
+@code{public} = @samp{forest green}
+@end itemize
+
 
 The rightmost column presents the line numbers, which delimit the region
 of the respective measurement block.
-@float Figure,fig:toc
+@smallformat
 @verbatim
-TABLE OF CONTENTS of ~/skampi/ski/io.ski
-SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan [k]ill [?]Help
+TABLE OF CONTENTS of ~/public_html/typo3/t3lib/class.t3lib_extmgm.php
+SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
 -----------------------------------------------------------------------
-* Measurement info                              [ 134-177 ]
-* open file                                     [ 191-200 ]
-* close file                                    [ 204-210 ]
-* open, write, and close file                   [ 214-224 ]
-* delete file                                   [ 228-233 ]
-* delete file on close                          [ 238-244 ]
-* file seek                                     [ 249-254 ]
-* file seek shared                              [ 258-265 ]
-* preallocate                                   [ 269-276 ]
-* write once (non-private)                      [ 280-290 ]
-* read once (non-private)                       [ 292-302 ]
+[P] isLoaded                                      [  131-136  ]
+[P] extPath                                       [  147-155  ]
+[P] extRelPath                                    [  165-172  ]
+[P] siteRelPath                                   [  182-185  ]
+[P] getCN                                         [  194-197  ]
+[P] addTCAcolumns                                 [  227-235  ]
+[P] addToAllTCAtypes                              [  251-304  ]
+[P] allowTableOnStandardPages                     [  315-320  ]
+[P] addModule                                     [  332-378  ]
+[P] addModulePath                                 [  390-395  ]
+[P] insertModuleFunction                          [  412-421  ]
+[P] addPageTSConfig                               [  431-435  ]
+[P] addUserTSConfig                               [  445-449  ]
+[P] addLLrefForTCAdescr                           [  460-472  ]
 @end verbatim
-@caption{An example for a @toc{} of a @typothree{} input file.}
-@shortcaption{Table of contents of a @typothree{} input file.}
-@end float
+@end smallformat
 
-@deffn {Interactive Command} skampi-toc rescan
-This command shows the @toc{} for the current @typothree{} buffer. The
-@toc{} consists of the measurement block description string of every valid
-measurement block in the current @typothree{} buffer. If @var{rescan} is
-true, the @typothree{} buffer will be rescanned before the @toc{} buffer is
-displayed.
+@deffn {Interactive Command} t3php-toc rescan
+This command shows the outline of the current PHP buffer. If
+@var{rescan} is true, the PHP buffer will be rescanned before the ouline
+buffer is displayed.
 
-The command is bound to the key combination @kbd{C-c C-t}.
+Key binding @kbd{C-ct}.
 @end deffn
 
 @noindent
-The @toc{} buffer is a read-only buffer with few dedicated key bindings:
+The outline buffer is a read-only buffer with few dedicated key bindings:
 @table @kbd
 @item n
 Move to the next selectable item.
@@ -628,9 +636,6 @@ Toggle follow mode.
 @item r
 Re-parse the @typothree{} buffer.
 
-@item q
-Hide the @toc{} window.
-
 @item k
 Kill the @toc{} buffer.
 
@@ -639,21 +644,14 @@ Show a help buffer.
 @end table
 
 @c =====================================================================
-@node ToDo, Thanks, Using t3php Mode, Top
+@node Using TS mode, Key Index, T3PHP mode, Top
 @comment  node-name,  next,  previous,  up
-@chapter ToDo
-A collection of features for the future, which might be implemented some
-time and may be expanded by you:
-@itemize
-@item
-inserting @typothree{} helper functions like inserting measurement
-functions from a list
-@end itemize
+@chapter Using TS mode
 
 @page
 
 @c =====================================================================
-@node Key Index, Variable Index, Thanks, Top
+@node Key Index, Variable Index, Using TS mode, Top
 @comment  node-name,  next,  previous,  up
 @unnumbered Key Index
 
