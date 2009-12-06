@@ -527,12 +527,13 @@ This function inserts:
 
 (defun t3php-insert-class-name ()
   "Insert class name derived from buffer file name."
+(defun t3php-get-class-name ()
+  "Return class name derived from buffer file name."
   (if (string-match-p
 	    "^class."
-	    (buffer-file-name))
+	    (file-name-nondirectory buffer-file-name))
       (substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
     (file-name-sans-extension (file-name-nondirectory buffer-file-name))))
-
 
 (defun t3php-path-to-extension-file ()
   "Return path to extension file."
