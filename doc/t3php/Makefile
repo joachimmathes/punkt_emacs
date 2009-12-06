@@ -4,37 +4,37 @@ TEXI2PDF=/usr/bin/texi2pdf
 DVIPS=/usr/bin/dvips
 
 FILES=$(wildcard *.texi)
-MASTERFILE=typo3-emacs.texi
+MASTERFILE=t3php-mode.texi
 
 .PHONY : all clean veryclean
 
 all : htmlsplit htmlnosplit pdf dvi ps
 
-htmlsplit : typo3-emacs/index.html
+htmlsplit : t3php-mode/index.html
 
-htmlnosplit : typo3-emacs.html
+htmlnosplit : t3php-mode.html
 
-pdf : typo3-emacs.pdf
+pdf : t3php-mode.pdf
 
-typo3-emacs.pdf : $(FILES)
+t3php-mode.pdf : $(FILES)
 	@$(TEXI2PDF) -E $(MASTERFILE)
 
-ps : typo3-emacs.ps
+ps : t3php-mode.ps
 
-typo3-emacs.ps : typo3-emacs.dvi
+t3php-mode.ps : t3php-mode.dvi
 	@$(DVIPS) $<
 
-dvi : typo3-emacs.dvi
+dvi : t3php-mode.dvi
 
-typo3-emacs.dvi : $(FILES)
+t3php-mode.dvi : $(FILES)
 	@$(TEXI2DVI) -E $(MASTERFILE)
 
-typo3-emacs/index.html : $(FILES)
+t3php-mode/index.html : $(FILES)
 	@$(MAKEINFO) --html $(MASTERFILE)
-	@mkdir typo3-emacs/images/
-	@cp images/* typo3-emacs/images/
+	@mkdir t3php-mode/images/
+	@cp images/* t3php-mode/images/
 
-typo3-emacs.html : $(FILES)
+t3php-mode.html : $(FILES)
 	@$(MAKEINFO) --no-split --html $(MASTERFILE)
 
 clean :
@@ -42,4 +42,4 @@ clean :
 	       *.ky *.kys *.vr *.vrs *.pg *.tp
 
 veryclean : clean
-	@rm -rf *.pdf *.ps *.html *~ typo3-emacs
+	@rm -rf *.pdf *.ps *.html *~ t3php-mode
