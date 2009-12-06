@@ -64,8 +64,8 @@
   :type 'string
   :group 't3php)
 
-(defcustom t3php-developer "Lisa Fremont <lisa@fremont.de>"
-  "Developer for php-doc."
+(defcustom t3php-author "Lisa Fremont <lisa@fremont.de>"
+  "Author for php-doc."
   :type 'string
   :group 't3php)
 
@@ -459,7 +459,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   "Insert class into empty php buffer.
 This function inserts:
 * php tags
-* copyright with current date and t3php-developer
+* copyright with current date and t3php-author
 * a comment block which contains SCM ID tag `$Id$', author, date
   and leaves room for a class description
 * a special comment for inserting a function index automatically
@@ -472,7 +472,7 @@ This function inserts:
 	  "/***************************************************************\n"
 	  " *  Copyright notice\n"
 	  " *\n"
-	  " *  (c) "  (t3php-current-year) " " t3php-developer "\n"
+	  " *  (c) "  (t3php-current-year) " " t3php-author "\n"
 	  " *  All rights reserved\n"
 	  " *\n"
 	  " *  This script is part of the TYPO3 project. The TYPO3 project is\n"
@@ -496,7 +496,7 @@ This function inserts:
 	  " *\n"
 	  " * @author"
 	  (t3php-return-phpdoc-alignment 3)
-	  t3php-developer
+	  t3php-author
 	  "\n"
 	  " * @since"
 	  (t3php-return-phpdoc-alignment 4)
@@ -517,7 +517,7 @@ This function inserts:
 	  " *\n"
 	  " * @author"
 	  (t3php-return-phpdoc-alignment 9)
-	  t3php-developer
+	  t3php-author
 	  "\n"
 	  " * @package"
 	  (t3php-return-phpdoc-alignment 8)
@@ -610,7 +610,7 @@ This function inserts:
     (insert "* @return\n"
 	    "* @author"
 	    (t3php-return-phpdoc-alignment 2)
-	    t3php-developer
+	    t3php-author
 	    "\n"
 	    "* @since"
 	    (t3php-return-phpdoc-alignment 3)
