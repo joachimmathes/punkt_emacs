@@ -1,0 +1,316 @@
+This is ts-mode.info, produced by makeinfo version 4.13 from
+ts-mode.texi.
+
+This manual introduces TypoScript Mode, a major mode for editing
+TypoScript files with Emacs.
+
+   Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+
+
+File: ts-mode.info,  Node: Top,  Next: Introduction,  Up: (dir)
+
+TypoScript Mode
+***************
+
+This manual introduces TypoScript Mode, a major mode for editing
+TypoScript files with Emacs.
+
+   Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+
+* Menu:
+
+* Introduction:: TypoScript and Emacs
+* Installation:: Prepare Emacs
+* Using TS mode:: Features, commands and key bindings
+* Key Index::
+* Variable Index::
+* Function Index::
+
+
+File: ts-mode.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up: Top
+
+1 Introduction
+**************
+
+This manual describes TS mode, which extends Emacs with functionality
+for editing TypoScript files.
+
+   GNU Emacs is an extensible, customizable text editor and can be
+obtained for free from `http://ftp.gnu.org/pub/gnu/emacs/'. *Note
+Preface: (emacs)Top. The code is written and tested on GNU Emacs
+version 23.1.1.
+
+
+File: ts-mode.info,  Node: Installation,  Next: Using TS mode,  Prev: Introduction,  Up: Top
+
+2 Installation
+**************
+
+To install TypoScript Mode just drop file `ts-mode.el' into a directory
+on your load-path. If you are the administrator of the system you are
+working on, a possible directory could be
+`/usr/share/emacs/site-lisp/skampi-mode', for example. You might
+byte-compile it for better performance. *Note Byte Compilation:
+(elisp)Byte Compilation.
+
+   To set up Emacs to automatically edit files ending in `.ts' using
+TypoScript Mode, add the following lines to your `~/.emacs' file (GNU
+Emacs) or `~/.xemacs/init.el' file (XEmacs):
+     (setq auto-mode-alist (cons '("\\.ts$" . ts-mode) auto-mode-alist))
+     (autoload 'ts-mode "ts-mode" "TypoScript input file editing mode." t)
+   If you just want to test TypoScript Mode or are not eager to modify
+your `~/.emacs' file, type `M-x load-file', load the `ts-mode.el' file
+and finally apply the mode to the current buffer by typing `M-x
+ts-mode'.
+
+
+File: ts-mode.info,  Node: Using TS mode,  Next: Key Index,  Prev: Installation,  Up: Top
+
+3 Using T3PHP mode
+******************
+
+TypoScript Mode supports different display and editing features, which
+will be described in the following sections.
+
+* Menu:
+
+* Customization::
+* Syntax highlighting::
+* Line indentation::
+* Folding::
+
+
+File: ts-mode.info,  Node: Customization,  Next: Syntax highlighting,  Up: Using TS mode
+
+3.1 Customization
+=================
+
+TypoScript Mode defines a customization group in Emacs, which is a
+member of the Emacs standard customization group `Languages', whose
+parent Emacs group is `Programming'. Use `M-x customize' to browse
+through the full list of customization groups or `M-x customize-group'
+with parameter `typoscript' to enter the TypoScript Mode customization
+group directly
+
+The following user-customizable variables are provided.
+
+ -- Variable: integer t3php-block-indentation
+     The indentation relative to a predecessing line which begins a new
+     code block.
+
+     Default: `4'
+
+ -- Variable: choice ts-newline-function
+     This variable decides which function to call upon pressing
+     `<RET>'. Depending on the chosen option, line indentation will be
+     processed automatically. The following options are available for
+     CHOICE:
+    `newline'
+          This command just inserts newlines into the current buffer
+          before point.
+
+    `newline-and-indent'
+          This function inserts a newline(1), then indents the new line
+          (the one following the newline just inserted) according to
+          TypoScript Mode's internal indentation strategies.
+
+    `reindent-then-newline-and-indent'
+          This command reindents the current line, inserts a newline at
+          point, and then indents the new line (the one following the
+          newline just inserted).
+
+     Default: `newline'.
+
+ -- Variable: color ts-fold-foreground-color
+     The foreground color used to highlight a folded block.
+
+     Default: `white'.
+
+ -- Variable: color ts-fold-background-color
+     The background color used to highlight a folded block.
+
+     Default: `DodgerBlue1'.
+
+   ---------- Footnotes ----------
+
+   (1) Note the different meanings of _newline_ and _new line_, that
+goes with their different spellings. _newline_ refers to the code
+representation of a new line, while _new line_ means its interpretation
+as a visible new line in the editor after pressing `<RET>'.
+
+
+File: ts-mode.info,  Node: Syntax highlighting,  Next: Line indentation,  Prev: Customization,  Up: Using TS mode
+
+3.2 Syntax highlighting
+=======================
+
+Syntax highlighting is a convenient feature of an editor to improve the
+appearance hence the readability of code. TypoScript Mode supports the
+highlighting of single line and multiline comments, keywords and several
+syntactic structures.
+
+   In XEmacs syntax highlighting should be enabled automatically. In GNU
+Emacs you may have to add these lines to your `~/.emacs' file:
+     (global-font-lock-mode t)
+     (setq font-lock-maximum-decoration t)
+
+
+File: ts-mode.info,  Node: Line indentation,  Next: Folding,  Prev: Syntax highlighting,  Up: Using TS mode
+
+3.3 Line indentation
+====================
+
+A TypoScript code line is indented automatically when the <TAB> key is
+pressed while point is on the according line. The indentation takes
+place with respect to the indentation of previous lines. *Note
+Customization::, for details. The default width is `4'.
+
+   Depending on the current value of the customizable variable
+TS-NEWLINE-FUNCTION, line indentation might be executed automatically
+after pressing `<RET>'. *Note Customization::, for details.
+
+   Furthermore the characters `}' (closing parenthesis) and `)'
+(closing brace) are _electric_, i.e. they are indented automatically
+after insertion.
+
+
+File: ts-mode.info,  Node: Folding,  Prev: Line indentation,  Up: Using TS mode
+
+3.4 Folding
+===========
+
+Emacs is able to alter the appearance of a buffer's text on the screen,
+for the sake of presentation features, with so called "overlays". In
+TypoScript Mode this mechanism is used to "fold" TypoScript blocks like
+1 page.10 {
+2     table = tt_content
+3     select {
+4         pidInList = this
+5         orderBy = sorting
+6     }
+7 }
+   to a single non editable line containing only the name of the
+TypoScript block, if point is on the `select' line.
+1 page.10 {
+2     table = tt_content
+3     [select]
+4     }
+5 }
+   These string replacements are highlighted with dedicated foreground
+and background colors, which can of course be customized. *Note
+Customization::, for details. The default color combination is `white'
+text on an `DodgerBlue1' background.
+
+The following commands are implemented to "fold" and "unfold"
+measurement blocks.
+
+ -- Interactive Command: ts-fold-block
+     Fold the innermost block with respect to point position.
+
+     Key binding: `C-c C-e'
+
+ -- Interactive Command: ts-unfold-block
+     Unfold the folded block at point.
+
+     Key binding: `C-c C-a'
+
+ -- Interactive Command: ts-unfold-region start end
+     Unfold every folded measurement block, which is placed within a
+     region limited by mark and point.
+
+     Key binding: `C-c C-u C-r'
+
+ -- Interactive Command: ts-unfold-buffer
+     Unfold every folded block in the current buffer.
+
+     Key binding: `C-c C-u C-b'
+
+
+File: ts-mode.info,  Node: Key Index,  Next: Variable Index,  Prev: Using TS mode,  Up: Top
+
+Key Index
+*********
+
+ [index ]
+* Menu:
+
+* C-c C-a:                               Folding.               (line 6)
+* C-c C-e:                               Folding.               (line 6)
+* C-c C-u C-b:                           Folding.               (line 6)
+* C-c C-u C-r:                           Folding.               (line 6)
+
+
+File: ts-mode.info,  Node: Variable Index,  Next: Function Index,  Prev: Key Index,  Up: Top
+
+Variable Index
+**************
+
+ [index ]
+* Menu:
+
+* t3php-block-indentation:               Customization.        (line 16)
+* ts-fold-background-color:              Customization.        (line 48)
+* ts-fold-foreground-color:              Customization.        (line 43)
+* ts-newline-function:                   Customization.        (line 22)
+
+
+File: ts-mode.info,  Node: Function Index,  Prev: Variable Index,  Up: Top
+
+Function Index
+**************
+
+ [index ]
+* Menu:
+
+* ts-fold-block:                         Folding.              (line 32)
+* ts-unfold-block:                       Folding.              (line 37)
+* ts-unfold-buffer:                      Folding.              (line 48)
+* ts-unfold-region:                      Folding.              (line 42)
+
+
+
+Tag Table:
+Node: Top952
+Node: Introduction2113
+Node: Installation2546
+Node: Using TS mode3561
+Node: Customization3895
+Ref: Customization-Footnote-15735
+Node: Syntax highlighting6003
+Node: Line indentation6619
+Node: Folding7377
+Node: Key Index8890
+Node: Variable Index9320
+Node: Function Index9761
+
+End Tag Table

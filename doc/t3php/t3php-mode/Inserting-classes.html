@@ -1,0 +1,149 @@
+<html lang="en">
+<head>
+<title>Inserting classes - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Inserting-code-templates.html#Inserting-code-templates" title="Inserting code templates">
+<link rel="prev" href="Inserting-methods.html#Inserting-methods" title="Inserting methods">
+<link rel="next" href="Buffer-outline.html#Buffer-outline" title="Buffer outline">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Inserting-classes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Buffer-outline.html#Buffer-outline">Buffer outline</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Inserting-methods.html#Inserting-methods">Inserting methods</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Inserting-code-templates.html#Inserting-code-templates">Inserting code templates</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">3.4.2 Inserting classes</h4>
+
+<div class="defun">
+&mdash; Interactive Command: <b>t3php-insert-class</b><var><a name="index-t3php_002dinsert_002dclass-18"></a></var><br>
+<blockquote><p>Insert the rudimentary class framework code with respect to TYPO3 coding
+standards. The inserted code consists of
+          <ul>
+<li>PHP tags
+<li>a copyright notice where date and author are inserted automatically with
+respect to customizable variables &lsquo;<samp><span class="samp">t3php-year-format</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">t3php-developer</span></samp>&rsquo;. See <a href="x_002dt3php_002dyear_002dformat.html#x_002dt3php_002dyear_002dformat">t3php-year-format</a> and
+<a href="x_002dt3php_002ddeveloper.html#x_002dt3php_002ddeveloper">x-t3php-developer</a>, for more information. 
+<li>a marker comment for the class and function index which can be inserted
+by TYPO3 extension <em>extdeval</em>. The following empty lines might be
+filled with required files. 
+<li>a class header comment in PHPdoc style which contains
+               <ul>
+<li><code>@author</code> (default: &lsquo;<samp><span class="samp">t3php-developer</span></samp>&rsquo;)
+<li><code>@package</code> (default: &lsquo;<samp><span class="samp">TYPO3</span></samp>&rsquo;)
+<li><code>@subpackage</code> (default: empty)
+<li><code>@since</code> (default: &lsquo;<samp><span class="samp">t3php-date-format</span></samp>&rsquo;)
+</ul>
+          <li>the class definition
+<li>a TYPO3 XCLASS inclusion code snippet for class extension and/or
+overriding. The associative array <code>TYPO3_CONF_VARS</code> has a key which
+refers to the current class path and file name, which is inserted
+dynamically. The information is extracted from the customizable
+variables &lsquo;<samp><span class="samp">t3php-path-to-typo3-extension-directory</span></samp>&rsquo; and the buffer
+file name. See <a href="x_002dt3php_002dtypo3_002dextension_002ddirectory.html#x_002dt3php_002dtypo3_002dextension_002ddirectory">t3php-typo3-extension-directory</a>, for more information. 
+</ul>
+
+        <p>Key binding: <kbd>C-c C-ic</kbd>. 
+</p></blockquote></div>
+The following code example was inserted in an empty file named
+<samp><span class="file">class.bar.php</span></samp>:
+<pre class="smallformat"><pre class="verbatim">1  &lt;?php
+2  /***************************************************************
+3   *  Copyright notice
+4   *
+5   *  (c) 2009 Lisa Fremont &lt;lisa@fremont.de>
+6   *  All rights reserved
+7   *
+8   *  This script is part of the TYPO3 project. The TYPO3 project is
+9   *  free software; you can redistribute it and/or modify
+10  *  it under the terms of the GNU General Public License as published by
+11  *  the Free Software Foundation; either version 2 of the License, or
+12  *  (at your option) any later version.
+13  *
+14  *  The GNU General Public License can be found at
+15  *  http://www.gnu.org/copyleft/gpl.html.
+16  *
+17  *  This script is distributed in the hope that it will be useful,
+18  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+19  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+20  *  GNU General Public License for more details.
+21  *
+22  *  This copyright notice MUST APPEAR in all copies of the script!
+23  ***************************************************************/
+24 /**
+25  * [CLASS/FUNCTION INDEX of SCRIPT]
+26  *
+27  * Hint: use extdeveval to insert/update function index above.
+28  */
+29
+30
+31
+32
+33
+34 /**
+35  *
+36  *
+37  * @author     Lisa Fremont &lt;lisa@fremont.de>
+38  * @package    TYPO3
+39  * @subpackage
+40  * @since      2009-12-02
+41  */
+42 class tslib_content {
+43
+44 }
+45
+46
+47 /*******************************************************************************
+48  * TYPO3 XCLASS INCLUSION (for class extension/overriding)
+49  ******************************************************************************/
+50 if (defined('TYPO3_MODE') &amp;&amp; $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/foo/class.bar.php']) {
+51     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/foo/class.bar.php']);
+52 }
+53 ?>
+</pre>
+</pre>
+   <!--  -->
+   </body></html>
+

@@ -1,0 +1,276 @@
+<html lang="en">
+<head>
+<title>Customization - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Using-T3PHP-mode.html#Using-T3PHP-mode" title="Using T3PHP mode">
+<link rel="next" href="Syntax-highlighting.html#Syntax-highlighting" title="Syntax highlighting">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Customization"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Syntax-highlighting.html#Syntax-highlighting">Syntax highlighting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Using-T3PHP-mode.html#Using-T3PHP-mode">Using T3PHP mode</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.1 Customization</h3>
+
+<p>T3PHP Mode defines a customization group in Emacs, which is a
+member of the Emacs standard customization group <code>Languages</code>, whose
+parent Emacs group is <code>Programming</code>. Use <kbd>M-x customize</kbd> to
+browse through the full list of customization groups or <kbd>M-x
+customize-group</kbd> with parameter &lsquo;<samp><span class="samp">t3php</span></samp>&rsquo; to enter the
+T3PHP Mode customization group directly
+
+<p class="noindent">The following user-customizable variables are provided.
+
+   <p><a name="x_002dt3php_002ddeveloper"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-developer</b><var><a name="index-t3php_002ddeveloper-1"></a></var><br>
+<blockquote><p>The current developer or author of the PHP code. The value of this
+variable is used in the php-doc comments.
+
+        <p>Default: &lsquo;<samp><span class="samp">Lisa Fremont &lt;lisa@fremont.de&gt;</span></samp>&rsquo;
+</p></blockquote></div>
+
+   <p><a name="x_002dt3php_002dtypo3_002dextension_002ddirectory"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-typo3-extension-directory</b><var><a name="index-t3php_002dtypo3_002dextension_002ddirectory-2"></a></var><br>
+<blockquote><p>The path to the TYPO3 extensions' directory relative to the TYPO3 root
+directory.
+
+        <p>Default: &lsquo;<samp><span class="samp">ext/</span></samp>&rsquo;
+</p></blockquote></div>
+
+   <p><a name="x_002dt3php_002dpath_002dto_002dtypo3_002dextension_002ddirectory"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-path-to-typo3-extension-directory</b><var><a name="index-t3php_002dpath_002dto_002dtypo3_002dextension_002ddirectory-3"></a></var><br>
+<blockquote><p>The path to the TYPO3 extensions directory relative to the TYPO3 root
+directory.
+
+        <p>Default: &lsquo;<samp><span class="samp">typo3conf/</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-date-format</b><var><a name="index-t3php_002ddate_002dformat-4"></a></var><br>
+<blockquote><p>The date format which is used for php-doc comments.
+
+        <p>Default: &lsquo;<samp><span class="samp">%Y-%m-%d</span></samp>&rsquo;
+</p></blockquote></div>
+
+   <p><a name="x_002dt3php_002dyear_002dformat"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-year-format</b><var><a name="index-t3php_002dyear_002dformat-5"></a></var><br>
+<blockquote><p>The year format which is used in php-doc comments.
+
+        <p>Default: &lsquo;<samp><span class="samp">%Y</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: integer <b>t3php-block-indentation</b><var><a name="index-t3php_002dblock_002dindentation-6"></a></var><br>
+<blockquote><p>The indentation relative to a predecessing line which begins a new
+code block.
+
+        <p>Default: &lsquo;<samp><span class="samp">4</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: choice <b>t3php-newline-function</b><var><a name="index-t3php_002dnewline_002dfunction-7"></a></var><br>
+<blockquote><p>This variable decides which function to call upon pressing
+<kbd>&lt;RET&gt;</kbd>. Depending on the chosen option, line indentation will
+be processed automatically. The following options are available for
+<var>choice</var>:
+          <dl>
+<dt><code>newline</code><dd>This command just inserts newlines into the current buffer before point. 
+<br><dt><code>newline-and-indent</code><dd>This function inserts a newline<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, then indents the
+new line (the one following the newline just inserted) according to
+T3PHP Mode's internal indentation strategies. 
+<br><dt><code>reindent-then-newline-and-indent</code><dd>This command reindents the current line, inserts a newline at point, and
+then indents the new line (the one following the newline just inserted). 
+</dl>
+
+        <p>Default: &lsquo;<samp><span class="samp">newline</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-php-doc-align</b><var><a name="index-t3php_002dphp_002ddoc_002dalign-8"></a></var><br>
+<blockquote><p>Determines whether the PHPDoc parameters are aligned after a method or
+class is inserted with <code>t3php-insert-method</code> or
+<code>t3php-insert-class</code> respectively. See <a href="Inserting-methods.html#Inserting-methods">Inserting methods</a> and
+<a href="Inserting-classes.html#Inserting-classes">Inserting classes</a>, for more information.
+
+        <p>Aligned parameters:
+     <pre class="smallformat"><pre class="verbatim">     1  /**
+     2   * Define foobar
+     3   *
+     4   * @param   $foo
+     5   * @param   $bar
+     6   * @return
+     7   * @author  Lisa Fremont &lt;lisa@fremont.de>
+     8   * @since   2009-12-02
+     9   */
+     10 public function foobar($foo, $bar) {
+     11
+     12 }
+</pre>
+</pre>
+        <p>Unaligned parameters:
+     <pre class="smallformat"><pre class="verbatim">     1  /**
+     2   * Define foobar
+     3   *
+     4   * @param $foo
+     5   * @param $bar
+     6   * @return
+     7   * @author Lisa Fremont &lt;lisa@fremont.de>
+     8   * @since 2009-12-02
+     9   */
+     10 public function foobar($foo, $bar) {
+     11
+     12 }
+</pre>
+</pre>
+        <p>Default: &lsquo;<samp><span class="samp">t</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-php-manual-url</b><var><a name="index-t3php_002dphp_002dmanual_002durl-9"></a></var><br>
+<blockquote><p>URL at which to find PHP manual. You can replace &lsquo;<samp><span class="samp">en</span></samp>&rsquo; with your ISO
+language code.
+
+        <p>Default: &lsquo;<samp><span class="samp">http://www.php.net/manual/en/</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-php-search-url</b><var><a name="index-t3php_002dphp_002dsearch_002durl-10"></a></var><br>
+<blockquote><p>URL at which to search for documentation on a word, e.g. a PHP
+function.
+
+        <p>Default: &lsquo;<samp><span class="samp">http://www.php.net/manual/en/</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-outline-keep-other-windows</b><var><a name="index-t3php_002doutline_002dkeep_002dother_002dwindows-11"></a></var><br>
+<blockquote><p>When the outline is viewed, the boolean value of this variable decides
+if the currently selected T3PHP Mode buffer will be
+deleted. If the variable is set to true (&lsquo;<samp><span class="samp">t</span></samp>&rsquo;) the current window is
+split and the outline is displayed in the newly created window. When
+<code>nil</code>, all other windows except the selected one will be deleted,
+so that the outline window fills an adjustable
+(see <a href="x_002dstswf.html#x_002dstswf">t3php-outline-split-windows-fraction</a>) amount of the
+frame.
+
+        <p>Default: &lsquo;<samp><span class="samp">t</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-outline-split-windows-horizontally</b><var><a name="index-t3php_002doutline_002dsplit_002dwindows_002dhorizontally-12"></a></var><br>
+<blockquote><p>This variable determines the splitting mode, if the outline is
+displayed. If true, split the current window horizontally. Otherwise
+split the window vertically.
+
+        <p>Default: &lsquo;<samp><span class="samp">nil</span></samp>&rsquo;.
+
+        <p>I must admit, that sometimes I get confused. So if it is not for your
+orientation, at least it is for mine. :-)
+
+        <div class="float">
+<a name="fig_003asplit_005fv"></a><div align="center"><img src="images/split_v.png" alt="Splitting a window vertically"></div>
+        <p><strong class="float-caption">Figure 3.1: Splitting a window <em>vertically</em>.</strong></p></div>
+
+        <div class="float">
+<a name="fig_003asplit_005fh"></a><div align="center"><img src="images/split_h.png" alt="Splitting a window horizontally"></div>
+        <p><strong class="float-caption">Figure 3.2: Splitting a window <em>horizontally</em>.</strong></p></div>
+</p></blockquote></div>
+
+   <p><a name="x_002dstswf"></a>
+
+<div class="defun">
+&mdash; Variable: number <b>t3php-outline-split-windows-fraction</b><var><a name="index-t3php_002doutline_002dsplit_002dwindows_002dfraction-13"></a></var><br>
+<blockquote><p>This variable describes the fraction of the width or height of the
+window, which is used for the outline.
+
+        <p>Default: &lsquo;<samp><span class="samp">.3</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-outline-follow-mode</b><var><a name="index-t3php_002doutline_002dfollow_002dmode-14"></a></var><br>
+<blockquote><p>If true, point in outline buffer will make T3PHP window to
+follow. It will show the corresponding part of the document. This flag
+can be toggled from within the outline buffer with the <kbd>f</kbd> key.
+
+        <p>Default: &lsquo;<samp><span class="samp">nil</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>t3php-outline-hl-line-color</b><var><a name="index-t3php_002doutline_002dhl_002dline_002dcolor-15"></a></var><br>
+<blockquote><p>The color used to highlight the background of the horizontal line which
+marks the current line of the outline buffer and the corresponding line
+in the T3PHP buffer when follow mode is active.
+
+        <p>Default: &lsquo;<samp><span class="samp">DarkSlateBlue</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>t3php-outline-method-name-color</b><var><a name="index-t3php_002doutline_002dmethod_002dname_002dcolor-16"></a></var><br>
+<blockquote><p>The color used to highlight the lines in the outline, which refer to
+the corresponding method.
+
+        <p>Default: &lsquo;<samp><span class="samp">sea green</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<!--  -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Note the different meanings of
+<em>newline</em> and <em>new line</em>, that goes with their different
+spellings. <em>newline</em> refers to the code representation of a new
+line, while <em>new line</em> means its interpretation as a visible new
+line in the editor after pressing <kbd>&lt;RET&gt;</kbd>.</p>
+
+   <hr></div>
+
+   </body></html>
+

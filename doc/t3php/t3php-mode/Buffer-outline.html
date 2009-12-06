@@ -1,0 +1,149 @@
+<html lang="en">
+<head>
+<title>Buffer outline - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Using-T3PHP-mode.html#Using-T3PHP-mode" title="Using T3PHP mode">
+<link rel="prev" href="Inserting-classes.html#Inserting-classes" title="Inserting classes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Buffer-outline"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Inserting-classes.html#Inserting-classes">Inserting classes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Using-T3PHP-mode.html#Using-T3PHP-mode">Using T3PHP mode</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.5 Buffer outline</h3>
+
+<p><a name="index-g_t_0040kbd_007bC_002dc-C_002dt_007d-19"></a><a name="index-g_t_0040kbd_007bn_007d-20"></a><a name="index-g_t_0040kbd_007b_0040key_007bRIGHT_007d_007d-21"></a><a name="index-g_t_0040kbd_007b_0040key_007bDOWN_007d_007d-22"></a><a name="index-g_t_0040kbd_007bp_007d-23"></a><a name="index-g_t_0040kbd_007b_0040key_007bLEFT_007d_007d-24"></a><a name="index-g_t_0040kbd_007b_0040key_007bUP_007d_007d-25"></a><a name="index-g_t_0040kbd_007bC_002d_0040key_007bHOME_007d_007d-26"></a><a name="index-g_t_0040kbd_007bC_002d_0040key_007bEND_007d_007d-27"></a><a name="index-g_t_0040kbd_007b_0040key_007bSPC_007d_007d-28"></a><a name="index-g_t_0040kbd_007b_0040key_007bTAB_007d_007d-29"></a><a name="index-g_t_0040kbd_007b_0040key_007bRET_007d_007d-30"></a><a name="index-g_t_0040kbd_007bf_007d-31"></a><a name="index-g_t_0040kbd_007br_007d-32"></a><a name="index-g_t_0040kbd_007bk_007d-33"></a><a name="index-g_t_0040kbd_007b_003f_007d-34"></a>
+The outline buffer summarizes the methods of the PHP buffer and provides
+comfortable navigation through the PHP buffer. The first three lines are
+intangible and show the file name of the current PHP input file and the
+shortcuts of the most important commands.
+
+   <p>Each method in the current PHP buffer is referred to by its name. The
+maximally displayed line width of a method name is limited to 40
+characters. Thus, a longer name is chopped to a length of 40 characters
+and ellipse characters (<code>...</code>) are concatenated. When you move the
+mouse cursor over a method name the complete name is displayed
+nevertheless. On graphical displays, it is displayed as a <em>tooltip</em>
+or <em>balloon help</em> as it is called sometimes. On some systems, it is
+shown in the echo area. On text-only terminals, Emacs can't follow the
+mouse, and therefore is not able to show the complete name on
+mouse-over.
+
+   <p>The character and color of the leftmost column indicates the type of
+method modifier:
+     <dl>
+<dt><code>private</code><dd><code>[-]</code> (color: &lsquo;<samp><span class="samp">firebrick</span></samp>&rsquo;)
+<br><dt><code>protected</code><dd><code>[#]</code> (color: &lsquo;<samp><span class="samp">goldenrod</span></samp>&rsquo;)
+<br><dt><code>public</code><dd><code>[+]</code> (color: &lsquo;<samp><span class="samp">forest green</span></samp>&rsquo;)
+</dl>
+
+   <p>The rightmost column presents the line numbers, which delimit the region
+of the respective measurement block.
+<pre class="smallformat"><pre class="verbatim">TABLE OF CONTENTS of ~/public_html/typo3/t3lib/class.t3lib_extmgm.php
+SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
+-----------------------------------------------------------------------
+[P] isLoaded                                      [  131-136  ]
+[P] extPath                                       [  147-155  ]
+[P] extRelPath                                    [  165-172  ]
+[P] siteRelPath                                   [  182-185  ]
+[P] getCN                                         [  194-197  ]
+[P] addTCAcolumns                                 [  227-235  ]
+[P] addToAllTCAtypes                              [  251-304  ]
+[P] allowTableOnStandardPages                     [  315-320  ]
+[P] addModule                                     [  332-378  ]
+[P] addModulePath                                 [  390-395  ]
+[P] insertModuleFunction                          [  412-421  ]
+[P] addPageTSConfig                               [  431-435  ]
+[P] addUserTSConfig                               [  445-449  ]
+[P] addLLrefForTCAdescr                           [  460-472  ]
+</pre>
+</pre>
+   <div class="defun">
+&mdash; Interactive Command: <b>t3php-outline</b><var> rescan<a name="index-t3php_002doutline-35"></a></var><br>
+<blockquote><p>This command shows the outline of the current PHP buffer. If
+<var>rescan</var> is true, the PHP buffer will be rescanned before the ouline
+buffer is displayed.
+
+        <p>Key binding <kbd>C-ct</kbd>. 
+</p></blockquote></div>
+
+<p class="noindent">The outline buffer is a read-only buffer with few dedicated key bindings:
+     <dl>
+<dt><kbd>n</kbd><dd>Move to the next selectable item.
+
+     <br><dt><kbd>&lt;RIGHT&gt;</kbd><dd>Move to the next selectable item.
+
+     <br><dt><kbd>&lt;DOWN&gt;</kbd><dd>Move to the next selectable item.
+
+     <br><dt><kbd>p</kbd><dd>Move to the previous selectable item.
+
+     <br><dt><kbd>&lt;LEFT&gt;</kbd><dd>Move to the previous selectable item.
+
+     <br><dt><kbd>&lt;UP&gt;</kbd><dd>Move to the previous selectable item.
+
+     <br><dt><kbd>C-&lt;HOME&gt;</kbd><dd>Move to the beginning of the outline buffer.
+
+     <br><dt><kbd>C-&lt;END&gt;</kbd><dd>Move to the end of the outline buffer.
+
+     <br><dt><kbd>&lt;SPC&gt;</kbd><dd>Show the corresponding location of the TYPO3 buffer.
+
+     <br><dt><kbd>&lt;TAB&gt;</kbd><dd>Go to the corresponding location of the TYPO3 buffer and keep the
+outline window.
+
+     <br><dt><kbd>&lt;RET&gt;</kbd><dd>Go to the corresponding location of the TYPO3 buffer and hide the
+outline window.
+
+     <br><dt><kbd>f</kbd><dd>Toggle follow mode.
+
+     <br><dt><kbd>r</kbd><dd>Re-parse the TYPO3 buffer.
+
+     <br><dt><kbd>k</kbd><dd>Kill the outline buffer.
+
+     <br><dt><kbd>?</kbd><dd>Show a help buffer. 
+</dl>
+
+<!-- ===================================================================== -->
+   </body></html>
+

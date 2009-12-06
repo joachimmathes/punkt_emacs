@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>Installation - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Introduction.html#Introduction" title="Introduction">
+<link rel="next" href="Using-T3PHP-mode.html#Using-T3PHP-mode" title="Using T3PHP mode">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Installation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Using-T3PHP-mode.html#Using-T3PHP-mode">Using T3PHP mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Introduction.html#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">2 Installation</h2>
+
+<p>To install T3PHP Mode just drop file <samp><span class="file">t3php-mode.el</span></samp> into
+a directory on your load-path. If you are the administrator of the
+system you are working on, a possible directory could be
+<samp><span class="file">/usr/share/emacs/site-lisp/skampi-mode</span></samp>, for example. You might
+byte-compile it for better performance. See <a href="../elisp/Byte-Compilation.html#Byte-Compilation">Byte Compilation</a>.
+
+   <p>To set up Emacs to automatically edit files ending in <samp><span class="file">.php</span></samp> using
+T3PHP Mode, add the following lines to your <samp><span class="file">~/.emacs</span></samp>
+file (GNU Emacs) or <samp><span class="file">~/.xemacs/init.el</span></samp> file (XEmacs):
+<pre class="lisp">     (setq auto-mode-alist (cons '("\\.php$" . t3php-mode) auto-mode-alist))
+     (autoload 't3php-mode "t3php-mode" "TYPO3-PHP input file editing mode." t)
+</pre>
+   <p>If you just want to test T3PHP Mode or are not eager to modify
+your <samp><span class="file">~/.emacs</span></samp> file, type <kbd>M-x load-file</kbd>, load the
+<samp><span class="file">t3php-mode.el</span></samp> file and finally apply the mode to the current
+buffer by typing <kbd>M-x t3php-mode</kbd>.
+
+<!-- ===================================================================== -->
+   </body></html>
+

@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>Inserting methods - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Inserting-code-templates.html#Inserting-code-templates" title="Inserting code templates">
+<link rel="next" href="Inserting-classes.html#Inserting-classes" title="Inserting classes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Inserting-methods"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Inserting-classes.html#Inserting-classes">Inserting classes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Inserting-code-templates.html#Inserting-code-templates">Inserting code templates</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">3.4.1 Inserting methods</h4>
+
+<div class="defun">
+&mdash; Interactive Command: <b>t3php-insert-method</b><var><a name="index-t3php_002dinsert_002dmethod-17"></a></var><br>
+<blockquote><p>Insert the rudimentary method framework code with respect to TYPO3 coding
+standards. The function asks interactively for the method name, an
+auto-completed modifier (<code>public</code>, <code>protected</code>,
+<code>private</code>) and method arguments until an empty string is provided. 
+The inserted code consists of
+          <ul>
+<li>a class header comment in PHPdoc style which contains
+               <ul>
+<li>empty lines for method descriptions
+<li><code>@param</code> and variable name
+<li><code>@return</code>
+<li><code>@author</code> (default: &lsquo;<samp><span class="samp">t3php-developer</span></samp>&rsquo;)
+<li><code>@since</code> (default: &lsquo;<samp><span class="samp">t3php-date-format</span></samp>&rsquo;)
+</ul>
+          <li>the method signature
+</ul>
+
+        <p>Key binding: <kbd>C-c C-if</kbd>. 
+</p></blockquote></div>
+The following example was inserted with parameters
+     <ul>
+<li>Method name: <code>foobar</code>
+<li>Modifier: <code>public</code>
+<li>Parameter: <code>foo</code>
+<li>Parameter: <code>bar</code>
+</ul>
+
+<pre class="smallformat"><pre class="verbatim">1  /**
+2   *
+3   *
+4   * @param $foo
+5   * @param $bar
+6   * @return
+7   * @author Lisa Fremont &lt;lisa@fremont.de>
+8   * @since 2009-12-02
+9   */
+10 public function foobar($foo, $bar) {
+11
+12 }
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+   </body></html>
+

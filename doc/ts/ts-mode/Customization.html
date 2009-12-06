@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+<title>Customization - Emacs TypoScript Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TypoScript Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Using-TS-mode.html#Using-TS-mode" title="Using TS mode">
+<link rel="next" href="Syntax-highlighting.html#Syntax-highlighting" title="Syntax highlighting">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces TypoScript Mode, a major mode for editing TypoScript files
+with Emacs.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Customization"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Syntax-highlighting.html#Syntax-highlighting">Syntax highlighting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Using-TS-mode.html#Using-TS-mode">Using TS mode</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.1 Customization</h3>
+
+<p>TypoScript Mode defines a customization group in Emacs, which is a
+member of the Emacs standard customization group <code>Languages</code>, whose
+parent Emacs group is <code>Programming</code>. Use <kbd>M-x customize</kbd> to
+browse through the full list of customization groups or <kbd>M-x
+customize-group</kbd> with parameter &lsquo;<samp><span class="samp">typoscript</span></samp>&rsquo; to enter the
+TypoScript Mode customization group directly
+
+<p class="noindent">The following user-customizable variables are provided.
+
+<div class="defun">
+&mdash; Variable: integer <b>t3php-block-indentation</b><var><a name="index-t3php_002dblock_002dindentation-1"></a></var><br>
+<blockquote><p>The indentation relative to a predecessing line which begins a new
+code block.
+
+        <p>Default: &lsquo;<samp><span class="samp">4</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: choice <b>ts-newline-function</b><var><a name="index-ts_002dnewline_002dfunction-2"></a></var><br>
+<blockquote><p>This variable decides which function to call upon pressing
+<kbd>&lt;RET&gt;</kbd>. Depending on the chosen option, line indentation will
+be processed automatically. The following options are available for
+<var>choice</var>:
+          <dl>
+<dt><code>newline</code><dd>This command just inserts newlines into the current buffer before point. 
+<br><dt><code>newline-and-indent</code><dd>This function inserts a newline<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, then indents the
+new line (the one following the newline just inserted) according to
+TypoScript Mode's internal indentation strategies. 
+<br><dt><code>reindent-then-newline-and-indent</code><dd>This command reindents the current line, inserts a newline at point, and
+then indents the new line (the one following the newline just inserted). 
+</dl>
+
+        <p>Default: &lsquo;<samp><span class="samp">newline</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>ts-fold-foreground-color</b><var><a name="index-ts_002dfold_002dforeground_002dcolor-3"></a></var><br>
+<blockquote><p>The foreground color used to highlight a folded block.
+
+        <p>Default: &lsquo;<samp><span class="samp">white</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>ts-fold-background-color</b><var><a name="index-ts_002dfold_002dbackground_002dcolor-4"></a></var><br>
+<blockquote><p>The background color used to highlight a folded block.
+
+        <p>Default: &lsquo;<samp><span class="samp">DodgerBlue1</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<!--  -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Note the different meanings of
+<em>newline</em> and <em>new line</em>, that goes with their different
+spellings. <em>newline</em> refers to the code representation of a new
+line, while <em>new line</em> means its interpretation as a visible new
+line in the editor after pressing <kbd>&lt;RET&gt;</kbd>.</p>
+
+   <hr></div>
+
+   </body></html>
+

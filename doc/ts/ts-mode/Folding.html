@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>Folding - Emacs TypoScript Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TypoScript Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Using-TS-mode.html#Using-TS-mode" title="Using TS mode">
+<link rel="prev" href="Line-indentation.html#Line-indentation" title="Line indentation">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces TypoScript Mode, a major mode for editing TypoScript files
+with Emacs.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Folding"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Line-indentation.html#Line-indentation">Line indentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Using-TS-mode.html#Using-TS-mode">Using TS mode</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.4 Folding</h3>
+
+<p><a name="index-g_t_0040kbd_007bC_002dc-C_002de_007d-5"></a><a name="index-g_t_0040kbd_007bC_002dc-C_002da_007d-6"></a><a name="index-g_t_0040kbd_007bC_002dc-C_002du-C_002dr_007d-7"></a><a name="index-g_t_0040kbd_007bC_002dc-C_002du-C_002db_007d-8"></a>
+Emacs is able to alter the appearance of a buffer's text on the screen,
+for the sake of presentation features, with so called
+<dfn>overlays</dfn>. In TypoScript Mode this mechanism is used to &ldquo;fold&rdquo; TypoScript
+blocks like
+<pre class="smallformat"><pre class="verbatim">1 page.10 {
+2     table = tt_content
+3     select {
+4         pidInList = this
+5         orderBy = sorting
+6     }
+7 }
+</pre>
+</pre>
+   <p>to a single non editable line containing only the name of the
+TypoScript block, if point is on the &lsquo;<samp><span class="samp">select</span></samp>&rsquo; line.
+<pre class="smallformat"><pre class="verbatim">1 page.10 {
+2     table = tt_content
+3     [select]
+4     }
+5 }
+</pre>
+</pre>
+   <p>These string replacements are highlighted with dedicated foreground and
+background colors, which can of course be
+customized. See <a href="Customization.html#Customization">Customization</a>, for details. The default color
+combination is <code>white</code> text on an <code>DodgerBlue1</code> background.
+
+<p class="noindent">The following commands are implemented to &ldquo;fold&rdquo; and &ldquo;unfold&rdquo;
+measurement blocks.
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-fold-block</b><var><a name="index-ts_002dfold_002dblock-9"></a></var><br>
+<blockquote><p>Fold the innermost block with respect to point position.
+
+        <p>Key binding: <kbd>C-c C-e</kbd>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-unfold-block</b><var><a name="index-ts_002dunfold_002dblock-10"></a></var><br>
+<blockquote><p>Unfold the folded block at point.
+
+        <p>Key binding: <kbd>C-c C-a</kbd>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-unfold-region</b><var> start end<a name="index-ts_002dunfold_002dregion-11"></a></var><br>
+<blockquote><p>Unfold every folded measurement block, which is placed within a region
+limited by mark and point.
+
+        <p>Key binding: <kbd>C-c C-u C-r</kbd>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-unfold-buffer</b><var><a name="index-ts_002dunfold_002dbuffer-12"></a></var><br>
+<blockquote><p>Unfold every folded block in the current buffer.
+
+        <p>Key binding: <kbd>C-c C-u C-b</kbd>
+</p></blockquote></div>
+
+<!-- ===================================================================== -->
+   </body></html>
+

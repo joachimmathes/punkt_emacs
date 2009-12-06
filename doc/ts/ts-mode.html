@@ -1,0 +1,435 @@
+<html lang="en">
+<head>
+<title>Emacs TypoScript Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TypoScript Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces TypoScript Mode, a major mode for editing TypoScript files
+with Emacs.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">Emacs TypoScript Mode Manual</h1>
+   <div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">TypoScript Mode</a>
+<li><a name="toc_Introduction" href="#Introduction">1 Introduction</a>
+<li><a name="toc_Installation" href="#Installation">2 Installation</a>
+<li><a name="toc_Using-TS-mode" href="#Using-TS-mode">3 Using T3PHP mode</a>
+<ul>
+<li><a href="#Customization">3.1 Customization</a>
+<li><a href="#Syntax-highlighting">3.2 Syntax highlighting</a>
+<li><a href="#Line-indentation">3.3 Line indentation</a>
+<li><a href="#Folding">3.4 Folding</a>
+</li></ul>
+<li><a name="toc_Key-Index" href="#Key-Index">Key Index</a>
+<li><a name="toc_Variable-Index" href="#Variable-Index">Variable Index</a>
+<li><a name="toc_Function-Index" href="#Function-Index">Function Index</a>
+</li></ul>
+</div>
+
+
+
+<!-- @ifnotinfo -->
+<!-- @unnumbered List of figures -->
+<!-- @listoffloats Figure -->
+<!-- @page -->
+<!-- @end ifnotinfo -->
+<div class="node">
+<a name="Top"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<h2 class="unnumbered">TypoScript Mode</h2>
+
+<p>This manual introduces TypoScript Mode, a major mode for editing TypoScript files
+with Emacs.
+
+   <p>Copyright &copy; 2009 Joachim Mathes.
+
+   <blockquote>
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License, or (at your
+option) any later version.
+
+   <p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+   <p>You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. 
+</blockquote>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Introduction">Introduction</a>:  TypoScript and Emacs
+<li><a accesskey="2" href="#Installation">Installation</a>:  Prepare Emacs
+<li><a accesskey="3" href="#Using-TS-mode">Using TS mode</a>:  Features, commands and key bindings
+<li><a accesskey="4" href="#Key-Index">Key Index</a>
+<li><a accesskey="5" href="#Variable-Index">Variable Index</a>
+<li><a accesskey="6" href="#Function-Index">Function Index</a>
+</ul>
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Introduction"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Installation">Installation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">1 Introduction</h2>
+
+<p>This manual describes TS mode, which extends Emacs with functionality
+for editing TypoScript files.
+
+   <p>GNU Emacs is an extensible, customizable text editor and can be obtained
+for free from <a href="http://ftp.gnu.org/pub/gnu/emacs/">http://ftp.gnu.org/pub/gnu/emacs/</a>. See <a href="emacs.html#Top">Preface</a>. The code is written and tested
+on GNU Emacs version 23.1.1.
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Installation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Using-TS-mode">Using TS mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">2 Installation</h2>
+
+<p>To install TypoScript Mode just drop file <samp><span class="file">ts-mode.el</span></samp> into
+a directory on your load-path. If you are the administrator of the
+system you are working on, a possible directory could be
+<samp><span class="file">/usr/share/emacs/site-lisp/skampi-mode</span></samp>, for example. You might
+byte-compile it for better performance. See <a href="elisp.html#Byte-Compilation">Byte Compilation</a>.
+
+   <p>To set up Emacs to automatically edit files ending in <samp><span class="file">.ts</span></samp> using
+TypoScript Mode, add the following lines to your <samp><span class="file">~/.emacs</span></samp>
+file (GNU Emacs) or <samp><span class="file">~/.xemacs/init.el</span></samp> file (XEmacs):
+<pre class="lisp">     (setq auto-mode-alist (cons '("\\.ts$" . ts-mode) auto-mode-alist))
+     (autoload 'ts-mode "ts-mode" "TypoScript input file editing mode." t)
+</pre>
+   <p>If you just want to test TypoScript Mode or are not eager to modify
+your <samp><span class="file">~/.emacs</span></samp> file, type <kbd>M-x load-file</kbd>, load the
+<samp><span class="file">ts-mode.el</span></samp> file and finally apply the mode to the current
+buffer by typing <kbd>M-x ts-mode</kbd>.
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Using-TS-mode"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Key-Index">Key Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Installation">Installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">3 Using T3PHP mode</h2>
+
+<p>TypoScript Mode supports different display and editing features, which
+will be described in the following sections.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Customization">Customization</a>
+<li><a accesskey="2" href="#Syntax-highlighting">Syntax highlighting</a>
+<li><a accesskey="3" href="#Line-indentation">Line indentation</a>
+<li><a accesskey="4" href="#Folding">Folding</a>
+</ul>
+
+<!--  -->
+<div class="node">
+<a name="Customization"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Syntax-highlighting">Syntax highlighting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-TS-mode">Using TS mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.1 Customization</h3>
+
+<p>TypoScript Mode defines a customization group in Emacs, which is a
+member of the Emacs standard customization group <code>Languages</code>, whose
+parent Emacs group is <code>Programming</code>. Use <kbd>M-x customize</kbd> to
+browse through the full list of customization groups or <kbd>M-x
+customize-group</kbd> with parameter &lsquo;<samp><span class="samp">typoscript</span></samp>&rsquo; to enter the
+TypoScript Mode customization group directly
+
+<p class="noindent">The following user-customizable variables are provided.
+
+<div class="defun">
+&mdash; Variable: integer <b>t3php-block-indentation</b><var><a name="index-t3php_002dblock_002dindentation-1"></a></var><br>
+<blockquote><p>The indentation relative to a predecessing line which begins a new
+code block.
+
+        <p>Default: &lsquo;<samp><span class="samp">4</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: choice <b>ts-newline-function</b><var><a name="index-ts_002dnewline_002dfunction-2"></a></var><br>
+<blockquote><p>This variable decides which function to call upon pressing
+<kbd>&lt;RET&gt;</kbd>. Depending on the chosen option, line indentation will
+be processed automatically. The following options are available for
+<var>choice</var>:
+          <dl>
+<dt><code>newline</code><dd>This command just inserts newlines into the current buffer before point. 
+<br><dt><code>newline-and-indent</code><dd>This function inserts a newline<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, then indents the
+new line (the one following the newline just inserted) according to
+TypoScript Mode's internal indentation strategies. 
+<br><dt><code>reindent-then-newline-and-indent</code><dd>This command reindents the current line, inserts a newline at point, and
+then indents the new line (the one following the newline just inserted). 
+</dl>
+
+        <p>Default: &lsquo;<samp><span class="samp">newline</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>ts-fold-foreground-color</b><var><a name="index-ts_002dfold_002dforeground_002dcolor-3"></a></var><br>
+<blockquote><p>The foreground color used to highlight a folded block.
+
+        <p>Default: &lsquo;<samp><span class="samp">white</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>ts-fold-background-color</b><var><a name="index-ts_002dfold_002dbackground_002dcolor-4"></a></var><br>
+<blockquote><p>The background color used to highlight a folded block.
+
+        <p>Default: &lsquo;<samp><span class="samp">DodgerBlue1</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<!--  -->
+<div class="node">
+<a name="Syntax-highlighting"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Line-indentation">Line indentation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Customization">Customization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-TS-mode">Using TS mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.2 Syntax highlighting</h3>
+
+<p>Syntax highlighting is a convenient feature of an editor to improve the
+appearance hence the readability of code. TypoScript Mode supports the
+highlighting of single line and multiline comments, keywords and several
+syntactic structures.
+
+   <p>In XEmacs syntax highlighting should be enabled automatically. In GNU
+Emacs you may have to add these lines to your <samp><span class="file">~/.emacs</span></samp> file:
+<pre class="lisp">     (global-font-lock-mode t)
+     (setq font-lock-maximum-decoration t)
+</pre>
+   <!--  -->
+<div class="node">
+<a name="Line-indentation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Folding">Folding</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Syntax-highlighting">Syntax highlighting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-TS-mode">Using TS mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.3 Line indentation</h3>
+
+<p>A TypoScript code line is indented automatically when the &lt;TAB&gt; key is
+pressed while point is on the according line. The indentation takes
+place with respect to the indentation of previous
+lines. See <a href="#Customization">Customization</a>, for details. The default width is <code>4</code>.
+
+   <p>Depending on the current value of the customizable variable
+<var>ts-newline-function</var>, line indentation might be executed
+automatically after pressing <kbd>&lt;RET&gt;</kbd>. See <a href="#Customization">Customization</a>, for
+details.
+
+   <p>Furthermore the characters &lsquo;<samp><span class="samp">}</span></samp>&rsquo; (closing parenthesis) and &lsquo;<samp><span class="samp">)</span></samp>&rsquo;
+(closing brace) are <em>electric</em>, i.e. they are indented
+automatically after insertion.
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Folding"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Line-indentation">Line indentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-TS-mode">Using TS mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.4 Folding</h3>
+
+<p><a name="index-g_t_0040kbd_007bC_002dc-C_002de_007d-5"></a><a name="index-g_t_0040kbd_007bC_002dc-C_002da_007d-6"></a><a name="index-g_t_0040kbd_007bC_002dc-C_002du-C_002dr_007d-7"></a><a name="index-g_t_0040kbd_007bC_002dc-C_002du-C_002db_007d-8"></a>
+Emacs is able to alter the appearance of a buffer's text on the screen,
+for the sake of presentation features, with so called
+<dfn>overlays</dfn>. In TypoScript Mode this mechanism is used to &ldquo;fold&rdquo; TypoScript
+blocks like
+<pre class="smallformat"><pre class="verbatim">1 page.10 {
+2     table = tt_content
+3     select {
+4         pidInList = this
+5         orderBy = sorting
+6     }
+7 }
+</pre>
+</pre>
+   <p>to a single non editable line containing only the name of the
+TypoScript block, if point is on the &lsquo;<samp><span class="samp">select</span></samp>&rsquo; line.
+<pre class="smallformat"><pre class="verbatim">1 page.10 {
+2     table = tt_content
+3     [select]
+4     }
+5 }
+</pre>
+</pre>
+   <p>These string replacements are highlighted with dedicated foreground and
+background colors, which can of course be
+customized. See <a href="#Customization">Customization</a>, for details. The default color
+combination is <code>white</code> text on an <code>DodgerBlue1</code> background.
+
+<p class="noindent">The following commands are implemented to &ldquo;fold&rdquo; and &ldquo;unfold&rdquo;
+measurement blocks.
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-fold-block</b><var><a name="index-ts_002dfold_002dblock-9"></a></var><br>
+<blockquote><p>Fold the innermost block with respect to point position.
+
+        <p>Key binding: <kbd>C-c C-e</kbd>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-unfold-block</b><var><a name="index-ts_002dunfold_002dblock-10"></a></var><br>
+<blockquote><p>Unfold the folded block at point.
+
+        <p>Key binding: <kbd>C-c C-a</kbd>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-unfold-region</b><var> start end<a name="index-ts_002dunfold_002dregion-11"></a></var><br>
+<blockquote><p>Unfold every folded measurement block, which is placed within a region
+limited by mark and point.
+
+        <p>Key binding: <kbd>C-c C-u C-r</kbd>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Interactive Command: <b>ts-unfold-buffer</b><var><a name="index-ts_002dunfold_002dbuffer-12"></a></var><br>
+<blockquote><p>Unfold every folded block in the current buffer.
+
+        <p>Key binding: <kbd>C-c C-u C-b</kbd>
+</p></blockquote></div>
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Key-Index"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-Index">Variable Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-TS-mode">Using TS mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="unnumbered">Key Index</h2>
+
+<ul class="index-ky" compact>
+<li><a href="#index-g_t_0040kbd_007bC_002dc-C_002da_007d-6"><kbd>C-c C-a</kbd></a>: <a href="#Folding">Folding</a></li>
+<li><a href="#index-g_t_0040kbd_007bC_002dc-C_002de_007d-5"><kbd>C-c C-e</kbd></a>: <a href="#Folding">Folding</a></li>
+<li><a href="#index-g_t_0040kbd_007bC_002dc-C_002du-C_002db_007d-8"><kbd>C-c C-u C-b</kbd></a>: <a href="#Folding">Folding</a></li>
+<li><a href="#index-g_t_0040kbd_007bC_002dc-C_002du-C_002dr_007d-7"><kbd>C-c C-u C-r</kbd></a>: <a href="#Folding">Folding</a></li>
+   </ul><!-- ===================================================================== -->
+<div class="node">
+<a name="Variable-Index"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Function-Index">Function Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Key-Index">Key Index</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="unnumbered">Variable Index</h2>
+
+
+
+<ul class="index-vr" compact>
+<li><a href="#index-t3php_002dblock_002dindentation-1"><code>t3php-block-indentation</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-ts_002dfold_002dbackground_002dcolor-4"><code>ts-fold-background-color</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-ts_002dfold_002dforeground_002dcolor-3"><code>ts-fold-foreground-color</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-ts_002dnewline_002dfunction-2"><code>ts-newline-function</code></a>: <a href="#Customization">Customization</a></li>
+   </ul><!-- ===================================================================== -->
+<div class="node">
+<a name="Function-Index"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Variable-Index">Variable Index</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="unnumbered">Function Index</h2>
+
+
+
+<ul class="index-fn" compact>
+<li><a href="#index-ts_002dfold_002dblock-9"><code>ts-fold-block</code></a>: <a href="#Folding">Folding</a></li>
+<li><a href="#index-ts_002dunfold_002dblock-10"><code>ts-unfold-block</code></a>: <a href="#Folding">Folding</a></li>
+<li><a href="#index-ts_002dunfold_002dbuffer-12"><code>ts-unfold-buffer</code></a>: <a href="#Folding">Folding</a></li>
+<li><a href="#index-ts_002dunfold_002dregion-11"><code>ts-unfold-region</code></a>: <a href="#Folding">Folding</a></li>
+   </ul><div class="footnote">
+<hr>
+<a name="texinfo-footnotes-in-document"></a><h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Note the different meanings of
+<em>newline</em> and <em>new line</em>, that goes with their different
+spellings. <em>newline</em> refers to the code representation of a new
+line, while <em>new line</em> means its interpretation as a visible new
+line in the editor after pressing <kbd>&lt;RET&gt;</kbd>.</p>
+
+   <hr></div>
+
+</body></html>
+

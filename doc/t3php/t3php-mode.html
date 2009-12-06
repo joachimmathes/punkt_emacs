@@ -1,0 +1,831 @@
+<html lang="en">
+<head>
+<title>Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">Emacs TYPO3-PHP Mode Manual</h1>
+   <div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_TOC0" href="#TOC0">List of figures</a>
+<li><a name="toc_Top" href="#Top">TYPO3-PHP Mode</a>
+<li><a name="toc_Introduction" href="#Introduction">1 Introduction</a>
+<li><a name="toc_Installation" href="#Installation">2 Installation</a>
+<li><a name="toc_Using-T3PHP-mode" href="#Using-T3PHP-mode">3 Using T3PHP mode</a>
+<ul>
+<li><a href="#Customization">3.1 Customization</a>
+<li><a href="#Syntax-highlighting">3.2 Syntax highlighting</a>
+<li><a href="#Line-indentation">3.3 Line indentation</a>
+<li><a href="#Inserting-code-templates">3.4 Inserting code templates</a>
+<ul>
+<li><a href="#Inserting-methods">3.4.1 Inserting methods</a>
+<li><a href="#Inserting-classes">3.4.2 Inserting classes</a>
+</li></ul>
+<li><a href="#Buffer-outline">3.5 Buffer outline</a>
+</li></ul>
+<li><a name="toc_Key-Index" href="#Key-Index">Key Index</a>
+<li><a name="toc_Variable-Index" href="#Variable-Index">Variable Index</a>
+<li><a name="toc_Function-Index" href="#Function-Index">Function Index</a>
+</li></ul>
+</div>
+
+
+
+<h2 class="unnumbered"><a name="TOC0"></a>List of figures</h2>
+
+<ul class="listoffloats">
+   <li><a href="#fig_003asplit_005fv">Figure 3.1: Splitting a window vertically.</a></li>
+  <li><a href="#fig_003asplit_005fh">Figure 3.2: Splitting a window horizontally.</a></li>
+</ul>
+
+<div class="node">
+<a name="Top"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<h2 class="unnumbered">TYPO3-PHP Mode</h2>
+
+<p>This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+   <p>Copyright &copy; 2009 Joachim Mathes.
+
+   <blockquote>
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License, or (at your
+option) any later version.
+
+   <p>This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+   <p>You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. 
+</blockquote>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Introduction">Introduction</a>:  TYPO3-PHP and Emacs
+<li><a accesskey="2" href="#Installation">Installation</a>:  Prepare Emacs
+<li><a accesskey="3" href="#Using-T3PHP-mode">Using T3PHP mode</a>:  Features, commands and key bindings
+<li><a accesskey="4" href="#Key-Index">Key Index</a>
+<li><a accesskey="5" href="#Variable-Index">Variable Index</a>
+<li><a accesskey="6" href="#Function-Index">Function Index</a>
+</ul>
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Introduction"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Installation">Installation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">1 Introduction</h2>
+
+<p>This manual describes T3PHP mode, which extends Emacs with functionality
+for editing TYPO3-PHP files. Of course, it is also useful for PHP
+coding in general.
+
+   <p>GNU Emacs is an extensible, customizable text editor and can be obtained
+for free from <a href="http://ftp.gnu.org/pub/gnu/emacs/">http://ftp.gnu.org/pub/gnu/emacs/</a>. See <a href="emacs.html#Top">Preface</a>. The code is written and tested
+on GNU Emacs version 23.1.1.
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Installation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Using-T3PHP-mode">Using T3PHP mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">2 Installation</h2>
+
+<p>To install T3PHP Mode just drop file <samp><span class="file">t3php-mode.el</span></samp> into
+a directory on your load-path. If you are the administrator of the
+system you are working on, a possible directory could be
+<samp><span class="file">/usr/share/emacs/site-lisp/skampi-mode</span></samp>, for example. You might
+byte-compile it for better performance. See <a href="elisp.html#Byte-Compilation">Byte Compilation</a>.
+
+   <p>To set up Emacs to automatically edit files ending in <samp><span class="file">.php</span></samp> using
+T3PHP Mode, add the following lines to your <samp><span class="file">~/.emacs</span></samp>
+file (GNU Emacs) or <samp><span class="file">~/.xemacs/init.el</span></samp> file (XEmacs):
+<pre class="lisp">     (setq auto-mode-alist (cons '("\\.php$" . t3php-mode) auto-mode-alist))
+     (autoload 't3php-mode "t3php-mode" "TYPO3-PHP input file editing mode." t)
+</pre>
+   <p>If you just want to test T3PHP Mode or are not eager to modify
+your <samp><span class="file">~/.emacs</span></samp> file, type <kbd>M-x load-file</kbd>, load the
+<samp><span class="file">t3php-mode.el</span></samp> file and finally apply the mode to the current
+buffer by typing <kbd>M-x t3php-mode</kbd>.
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Using-T3PHP-mode"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Key-Index">Key Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Installation">Installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="chapter">3 Using T3PHP mode</h2>
+
+<p>TYPO3 Mode supports different display and editing features, which
+will be described in the following sections.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Customization">Customization</a>
+<li><a accesskey="2" href="#Syntax-highlighting">Syntax highlighting</a>
+<li><a accesskey="3" href="#Line-indentation">Line indentation</a>
+<li><a accesskey="4" href="#Inserting-code-templates">Inserting code templates</a>
+<li><a accesskey="5" href="#Inserting-classes">Inserting classes</a>
+<li><a accesskey="6" href="#Buffer-outline">Buffer outline</a>
+</ul>
+
+<!--  -->
+<div class="node">
+<a name="Customization"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Syntax-highlighting">Syntax highlighting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-T3PHP-mode">Using T3PHP mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.1 Customization</h3>
+
+<p>T3PHP Mode defines a customization group in Emacs, which is a
+member of the Emacs standard customization group <code>Languages</code>, whose
+parent Emacs group is <code>Programming</code>. Use <kbd>M-x customize</kbd> to
+browse through the full list of customization groups or <kbd>M-x
+customize-group</kbd> with parameter &lsquo;<samp><span class="samp">t3php</span></samp>&rsquo; to enter the
+T3PHP Mode customization group directly
+
+<p class="noindent">The following user-customizable variables are provided.
+
+   <p><a name="x_002dt3php_002ddeveloper"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-developer</b><var><a name="index-t3php_002ddeveloper-1"></a></var><br>
+<blockquote><p>The current developer or author of the PHP code. The value of this
+variable is used in the php-doc comments.
+
+        <p>Default: &lsquo;<samp><span class="samp">Lisa Fremont &lt;lisa@fremont.de&gt;</span></samp>&rsquo;
+</p></blockquote></div>
+
+   <p><a name="x_002dt3php_002dtypo3_002dextension_002ddirectory"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-typo3-extension-directory</b><var><a name="index-t3php_002dtypo3_002dextension_002ddirectory-2"></a></var><br>
+<blockquote><p>The path to the TYPO3 extensions' directory relative to the TYPO3 root
+directory.
+
+        <p>Default: &lsquo;<samp><span class="samp">ext/</span></samp>&rsquo;
+</p></blockquote></div>
+
+   <p><a name="x_002dt3php_002dpath_002dto_002dtypo3_002dextension_002ddirectory"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-path-to-typo3-extension-directory</b><var><a name="index-t3php_002dpath_002dto_002dtypo3_002dextension_002ddirectory-3"></a></var><br>
+<blockquote><p>The path to the TYPO3 extensions directory relative to the TYPO3 root
+directory.
+
+        <p>Default: &lsquo;<samp><span class="samp">typo3conf/</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-date-format</b><var><a name="index-t3php_002ddate_002dformat-4"></a></var><br>
+<blockquote><p>The date format which is used for php-doc comments.
+
+        <p>Default: &lsquo;<samp><span class="samp">%Y-%m-%d</span></samp>&rsquo;
+</p></blockquote></div>
+
+   <p><a name="x_002dt3php_002dyear_002dformat"></a>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-year-format</b><var><a name="index-t3php_002dyear_002dformat-5"></a></var><br>
+<blockquote><p>The year format which is used in php-doc comments.
+
+        <p>Default: &lsquo;<samp><span class="samp">%Y</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: integer <b>t3php-block-indentation</b><var><a name="index-t3php_002dblock_002dindentation-6"></a></var><br>
+<blockquote><p>The indentation relative to a predecessing line which begins a new
+code block.
+
+        <p>Default: &lsquo;<samp><span class="samp">4</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: choice <b>t3php-newline-function</b><var><a name="index-t3php_002dnewline_002dfunction-7"></a></var><br>
+<blockquote><p>This variable decides which function to call upon pressing
+<kbd>&lt;RET&gt;</kbd>. Depending on the chosen option, line indentation will
+be processed automatically. The following options are available for
+<var>choice</var>:
+          <dl>
+<dt><code>newline</code><dd>This command just inserts newlines into the current buffer before point. 
+<br><dt><code>newline-and-indent</code><dd>This function inserts a newline<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, then indents the
+new line (the one following the newline just inserted) according to
+T3PHP Mode's internal indentation strategies. 
+<br><dt><code>reindent-then-newline-and-indent</code><dd>This command reindents the current line, inserts a newline at point, and
+then indents the new line (the one following the newline just inserted). 
+</dl>
+
+        <p>Default: &lsquo;<samp><span class="samp">newline</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-php-doc-align</b><var><a name="index-t3php_002dphp_002ddoc_002dalign-8"></a></var><br>
+<blockquote><p>Determines whether the PHPDoc parameters are aligned after a method or
+class is inserted with <code>t3php-insert-method</code> or
+<code>t3php-insert-class</code> respectively. See <a href="#Inserting-methods">Inserting methods</a> and
+<a href="#Inserting-classes">Inserting classes</a>, for more information.
+
+        <p>Aligned parameters:
+     <pre class="smallformat"><pre class="verbatim">     1  /**
+     2   * Define foobar
+     3   *
+     4   * @param   $foo
+     5   * @param   $bar
+     6   * @return
+     7   * @author  Lisa Fremont &lt;lisa@fremont.de>
+     8   * @since   2009-12-02
+     9   */
+     10 public function foobar($foo, $bar) {
+     11
+     12 }
+</pre>
+</pre>
+        <p>Unaligned parameters:
+     <pre class="smallformat"><pre class="verbatim">     1  /**
+     2   * Define foobar
+     3   *
+     4   * @param $foo
+     5   * @param $bar
+     6   * @return
+     7   * @author Lisa Fremont &lt;lisa@fremont.de>
+     8   * @since 2009-12-02
+     9   */
+     10 public function foobar($foo, $bar) {
+     11
+     12 }
+</pre>
+</pre>
+        <p>Default: &lsquo;<samp><span class="samp">t</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-php-manual-url</b><var><a name="index-t3php_002dphp_002dmanual_002durl-9"></a></var><br>
+<blockquote><p>URL at which to find PHP manual. You can replace &lsquo;<samp><span class="samp">en</span></samp>&rsquo; with your ISO
+language code.
+
+        <p>Default: &lsquo;<samp><span class="samp">http://www.php.net/manual/en/</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: string <b>t3php-php-search-url</b><var><a name="index-t3php_002dphp_002dsearch_002durl-10"></a></var><br>
+<blockquote><p>URL at which to search for documentation on a word, e.g. a PHP
+function.
+
+        <p>Default: &lsquo;<samp><span class="samp">http://www.php.net/manual/en/</span></samp>&rsquo;
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-outline-keep-other-windows</b><var><a name="index-t3php_002doutline_002dkeep_002dother_002dwindows-11"></a></var><br>
+<blockquote><p>When the outline is viewed, the boolean value of this variable decides
+if the currently selected T3PHP Mode buffer will be
+deleted. If the variable is set to true (&lsquo;<samp><span class="samp">t</span></samp>&rsquo;) the current window is
+split and the outline is displayed in the newly created window. When
+<code>nil</code>, all other windows except the selected one will be deleted,
+so that the outline window fills an adjustable
+(see <a href="#x_002dstswf">t3php-outline-split-windows-fraction</a>) amount of the
+frame.
+
+        <p>Default: &lsquo;<samp><span class="samp">t</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-outline-split-windows-horizontally</b><var><a name="index-t3php_002doutline_002dsplit_002dwindows_002dhorizontally-12"></a></var><br>
+<blockquote><p>This variable determines the splitting mode, if the outline is
+displayed. If true, split the current window horizontally. Otherwise
+split the window vertically.
+
+        <p>Default: &lsquo;<samp><span class="samp">nil</span></samp>&rsquo;.
+
+        <p>I must admit, that sometimes I get confused. So if it is not for your
+orientation, at least it is for mine. :-)
+
+        <div class="float">
+<a name="fig_003asplit_005fv"></a><div align="center"><img src="images/split_v.png" alt="Splitting a window vertically"></div>
+        <p><strong class="float-caption">Figure 3.1: Splitting a window <em>vertically</em>.</strong></p></div>
+
+        <div class="float">
+<a name="fig_003asplit_005fh"></a><div align="center"><img src="images/split_h.png" alt="Splitting a window horizontally"></div>
+        <p><strong class="float-caption">Figure 3.2: Splitting a window <em>horizontally</em>.</strong></p></div>
+</p></blockquote></div>
+
+   <p><a name="x_002dstswf"></a>
+
+<div class="defun">
+&mdash; Variable: number <b>t3php-outline-split-windows-fraction</b><var><a name="index-t3php_002doutline_002dsplit_002dwindows_002dfraction-13"></a></var><br>
+<blockquote><p>This variable describes the fraction of the width or height of the
+window, which is used for the outline.
+
+        <p>Default: &lsquo;<samp><span class="samp">.3</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: boolean <b>t3php-outline-follow-mode</b><var><a name="index-t3php_002doutline_002dfollow_002dmode-14"></a></var><br>
+<blockquote><p>If true, point in outline buffer will make T3PHP window to
+follow. It will show the corresponding part of the document. This flag
+can be toggled from within the outline buffer with the <kbd>f</kbd> key.
+
+        <p>Default: &lsquo;<samp><span class="samp">nil</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>t3php-outline-hl-line-color</b><var><a name="index-t3php_002doutline_002dhl_002dline_002dcolor-15"></a></var><br>
+<blockquote><p>The color used to highlight the background of the horizontal line which
+marks the current line of the outline buffer and the corresponding line
+in the T3PHP buffer when follow mode is active.
+
+        <p>Default: &lsquo;<samp><span class="samp">DarkSlateBlue</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Variable: color <b>t3php-outline-method-name-color</b><var><a name="index-t3php_002doutline_002dmethod_002dname_002dcolor-16"></a></var><br>
+<blockquote><p>The color used to highlight the lines in the outline, which refer to
+the corresponding method.
+
+        <p>Default: &lsquo;<samp><span class="samp">sea green</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<!--  -->
+<div class="node">
+<a name="Syntax-highlighting"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Line-indentation">Line indentation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Customization">Customization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-T3PHP-mode">Using T3PHP mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.2 Syntax highlighting</h3>
+
+<p>Syntax highlighting is a convenient feature of an editor to improve the
+appearance hence the readability of code. TYPO3 Mode supports the
+highlighting of single line and multiline comments, keywords and several
+syntactic structures.
+
+   <p>In XEmacs syntax highlighting should be enabled automatically. In GNU
+Emacs you may have to add these lines to your <samp><span class="file">~/.emacs</span></samp> file:
+<pre class="lisp">     (global-font-lock-mode t)
+     (setq font-lock-maximum-decoration t)
+</pre>
+   <!--  -->
+<div class="node">
+<a name="Line-indentation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Inserting-code-templates">Inserting code templates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Syntax-highlighting">Syntax highlighting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-T3PHP-mode">Using T3PHP mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.3 Line indentation</h3>
+
+<p>A PHP code line is indented automatically when the &lt;TAB&gt; key is
+pressed while point is on the according line. The indentation takes
+place with respect to the indentation of previous
+lines. See <a href="#Customization">Customization</a>, for details. The default width is <code>4</code>.
+
+   <p>Depending on the current value of the customizable variable
+<var>t3php-newline-function</var>, line indentation might be executed
+automatically after pressing <kbd>&lt;RET&gt;</kbd>. See <a href="#Customization">Customization</a>, for
+details.
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Inserting-code-templates"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Line-indentation">Line indentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-T3PHP-mode">Using T3PHP mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.4 Inserting code templates</h3>
+
+<p>The following sections describe functions and their respective key
+bindings to insert templates for methods and classes.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Inserting-methods">Inserting methods</a>
+<li><a accesskey="2" href="#Inserting-classes">Inserting classes</a>
+</ul>
+
+<!--  -->
+<div class="node">
+<a name="Inserting-methods"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Inserting-classes">Inserting classes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Inserting-code-templates">Inserting code templates</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">3.4.1 Inserting methods</h4>
+
+<div class="defun">
+&mdash; Interactive Command: <b>t3php-insert-method</b><var><a name="index-t3php_002dinsert_002dmethod-17"></a></var><br>
+<blockquote><p>Insert the rudimentary method framework code with respect to TYPO3 coding
+standards. The function asks interactively for the method name, an
+auto-completed modifier (<code>public</code>, <code>protected</code>,
+<code>private</code>) and method arguments until an empty string is provided. 
+The inserted code consists of
+          <ul>
+<li>a class header comment in PHPdoc style which contains
+               <ul>
+<li>empty lines for method descriptions
+<li><code>@param</code> and variable name
+<li><code>@return</code>
+<li><code>@author</code> (default: &lsquo;<samp><span class="samp">t3php-developer</span></samp>&rsquo;)
+<li><code>@since</code> (default: &lsquo;<samp><span class="samp">t3php-date-format</span></samp>&rsquo;)
+</ul>
+          <li>the method signature
+</ul>
+
+        <p>Key binding: <kbd>C-c C-if</kbd>. 
+</p></blockquote></div>
+The following example was inserted with parameters
+     <ul>
+<li>Method name: <code>foobar</code>
+<li>Modifier: <code>public</code>
+<li>Parameter: <code>foo</code>
+<li>Parameter: <code>bar</code>
+</ul>
+
+<pre class="smallformat"><pre class="verbatim">1  /**
+2   *
+3   *
+4   * @param $foo
+5   * @param $bar
+6   * @return
+7   * @author Lisa Fremont &lt;lisa@fremont.de>
+8   * @since 2009-12-02
+9   */
+10 public function foobar($foo, $bar) {
+11
+12 }
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Inserting-classes"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Buffer-outline">Buffer outline</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Inserting-methods">Inserting methods</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Inserting-code-templates">Inserting code templates</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">3.4.2 Inserting classes</h4>
+
+<div class="defun">
+&mdash; Interactive Command: <b>t3php-insert-class</b><var><a name="index-t3php_002dinsert_002dclass-18"></a></var><br>
+<blockquote><p>Insert the rudimentary class framework code with respect to TYPO3 coding
+standards. The inserted code consists of
+          <ul>
+<li>PHP tags
+<li>a copyright notice where date and author are inserted automatically with
+respect to customizable variables &lsquo;<samp><span class="samp">t3php-year-format</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">t3php-developer</span></samp>&rsquo;. See <a href="#x_002dt3php_002dyear_002dformat">t3php-year-format</a> and
+<a href="#x_002dt3php_002ddeveloper">x-t3php-developer</a>, for more information. 
+<li>a marker comment for the class and function index which can be inserted
+by TYPO3 extension <em>extdeval</em>. The following empty lines might be
+filled with required files. 
+<li>a class header comment in PHPdoc style which contains
+               <ul>
+<li><code>@author</code> (default: &lsquo;<samp><span class="samp">t3php-developer</span></samp>&rsquo;)
+<li><code>@package</code> (default: &lsquo;<samp><span class="samp">TYPO3</span></samp>&rsquo;)
+<li><code>@subpackage</code> (default: empty)
+<li><code>@since</code> (default: &lsquo;<samp><span class="samp">t3php-date-format</span></samp>&rsquo;)
+</ul>
+          <li>the class definition
+<li>a TYPO3 XCLASS inclusion code snippet for class extension and/or
+overriding. The associative array <code>TYPO3_CONF_VARS</code> has a key which
+refers to the current class path and file name, which is inserted
+dynamically. The information is extracted from the customizable
+variables &lsquo;<samp><span class="samp">t3php-path-to-typo3-extension-directory</span></samp>&rsquo; and the buffer
+file name. See <a href="#x_002dt3php_002dtypo3_002dextension_002ddirectory">t3php-typo3-extension-directory</a>, for more information. 
+</ul>
+
+        <p>Key binding: <kbd>C-c C-ic</kbd>. 
+</p></blockquote></div>
+The following code example was inserted in an empty file named
+<samp><span class="file">class.bar.php</span></samp>:
+<pre class="smallformat"><pre class="verbatim">1  &lt;?php
+2  /***************************************************************
+3   *  Copyright notice
+4   *
+5   *  (c) 2009 Lisa Fremont &lt;lisa@fremont.de>
+6   *  All rights reserved
+7   *
+8   *  This script is part of the TYPO3 project. The TYPO3 project is
+9   *  free software; you can redistribute it and/or modify
+10  *  it under the terms of the GNU General Public License as published by
+11  *  the Free Software Foundation; either version 2 of the License, or
+12  *  (at your option) any later version.
+13  *
+14  *  The GNU General Public License can be found at
+15  *  http://www.gnu.org/copyleft/gpl.html.
+16  *
+17  *  This script is distributed in the hope that it will be useful,
+18  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+19  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+20  *  GNU General Public License for more details.
+21  *
+22  *  This copyright notice MUST APPEAR in all copies of the script!
+23  ***************************************************************/
+24 /**
+25  * [CLASS/FUNCTION INDEX of SCRIPT]
+26  *
+27  * Hint: use extdeveval to insert/update function index above.
+28  */
+29
+30
+31
+32
+33
+34 /**
+35  *
+36  *
+37  * @author     Lisa Fremont &lt;lisa@fremont.de>
+38  * @package    TYPO3
+39  * @subpackage
+40  * @since      2009-12-02
+41  */
+42 class tslib_content {
+43
+44 }
+45
+46
+47 /*******************************************************************************
+48  * TYPO3 XCLASS INCLUSION (for class extension/overriding)
+49  ******************************************************************************/
+50 if (defined('TYPO3_MODE') &amp;&amp; $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/foo/class.bar.php']) {
+51     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/foo/class.bar.php']);
+52 }
+53 ?>
+</pre>
+</pre>
+   <!--  -->
+<div class="node">
+<a name="Buffer-outline"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Inserting-classes">Inserting classes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-T3PHP-mode">Using T3PHP mode</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">3.5 Buffer outline</h3>
+
+<p><a name="index-g_t_0040kbd_007bC_002dc-C_002dt_007d-19"></a><a name="index-g_t_0040kbd_007bn_007d-20"></a><a name="index-g_t_0040kbd_007b_0040key_007bRIGHT_007d_007d-21"></a><a name="index-g_t_0040kbd_007b_0040key_007bDOWN_007d_007d-22"></a><a name="index-g_t_0040kbd_007bp_007d-23"></a><a name="index-g_t_0040kbd_007b_0040key_007bLEFT_007d_007d-24"></a><a name="index-g_t_0040kbd_007b_0040key_007bUP_007d_007d-25"></a><a name="index-g_t_0040kbd_007bC_002d_0040key_007bHOME_007d_007d-26"></a><a name="index-g_t_0040kbd_007bC_002d_0040key_007bEND_007d_007d-27"></a><a name="index-g_t_0040kbd_007b_0040key_007bSPC_007d_007d-28"></a><a name="index-g_t_0040kbd_007b_0040key_007bTAB_007d_007d-29"></a><a name="index-g_t_0040kbd_007b_0040key_007bRET_007d_007d-30"></a><a name="index-g_t_0040kbd_007bf_007d-31"></a><a name="index-g_t_0040kbd_007br_007d-32"></a><a name="index-g_t_0040kbd_007bk_007d-33"></a><a name="index-g_t_0040kbd_007b_003f_007d-34"></a>
+The outline buffer summarizes the methods of the PHP buffer and provides
+comfortable navigation through the PHP buffer. The first three lines are
+intangible and show the file name of the current PHP input file and the
+shortcuts of the most important commands.
+
+   <p>Each method in the current PHP buffer is referred to by its name. The
+maximally displayed line width of a method name is limited to 40
+characters. Thus, a longer name is chopped to a length of 40 characters
+and ellipse characters (<code>...</code>) are concatenated. When you move the
+mouse cursor over a method name the complete name is displayed
+nevertheless. On graphical displays, it is displayed as a <em>tooltip</em>
+or <em>balloon help</em> as it is called sometimes. On some systems, it is
+shown in the echo area. On text-only terminals, Emacs can't follow the
+mouse, and therefore is not able to show the complete name on
+mouse-over.
+
+   <p>The character and color of the leftmost column indicates the type of
+method modifier:
+     <dl>
+<dt><code>private</code><dd><code>[-]</code> (color: &lsquo;<samp><span class="samp">firebrick</span></samp>&rsquo;)
+<br><dt><code>protected</code><dd><code>[#]</code> (color: &lsquo;<samp><span class="samp">goldenrod</span></samp>&rsquo;)
+<br><dt><code>public</code><dd><code>[+]</code> (color: &lsquo;<samp><span class="samp">forest green</span></samp>&rsquo;)
+</dl>
+
+   <p>The rightmost column presents the line numbers, which delimit the region
+of the respective measurement block.
+<pre class="smallformat"><pre class="verbatim">TABLE OF CONTENTS of ~/public_html/typo3/t3lib/class.t3lib_extmgm.php
+SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
+-----------------------------------------------------------------------
+[P] isLoaded                                      [  131-136  ]
+[P] extPath                                       [  147-155  ]
+[P] extRelPath                                    [  165-172  ]
+[P] siteRelPath                                   [  182-185  ]
+[P] getCN                                         [  194-197  ]
+[P] addTCAcolumns                                 [  227-235  ]
+[P] addToAllTCAtypes                              [  251-304  ]
+[P] allowTableOnStandardPages                     [  315-320  ]
+[P] addModule                                     [  332-378  ]
+[P] addModulePath                                 [  390-395  ]
+[P] insertModuleFunction                          [  412-421  ]
+[P] addPageTSConfig                               [  431-435  ]
+[P] addUserTSConfig                               [  445-449  ]
+[P] addLLrefForTCAdescr                           [  460-472  ]
+</pre>
+</pre>
+   <div class="defun">
+&mdash; Interactive Command: <b>t3php-outline</b><var> rescan<a name="index-t3php_002doutline-35"></a></var><br>
+<blockquote><p>This command shows the outline of the current PHP buffer. If
+<var>rescan</var> is true, the PHP buffer will be rescanned before the ouline
+buffer is displayed.
+
+        <p>Key binding <kbd>C-ct</kbd>. 
+</p></blockquote></div>
+
+<p class="noindent">The outline buffer is a read-only buffer with few dedicated key bindings:
+     <dl>
+<dt><kbd>n</kbd><dd>Move to the next selectable item.
+
+     <br><dt><kbd>&lt;RIGHT&gt;</kbd><dd>Move to the next selectable item.
+
+     <br><dt><kbd>&lt;DOWN&gt;</kbd><dd>Move to the next selectable item.
+
+     <br><dt><kbd>p</kbd><dd>Move to the previous selectable item.
+
+     <br><dt><kbd>&lt;LEFT&gt;</kbd><dd>Move to the previous selectable item.
+
+     <br><dt><kbd>&lt;UP&gt;</kbd><dd>Move to the previous selectable item.
+
+     <br><dt><kbd>C-&lt;HOME&gt;</kbd><dd>Move to the beginning of the outline buffer.
+
+     <br><dt><kbd>C-&lt;END&gt;</kbd><dd>Move to the end of the outline buffer.
+
+     <br><dt><kbd>&lt;SPC&gt;</kbd><dd>Show the corresponding location of the TYPO3 buffer.
+
+     <br><dt><kbd>&lt;TAB&gt;</kbd><dd>Go to the corresponding location of the TYPO3 buffer and keep the
+outline window.
+
+     <br><dt><kbd>&lt;RET&gt;</kbd><dd>Go to the corresponding location of the TYPO3 buffer and hide the
+outline window.
+
+     <br><dt><kbd>f</kbd><dd>Toggle follow mode.
+
+     <br><dt><kbd>r</kbd><dd>Re-parse the TYPO3 buffer.
+
+     <br><dt><kbd>k</kbd><dd>Kill the outline buffer.
+
+     <br><dt><kbd>?</kbd><dd>Show a help buffer. 
+</dl>
+
+<!-- ===================================================================== -->
+<div class="node">
+<a name="Key-Index"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-Index">Variable Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-T3PHP-mode">Using T3PHP mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="unnumbered">Key Index</h2>
+
+
+
+<ul class="index-ky" compact>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bDOWN_007d_007d-22"><kbd>&lt;DOWN&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bLEFT_007d_007d-24"><kbd>&lt;LEFT&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bRET_007d_007d-30"><kbd>&lt;RET&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bRIGHT_007d_007d-21"><kbd>&lt;RIGHT&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bSPC_007d_007d-28"><kbd>&lt;SPC&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bTAB_007d_007d-29"><kbd>&lt;TAB&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_0040key_007bUP_007d_007d-25"><kbd>&lt;UP&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007b_003f_007d-34"><kbd>?</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bC_002d_0040key_007bEND_007d_007d-27"><kbd>C-&lt;END&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bC_002d_0040key_007bHOME_007d_007d-26"><kbd>C-&lt;HOME&gt;</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bC_002dc-C_002dt_007d-19"><kbd>C-c C-t</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bf_007d-31"><kbd>f</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bk_007d-33"><kbd>k</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bn_007d-20"><kbd>n</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007bp_007d-23"><kbd>p</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+<li><a href="#index-g_t_0040kbd_007br_007d-32"><kbd>r</kbd></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+</ul><!-- ===================================================================== -->
+<div class="node">
+<a name="Variable-Index"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Function-Index">Function Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Key-Index">Key Index</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="unnumbered">Variable Index</h2>
+
+
+
+<ul class="index-vr" compact>
+<li><a href="#index-t3php_002dblock_002dindentation-6"><code>t3php-block-indentation</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002ddate_002dformat-4"><code>t3php-date-format</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002ddeveloper-1"><code>t3php-developer</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dnewline_002dfunction-7"><code>t3php-newline-function</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002doutline_002dfollow_002dmode-14"><code>t3php-outline-follow-mode</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002doutline_002dhl_002dline_002dcolor-15"><code>t3php-outline-hl-line-color</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002doutline_002dkeep_002dother_002dwindows-11"><code>t3php-outline-keep-other-windows</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002doutline_002dmethod_002dname_002dcolor-16"><code>t3php-outline-method-name-color</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002doutline_002dsplit_002dwindows_002dfraction-13"><code>t3php-outline-split-windows-fraction</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002doutline_002dsplit_002dwindows_002dhorizontally-12"><code>t3php-outline-split-windows-horizontally</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dpath_002dto_002dtypo3_002dextension_002ddirectory-3"><code>t3php-path-to-typo3-extension-directory</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dphp_002ddoc_002dalign-8"><code>t3php-php-doc-align</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dphp_002dmanual_002durl-9"><code>t3php-php-manual-url</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dphp_002dsearch_002durl-10"><code>t3php-php-search-url</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dtypo3_002dextension_002ddirectory-2"><code>t3php-typo3-extension-directory</code></a>: <a href="#Customization">Customization</a></li>
+<li><a href="#index-t3php_002dyear_002dformat-5"><code>t3php-year-format</code></a>: <a href="#Customization">Customization</a></li>
+</ul><!-- ===================================================================== -->
+<div class="node">
+<a name="Function-Index"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Variable-Index">Variable Index</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="unnumbered">Function Index</h2>
+
+
+
+<ul class="index-fn" compact>
+<li><a href="#index-t3php_002dinsert_002dclass-18"><code>t3php-insert-class</code></a>: <a href="#Inserting-classes">Inserting classes</a></li>
+<li><a href="#index-t3php_002dinsert_002dmethod-17"><code>t3php-insert-method</code></a>: <a href="#Inserting-methods">Inserting methods</a></li>
+<li><a href="#index-t3php_002doutline-35"><code>t3php-outline</code></a>: <a href="#Buffer-outline">Buffer outline</a></li>
+</ul><div class="footnote">
+<hr>
+<a name="texinfo-footnotes-in-document"></a><h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Note the different meanings of
+<em>newline</em> and <em>new line</em>, that goes with their different
+spellings. <em>newline</em> refers to the code representation of a new
+line, while <em>new line</em> means its interpretation as a visible new
+line in the editor after pressing <kbd>&lt;RET&gt;</kbd>.</p>
+
+   <hr></div>
+
+</body></html>
+
