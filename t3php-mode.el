@@ -98,6 +98,11 @@ See `format-time-string' function for further detail."
 		 (const reindent-then-newline-and-indent))
   :group 't3php)
 
+(defcustom t3php-phpdoc-align t
+  "Alignment of PHPDoc parameters."
+  :type 'boolean
+  :group 't3php)
+
 (defcustom t3php-php-manual-url "http://www.php.net/manual/en/"
   "URL at which to find PHP manual.
 You can replace \"en\" with your ISO language code."
@@ -774,6 +779,12 @@ use."
   "Bring up manual for PHP."
   (interactive)
   (browse-url t3php-php-manual-url))
+
+(defun t3php-return-phpdoc-alignment (number-of-spaces)
+  "Returns NUMBER-OF-SPACES as PHPDoc aligment if t3php-phpdoc-align is not nil."
+  (if t3php-phpdoc-align
+      (make-string number-of-spaces ?\s)
+    (make-string 1 ?\s)))
 
 (defun t3php-toc-mode ()
   "Major mode for managing Table of Contents for php files.
