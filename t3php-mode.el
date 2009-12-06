@@ -499,10 +499,10 @@ This function inserts:
 "/**\n"
 " *\n"
 " *\n"
-" * @author     " t3php-developer "\n"
-" * @package    TYPO3\n"
+" * @author      " t3php-developer "\n"
+" * @package     TYPO3\n"
 " * @subpackage\n"
-" * @since      " (t3php-current-date) "\n"
+" * @since       " (t3php-current-date) "\n"
 " */\n"
 "class "
 (substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
