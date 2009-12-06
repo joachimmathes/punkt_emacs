@@ -428,7 +428,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   (use-local-map t3php-mode-map)
 
   (setq major-mode 't3php-mode
-        mode-name "TYPO3 PHP mode"
+        mode-name "T3PHP"
         font-lock-defaults '(t3php-font-lock-keywords-3)
         comment-start "// "
         comment-end ""
