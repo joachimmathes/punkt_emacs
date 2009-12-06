@@ -49,19 +49,19 @@
   :prefix "ts-"
   :group 'languages)
 
-(defcustom ts-newline-function 'newline-and-indent
-  "Function to be called upon pressing `RET'."
-  :type '(choice (const newline)
-		 (const newline-and-indent)
-		 (const reindent-then-newline-and-indent))
-  :group 'typoscript)
-
-(defcustom ts-block-indentation 2
+(defcustom ts-block-indentation 4
   "The indentation relative to a predecessing line which begins a new block.
 
   In TypoScript blocks start with the left parenthesis `(' or the left brace
   `{'."
   :type 'integer
+  :group 'typoscript)
+
+(defcustom ts-newline-function 'newline-and-indent
+  "Function to be called upon pressing `RET'."
+  :type '(choice (const newline)
+		 (const newline-and-indent)
+		 (const reindent-then-newline-and-indent))
   :group 'typoscript)
 
 (defcustom ts-fold-foreground-color "white"
