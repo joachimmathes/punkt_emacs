@@ -54,6 +54,11 @@
   :prefix "t3php-"
   :group 'languages)
 
+(defcustom t3php-author "Lisa Fremont <lisa@fremont.de>"
+  "Author for php-doc."
+  :type 'string
+  :group 't3php)
+
 (defcustom t3php-typo3-extension-directory "ext/"
   "TYPO3 extension directory."
   :type 'string
@@ -61,11 +66,6 @@
 
 (defcustom t3php-path-to-typo3-extension-directory "typo3conf/"
   "TYPO3 extension directory."
-  :type 'string
-  :group 't3php)
-
-(defcustom t3php-author "Lisa Fremont <lisa@fremont.de>"
-  "Author for php-doc."
   :type 'string
   :group 't3php)
 
@@ -109,16 +109,16 @@ You can replace \"en\" with your ISO language code."
   :type 'string
   :group 't3php)
 
-(defcustom t3php-toc-keep-other-windows t
-  "If true, split the selected window to display the *t3php-toc* buffer.
+(defcustom t3php-outline-keep-other-windows t
+  "If true, split the selected window to display the *t3php-outline* buffer.
 
 When nil, all other windows except the selected one will be deleted, so that the
-*t3php-toc* window fills half the frame."
+*t3php-outline* window fills half the frame."
   :type 'boolean
   :group 't3php)
 
-(defcustom t3php-toc-split-windows-horizontally nil
-  "If true, create toc windows by splitting horizontally.
+(defcustom t3php-outline-split-windows-horizontally nil
+  "If true, create outline windows by splitting horizontally.
 Otherwise it is splitted vertically.
 
 I must admit, that I sometimes get confused.  So if it is not for your
@@ -144,20 +144,20 @@ Splitting a window `horizontally' looks like this:
   :type 'boolean
   :group 't3php)
 
-(defcustom t3php-toc-split-windows-fraction .3
-  "Fraction of the width or height of the window to be used for toc window."
+(defcustom t3php-outline-split-windows-fraction .3
+  "Fraction of the width or height of the window to be used for outline window."
   :type 'number
   :group 't3php)
 
-(defcustom t3php-toc-follow-mode nil
-  "If true, point in *t3php-toc* will make PHP window to follow.
+(defcustom t3php-outline-follow-mode nil
+  "If true, point in *t3php-outline* will make PHP window to follow.
 
 It will show the corresponding part of the document.  This flag can be toggled
-from within the *t3php-toc* buffer with the `f' key."
+from within the *t3php-outline* buffer with the `f' key."
   :type 'boolean
   :group 't3php)
 
-(defcustom t3php-toc-hl-line-color "DarkSlateBlue"
+(defcustom t3php-outline-hl-line-color "DarkSlateBlue"
   "The color used to highlight the horizontal line.
 
   The default value is `DarkSlateBlue'. For a list of all available colors use `M-x
@@ -165,8 +165,8 @@ list-colors-display"
   :type 'color
   :group 't3php)
 
-(defcustom t3php-toc-method-name-color "sea green"
-  "The color used to highlight method names in the TOC.
+(defcustom t3php-outline-method-name-color "sea green"
+  "The color used to highlight method names in the OUTLINE.
 
   The default value is `sea green'.  For a list of all available colors use `M-x
 `list-colors-display'"
@@ -293,23 +293,23 @@ list-colors-display"
     '("\\<\\sw+\\>" . font-lock-warning-face)))
   "High level highlighting for T3PHP mode.")
 
-(defconst t3php-toc-buffer-name "*t3php-toc*"
-  "Name of t3php toc buffer.")
+(defconst t3php-outline-buffer-name "*t3php-outline*"
+  "Name of T3PHP OUTLINE buffer.")
 
-(defconst t3php-toc-help
-"Available keys in T3PHP TOC buffer:
+(defconst t3php-outline-help
+"Available keys in T3PHP OUTLINE buffer:
 =====================================
 n/<right>/<down> Move to next selectable item.
 p/<left>/<up>    Move to previous selectable item.
 <C-home>         Move to the beginning of the buffer.
 <C-end>          Move too the end of the buffer.
 SPC              Show the corresponding location of the TYPO3 PHP buffer.
-TAB              Go to the location and keep the *t3php-toc* window.
-RET              Go to the location and hide the *t3php-toc* window.
+TAB              Go to the location and keep the *t3php-outline* window.
+RET              Go to the location and hide the *t3php-outline* window.
 f                Toggle follow mode.
 r                Reparse the PHP buffer.
-q                Hide *t3php-toc* window.
-k                Kill *t3php-toc* buffer.
+q                Hide *t3php-outline* window.
+k                Kill *t3php-outline* buffer.
 ?                Show this help side.")
 
 
@@ -319,7 +319,7 @@ k                Kill *t3php-toc* buffer.
   "Syntax table used in T3PHP Mode buffers.")
 
 (defvar t3php-mode-map ()
-  "Key map used in T3PHP TOC Mode buffers.")
+  "Key map used in T3PHP OUTLINE Mode buffers.")
 
 (defvar t3php-mode-hook nil
   "Hook called by `t3php-mode'.")
@@ -328,29 +328,29 @@ k                Kill *t3php-toc* buffer.
   "A vector of different overlay to do highlighting.
 This vector concerns only highlighting of horizontal lines.")
 
-(defvar t3php-toc-mode-map ()
-  "Key map used in T3PHP TOC Mode buffers.")
+(defvar t3php-outline-mode-map ()
+  "Key map used in T3PHP OUTLINE Mode buffers.")
 
-(defvar t3php-toc-last-file nil
-  "Stores the file name from which `t3php-toc' was called.")
+(defvar t3php-outline-last-file nil
+  "Stores the file name from which `t3php-outline' was called.")
 
-(defvar t3php-toc-return-marker (make-marker)
-  "Marker to return from toc to old position.")
+(defvar t3php-outline-return-marker (make-marker)
+  "Marker to return from outline to old position.")
 
-(defvar t3php-toc-last-window-height nil
-  "Height of *t3php-toc* window.")
+(defvar t3php-outline-last-window-height nil
+  "Height of *t3php-outline* window.")
 
-(defvar t3php-toc-last-window-width nil
-  "Width of *t3php-toc* window.")
+(defvar t3php-outline-last-window-width nil
+  "Width of *t3php-outline* window.")
 
-(defvar t3php-toc-hl-line-overlay nil
+(defvar t3php-outline-hl-line-overlay nil
   "Overlay used by hl-line mode to highlight the current line.")
 
-(defvar t3php-toc-marker-list nil
+(defvar t3php-outline-marker-list nil
   "Keeps track of all markers in PHP buffer.")
 
-(defvar t3php-toc-last-follow-point nil
-  "Remembers last follow point in *t3php-toc* buffer.")
+(defvar t3php-outline-last-follow-point nil
+  "Remembers last follow point in *t3php-outline* buffer.")
 
 (defvar t3php-mode-abbrev-table nil
   "Abbrev table used while in t3php mode.")
@@ -361,7 +361,7 @@ This vector concerns only highlighting of horizontal lines.")
 
 ;;;###autoload
 (defun t3php-mode ()
-  "Major mode for editing TYPO3 php files.
+  "Major mode for editing TYPO3 PHP files.
 Bug reports, suggestions for new features and critics should go to
 `joachim_mathes@web.de'.
 
@@ -406,7 +406,6 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (modify-syntax-entry ?\n "> b"    t3php-mode-syntax-table)
     (modify-syntax-entry ?\_ "w"      t3php-mode-syntax-table))
 
-
   (set-syntax-table t3php-mode-syntax-table)
 
   (setq defun-prompt-regexp "^\\s-*\\(?:\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\|class\\).*")
@@ -418,7 +417,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map "\r"        't3php-newline)
     (define-key t3php-mode-map "}"         't3php-electric-brace)
     (define-key t3php-mode-map ")"         't3php-electric-brace)
-    (define-key t3php-mode-map "\C-ct"     't3php-toc)
+    (define-key t3php-mode-map "\C-ct"     't3php-outline)
     (define-key t3php-mode-map "\C-c\C-ic" 't3php-insert-class)
     (define-key t3php-mode-map "\C-c\C-if" 't3php-insert-method)
     (define-key t3php-mode-map "\C-c\C-id" 't3php-insert-current-date)
@@ -443,9 +442,9 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (when (not (aref t3php-highlight-overlays index))
       (aset t3php-highlight-overlays index (make-overlay 1 1))
       (overlay-put (aref t3php-highlight-overlays index)
-                   'category 't3php-toc-hl)
+                   'category 't3php-outline-hl)
       (overlay-put (aref t3php-highlight-overlays index)
-                   'font-lock-face `(:background ,t3php-toc-hl-line-color))))
+                   'font-lock-face `(:background ,t3php-outline-hl-line-color))))
 
   ;; Run abbrev mode
   (setq local-abbrev-table t3php-mode-abbrev-table)
@@ -696,7 +695,7 @@ overlays.  Different indices map to different overlays."
 (defun t3php-highlight-shall-vanish ()
   "Function used in pre-command-hook to remove highlights."
   ;; When a selected line in the t3php buffer is highlighted by a choice in the
-  ;; *t3php-toc* buffer and the user switches from *t3php-toc* buffer to
+  ;; *t3php-outline* buffer and the user switches from *t3php-outline* buffer to
   ;; t3php buffer afterwards, the selected line keeps highlighted. This is not
   ;; supposed to be like that. The highlighting should be removed. So we add
   ;; this hook to the t3php buffer `pre-command-hook' before we leave it and
@@ -827,194 +826,194 @@ use."
       (make-string number-of-spaces ?\s)
     (make-string 1 ?\s)))
 
-(defun t3php-toc-mode ()
+(defun t3php-outline-mode ()
   "Major mode for managing Table of Contents for php files.
 
 COMMANDS
-\\{t3php-toc-mode-map}
+\\{t3php-outline-mode-map}
 VARIABLES
 
-t3php-toc-keep-other-windows\t\twindow configuration when toc window is viewed
-t3php-toc-split-windows-horizontally\tdirection of window splitting
-t3php-toc-split-windows-fraction\ttoc window size
-t3php-toc-follow-mode\t\t\ttoggle follow mode
-t3php-toc-hl-line-color\t\tcolor of highlighted horizontal line
-t3php-toc-block-name-color\t\tcolor used to highlight block names"
+t3php-outline-keep-other-windows\t\twindow configuration when outline window is viewed
+t3php-outline-split-windows-horizontally\tdirection of window splitting
+t3php-outline-split-windows-fraction\toutline window size
+t3php-outline-follow-mode\t\t\ttoggle follow mode
+t3php-outline-hl-line-color\t\tcolor of highlighted horizontal line
+t3php-outline-block-name-color\t\tcolor used to highlight block names"
   (interactive)
   ;; Set up local variables
   (kill-all-local-variables)
   (make-local-variable 'truncate-lines)
   (make-local-variable 'show-paren-mode)
 
-  (setq major-mode      't3php-toc-mode
-        mode-name       "TYPO3 PHP TOC"
+  (setq major-mode      't3php-outline-mode
+        mode-name       "T3PHP-OUTLINE"
         truncate-lines  t
         show-paren-mode nil)
 
   (add-hook 'pre-command-hook
-	    't3php-toc-pre-command-hook nil t)
+	    't3php-outline-pre-command-hook nil t)
   (add-hook 'post-command-hook
-	    't3php-toc-post-command-hook nil t)
+	    't3php-outline-post-command-hook nil t)
 
-  (if t3php-toc-mode-map
+  (if t3php-outline-mode-map
       nil
-    (setq t3php-toc-mode-map (make-sparse-keymap))
+    (setq t3php-outline-mode-map (make-sparse-keymap))
     (substitute-key-definition
-     'forward-char 't3php-toc-next t3php-toc-mode-map global-map)
+     'forward-char 't3php-outline-next t3php-outline-mode-map global-map)
     (substitute-key-definition
-     'backward-char 't3php-toc-previous t3php-toc-mode-map global-map)
+     'backward-char 't3php-outline-previous t3php-outline-mode-map global-map)
     (substitute-key-definition
-     'next-line 't3php-toc-next t3php-toc-mode-map global-map)
+     'next-line 't3php-outline-next t3php-outline-mode-map global-map)
     (substitute-key-definition
-     'previous-line 't3php-toc-previous t3php-toc-mode-map global-map)
+     'previous-line 't3php-outline-previous t3php-outline-mode-map global-map)
     (substitute-key-definition
-     'beginning-of-buffer 't3php-toc-beginning-of-buffer t3php-toc-mode-map global-map)
+     'beginning-of-buffer 't3php-outline-beginning-of-buffer t3php-outline-mode-map global-map)
     (substitute-key-definition
-     'end-of-buffer 't3php-toc-end-of-buffer t3php-toc-mode-map global-map)
-    (define-key t3php-toc-mode-map "?"    't3php-toc-show-help)
-    (define-key t3php-toc-mode-map "n"    't3php-toc-next)
-    (define-key t3php-toc-mode-map "p"    't3php-toc-previous)
-    (define-key t3php-toc-mode-map " "    't3php-toc-view-line)
-    (define-key t3php-toc-mode-map "\C-i" 't3php-toc-goto-line)
-    (define-key t3php-toc-mode-map "\C-m" 't3php-toc-goto-line-and-kill)
-    (define-key t3php-toc-mode-map "f"    't3php-toc-toggle-follow)
-    (define-key t3php-toc-mode-map "r"    't3php-toc-rescan)
-    (define-key t3php-toc-mode-map "k"    't3php-toc-kill))
-  (use-local-map t3php-toc-mode-map))
+     'end-of-buffer 't3php-outline-end-of-buffer t3php-outline-mode-map global-map)
+    (define-key t3php-outline-mode-map "?"    't3php-outline-show-help)
+    (define-key t3php-outline-mode-map "n"    't3php-outline-next)
+    (define-key t3php-outline-mode-map "p"    't3php-outline-previous)
+    (define-key t3php-outline-mode-map " "    't3php-outline-view-line)
+    (define-key t3php-outline-mode-map "\C-i" 't3php-outline-goto-line)
+    (define-key t3php-outline-mode-map "\C-m" 't3php-outline-goto-line-and-kill)
+    (define-key t3php-outline-mode-map "f"    't3php-outline-toggle-follow)
+    (define-key t3php-outline-mode-map "r"    't3php-outline-rescan)
+    (define-key t3php-outline-mode-map "k"    't3php-outline-kill))
+  (use-local-map t3php-outline-mode-map))
 
-(defun t3php-toc (&optional rescan)
+(defun t3php-outline (&optional rescan)
   "Show the table of contents for the current t3php buffer.
 
 The table of contents consists of the methods in the current t3php buffer.  If
-RESCAN is true, rescan the t3php buffer before displaying the *t3php-toc*
+RESCAN is true, rescan the t3php buffer before displaying the *t3php-outline*
 buffer."
   (interactive)
 
-  (if (or (not (string= t3php-toc-last-file (buffer-file-name)))
+  (if (or (not (string= t3php-outline-last-file (buffer-file-name)))
 	  rescan)
-      (t3php-toc-erase-toc-buffer))
+      (t3php-outline-erase-outline-buffer))
 
-  (setq t3php-toc-last-file (buffer-file-name))
+  (setq t3php-outline-last-file (buffer-file-name))
 
-  (set-marker t3php-toc-return-marker (point))
+  (set-marker t3php-outline-return-marker (point))
 
   ;; If follow mode is active, prepare to delay it one command. This prevents
-  ;; follow mode from being executed when this command `t3php-toc' is called.
-  (when t3php-toc-follow-mode
-    (setq t3php-toc-follow-mode 1))
+  ;; follow mode from being executed when this command `t3php-outline' is called.
+  (when t3php-outline-follow-mode
+    (setq t3php-outline-follow-mode 1))
 
   ;; Set the window configuration
   (let ((unsplittable (frame-parameter (selected-frame) 'unsplittable))
-	toc-window foobar)
-    ;; Select toc buffer window
-    (if (setq toc-window (get-buffer-window t3php-toc-buffer-name))
-	(select-window toc-window)
-      (when (or (not t3php-toc-keep-other-windows)
+	outline-window foobar)
+    ;; Select outline buffer window
+    (if (setq outline-window (get-buffer-window t3php-outline-buffer-name))
+	(select-window outline-window)
+      (when (or (not t3php-outline-keep-other-windows)
 		(< (window-height) (* 2 window-min-height)))
 	(delete-other-windows))
 
       ;; Remember size of window
-      (setq t3php-toc-last-window-width (window-width)
-	    t3php-toc-last-window-height (window-height))
+      (setq t3php-outline-last-window-width (window-width)
+	    t3php-outline-last-window-height (window-height))
 
       ;; Split window
       (unless unsplittable
-	(if t3php-toc-split-windows-horizontally
+	(if t3php-outline-split-windows-horizontally
 	    (split-window-horizontally
 	     (floor (* (window-width)
-		       t3php-toc-split-windows-fraction)))
+		       t3php-outline-split-windows-fraction)))
 	  (split-window-vertically
 	   (floor (* (window-height)
-		     t3php-toc-split-windows-fraction)))))
+		     t3php-outline-split-windows-fraction)))))
 
-      ;; Set major mode for and switch to *t3php-toc* buffer
-      (let ((default-major-mode 't3php-toc-mode))
-	(switch-to-buffer t3php-toc-buffer-name)))
+      ;; Set major mode for and switch to *t3php-outline* buffer
+      (let ((default-major-mode 't3php-outline-mode))
+	(switch-to-buffer t3php-outline-buffer-name)))
 
-    (or (eq major-mode 't3php-toc-mode) (t3php-toc-mode))
+    (or (eq major-mode 't3php-outline-mode) (t3php-outline-mode))
 
     (cond
      ((= (buffer-size) 0)
      ;; If buffer is empty, fill it with the table of contents
-      (message "Building *t3php-toc* buffer...")
+      (message "Building *t3php-outline* buffer...")
 
       (setq buffer-read-only nil)
       (insert (format
 "TABLE OF CONTENTS of %s
 SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
 -----------------------------------------------------------------------
-" (abbreviate-file-name t3php-toc-last-file)))
+" (abbreviate-file-name t3php-outline-last-file)))
 
-      ;; Set text properties of *t3php-toc* buffer header
+      ;; Set text properties of *t3php-outline* buffer header
       (put-text-property (point-min) (point) 'font-lock-face font-lock-comment-face)
       (put-text-property (point-min) (point) 'intangible t)
       ;; Fill the buffer with a table of methods
       (dolist (line
-	       (t3php-toc-format
-		(t3php-toc-content
-		 (get-file-buffer t3php-toc-last-file))))
+	       (t3php-outline-format
+		(t3php-outline-content
+		 (get-file-buffer t3php-outline-last-file))))
 	(insert line))
       (goto-line 4)
       (beginning-of-line)
       (setq buffer-read-only t)
-      (message "Building *t3php-toc* buffer...done."))
+      (message "Building *t3php-outline* buffer...done."))
      (t
       ;; Only set offset
       (goto-line 4)
       (beginning-of-line)))))
 
-(defun t3php-toc-erase-toc-buffer ()
-  "Erase t3php toc buffer, if it exists."
-  (if (get-buffer t3php-toc-buffer-name)
+(defun t3php-outline-erase-outline-buffer ()
+  "Erase T3PHP OUTLINE buffer, if it exists."
+  (if (get-buffer t3php-outline-buffer-name)
       (save-excursion
-	(set-buffer t3php-toc-buffer-name)
+	(set-buffer t3php-outline-buffer-name)
 	(let ((buffer-read-only nil))
 	  (erase-buffer)))))
 
-(defun t3php-toc-post-command-hook ()
-  "Used in `post-command-hook' for *t3php-toc* buffer.
+(defun t3php-outline-post-command-hook ()
+  "Used in `post-command-hook' for *t3php-outline* buffer.
 
 Activates the hl-line overlay on the current line.
 Handles follow mode if activated."
-  (when (get-buffer t3php-toc-buffer-name)
+  (when (get-buffer t3php-outline-buffer-name)
     (t3php-highlight 0
 		     (line-beginning-position)
 		     (line-beginning-position 2)
-		     (get-buffer t3php-toc-buffer-name)))
-  (if (integerp t3php-toc-follow-mode)
+		     (get-buffer t3php-outline-buffer-name)))
+  (if (integerp t3php-outline-follow-mode)
       ;; Remove delayed follow action.
-      (setq t3php-toc-follow-mode t)
-    (when (and t3php-toc-follow-mode
-	       (not (equal t3php-toc-last-follow-point (point))))
-      (setq t3php-toc-last-follow-point (point))
-      (t3php-toc-visit-location 'view))))
+      (setq t3php-outline-follow-mode t)
+    (when (and t3php-outline-follow-mode
+	       (not (equal t3php-outline-last-follow-point (point))))
+      (setq t3php-outline-last-follow-point (point))
+      (t3php-outline-visit-location 'view))))
 
-(defun t3php-toc-pre-command-hook ()
-  "Used in `pre-command-hook' for *t3php-toc* buffer.
+(defun t3php-outline-pre-command-hook ()
+  "Used in `pre-command-hook' for *t3php-outline* buffer.
 
 Deactivates the hl-line overlay on the current line."
-  (when (get-buffer t3php-toc-buffer-name)
+  (when (get-buffer t3php-outline-buffer-name)
     (t3php-unhighlight 0)))
 
 (defun t3php-re-enlarge ()
   "Enlarge t3php window to a remembered size."
-  (if t3php-toc-split-windows-horizontally
+  (if t3php-outline-split-windows-horizontally
       (enlarge-window-horizontally
-       (max 0 (- (or t3php-toc-last-window-width (window-width))
+       (max 0 (- (or t3php-outline-last-window-width (window-width))
 		 (window-width))))
     (enlarge-window
-     (max 0 (- (or t3php-toc-last-window-height (window-height))
+     (max 0 (- (or t3php-outline-last-window-height (window-height))
 	       (window-height))))))
 
-(defun t3php-toc-show-help ()
+(defun t3php-outline-show-help ()
   "Show a summary of key bindings."
   (interactive)
-  (with-output-to-temp-buffer "*T3php TOC Help*"
-    (princ t3php-toc-help))
+  (with-output-to-temp-buffer "*T3php OUTLINE Help*"
+    (princ t3php-outline-help))
   ;; t3php-enlarge-to-fit
   )
 
-(defun t3php-toc-next (&optional arg)
+(defun t3php-outline-next (&optional arg)
   "Move to next selectable item.
 
 Up to now this is just the next line. There might be different kinds of contents
@@ -1023,7 +1022,7 @@ meaningfull line by text properties."
   (interactive "p")
   (forward-line arg))
 
-(defun t3php-toc-previous (&optional arg)
+(defun t3php-outline-previous (&optional arg)
   "Move to previous selectable item.
 
 Up to now this is just the next line. There might be different kinds of contents
@@ -1039,58 +1038,58 @@ meaningfull line by text properties."
       (recenter))
     (forward-line (* -1 arg))))
 
-(defun t3php-toc-view-line ()
+(defun t3php-outline-view-line ()
   "Show the corresponding location in the t3php buffer."
   (interactive)
-  (t3php-toc-visit-location 'view))
+  (t3php-outline-visit-location 'view))
 
-(defun t3php-toc-goto-line ()
-  "Go to the location and keep the *t3php-toc* window."
+(defun t3php-outline-goto-line ()
+  "Go to the location and keep the *t3php-outline* window."
   (interactive)
-  (t3php-toc-visit-location 'goto))
+  (t3php-outline-visit-location 'goto))
 
-(defun t3php-toc-goto-line-and-kill ()
-  "Go to the location and kill the *t3php-toc* window."
+(defun t3php-outline-goto-line-and-kill ()
+  "Go to the location and kill the *t3php-outline* window."
   (interactive)
-  (t3php-toc-visit-location 'goto-and-kill))
+  (t3php-outline-visit-location 'goto-and-kill))
 
-(defun t3php-toc-toggle-follow ()
-  "Toggle follow mode in *t3php-toc* buffer."
+(defun t3php-outline-toggle-follow ()
+  "Toggle follow mode in *t3php-outline* buffer."
   (interactive)
-  (setq t3php-toc-last-follow-point -1)
-  (setq t3php-toc-follow-mode (not t3php-toc-follow-mode)))
+  (setq t3php-outline-last-follow-point -1)
+  (setq t3php-outline-follow-mode (not t3php-outline-follow-mode)))
 
-(defun t3php-toc-rescan ()
-  "Regenerate *t3php-toc* buffer by reparsing the t3php buffer."
+(defun t3php-outline-rescan ()
+  "Regenerate *t3php-outline* buffer by reparsing the t3php buffer."
   (interactive)
-  (switch-to-buffer-other-window (get-file-buffer t3php-toc-last-file))
-  (t3php-toc t))
+  (switch-to-buffer-other-window (get-file-buffer t3php-outline-last-file))
+  (t3php-outline t))
 
-(defun t3php-toc-kill ()
-  "Kill the *t3php-toc* buffer."
+(defun t3php-outline-kill ()
+  "Kill the *t3php-outline* buffer."
   (interactive)
-  (kill-buffer t3php-toc-buffer-name)
+  (kill-buffer t3php-outline-buffer-name)
   (unless (one-window-p)
     (delete-window))
-  (if (eq nil (marker-position t3php-toc-return-marker))
+  (if (eq nil (marker-position t3php-outline-return-marker))
       (progn (switch-to-buffer nil)
 	     (message "No associated buffer found."))
-    (switch-to-buffer (marker-buffer t3php-toc-return-marker))
+    (switch-to-buffer (marker-buffer t3php-outline-return-marker))
     (t3php-re-enlarge)
-    (goto-char (marker-position t3php-toc-return-marker))))
+    (goto-char (marker-position t3php-outline-return-marker))))
 
-(defun t3php-toc-beginning-of-buffer ()
-  "Go to the beginning of the *t3php-toc* buffer."
+(defun t3php-outline-beginning-of-buffer ()
+  "Go to the beginning of the *t3php-outline* buffer."
   (interactive)
   (goto-line 4)
   (recenter))
 
-(defun t3php-toc-end-of-buffer ()
-  "Go to the end of the *t3php-toc* buffer."
+(defun t3php-outline-end-of-buffer ()
+  "Go to the end of the *t3php-outline* buffer."
   (interactive)
   (goto-line (line-number-at-pos (point-max))))
 
-(defun t3php-toc-content (t3php-buffer)
+(defun t3php-outline-content (t3php-buffer)
   "Returns table of contents of methods
 This is a list of lists containing the method modifier, method name,
 method start and end position."
@@ -1100,11 +1099,11 @@ method start and end position."
     ;; eventually, but until then will continue to use time if they do point
     ;; somewehere. Therefore it is helpfull to make a marker point nowhere, when
     ;; it is not used anymore. Thus clear all markers in the list
-    ;; `t3php-toc-marker-list', which keeps track of all markers.
-    (when t3php-toc-marker-list
-      (dolist (t3php-toc-marker t3php-toc-marker-list)
-	(set-marker t3php-toc-marker nil))
-      (setq t3php-toc-marker-list (list)))
+    ;; `t3php-outline-marker-list', which keeps track of all markers.
+    (when t3php-outline-marker-list
+      (dolist (t3php-outline-marker t3php-outline-marker-list)
+	(set-marker t3php-outline-marker nil))
+      (setq t3php-outline-marker-list (list)))
 
     ;; Switch to t3php buffer.
     (set-buffer t3php-buffer)
@@ -1159,7 +1158,7 @@ method start and end position."
 			     (<= method-end end))
 			(progn
 			  (set-marker method-marker method-start)
-			  (push method-marker t3php-toc-marker-list)
+			  (push method-marker t3php-outline-marker-list)
 			  (push (list
 				 (line-number-at-pos method-start)  ; method start
 				 (line-number-at-pos method-end)    ; method end
@@ -1171,10 +1170,10 @@ method start and end position."
 		(throw 'no-valid-method t))))))
       (reverse list-of-methods))))
 
-(defun t3php-toc-format (content)
+(defun t3php-outline-format (content)
   "Return a list of formatted lines for the table of contents.
-CONTENT is the list of lists returned by function `t3php-toc-content'."
-  (let* ((formatting-information (t3php-toc-formatting-information content))
+CONTENT is the list of lists returned by function `t3php-outline-content'."
+  (let* ((formatting-information (t3php-outline-formatting-information content))
 	 (formatted-content (list))
 	 (max-method-name-length (nth 0 formatting-information))
 	 (max-method-inf-from-length (nth 1 formatting-information))
@@ -1203,7 +1202,6 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
       (setq method-marker (nth 3 line))
       (setq method-modifier (nth 4 line))
 
-
       ;; Set text properties for method-modifier
       (cond ((string= "private" method-modifier)
 	     (setq symbolized-method-modifier "[-]")
@@ -1230,13 +1228,12 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 						  "forest green")
 				symbolized-method-modifier)))
 
-
       ;; Set text properties for method-name
       (remove-text-properties 0 (length method-name)
 			 '(face nil) method-name)
       (put-text-property 0 (length method-name)
 			 'font-lock-face `(:foreground
-					   ,t3php-toc-method-name-color)
+					   ,t3php-outline-method-name-color)
 			 method-name)
       (put-text-property 0 (length method-name)
 			 'help-echo method-name
@@ -1266,7 +1263,7 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 
     (reverse formatted-content)))
 
-(defun t3php-toc-formatting-information (content)
+(defun t3php-outline-formatting-information (content)
   "Return a list of formatting information for the table of contents.
 The first item is the maximum string length allowed for method
 names.  The value is limited by the current window width with respect to the
@@ -1276,7 +1273,7 @@ are also evaluated and provide the second and third item of the information
 list.  The fourth item is made of their sum plus an aditional value.  Thus we have
 a list like this: (max-block-name-length max-block-inf-from-size
 max-block-inf-to-size max-block-inf-size).  CONTENT is the list of lists returned
-by function `t3php-toc-content'"
+by function `t3php-outline-content'"
   (let ((max-from 0)
 	(max-to 0)
 	(formatting-information (list)))
@@ -1301,24 +1298,22 @@ by function `t3php-toc-content'"
       (push 40 formatting-information)
       formatting-information))
 
-(defun t3php-toc-visit-location (visit-mode)
+(defun t3php-outline-visit-location (visit-mode)
   "Visit t3php buffer according to VISIT-MODE."
-  (let* ((toc-data (get-text-property (point) 'data))
-	 (toc-window (selected-window))
-	 (t3php-marker (nth 0 toc-data))
-	 (t3php-block-name (nth 1 toc-data))
+  (let* ((outline-data (get-text-property (point) 'data))
+	 (outline-window (selected-window))
+	 (t3php-marker (nth 0 outline-data))
+	 (t3php-block-name (nth 1 outline-data))
 	 show-window show-buffer
 	 match)
 
-    (unless toc-data (message "%s" "Don't know which toc line to visit."))
+    (unless outline-data (message "%s" "Don't know which outline line to visit."))
 
-    ;; --- t3php TOC BUFFER ---
     (setq match
 	  (cond
 	   ((and (markerp t3php-marker) (marker-buffer t3php-marker))
 	    ;; Marker is available and buffer still exists.
 	    (switch-to-buffer-other-window (marker-buffer t3php-marker))
-	    ;; --- t3php TOC BUFFER -> t3php BUFFER ---
 	    (goto-char (marker-position t3php-marker))
 	    (looking-at (concat
 			 "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
@@ -1338,31 +1333,28 @@ by function `t3php-toc-content'"
 
     (if (not match)
 	(progn
-	  (select-window toc-window)
-	  ;; --- t3php TOC BUFFER -> t3php BUFFER ---
+	  (select-window outline-window)
 	  (message "Cannot find location."))
 
-      ;; Now VISIT-MODE decides what to do next.
+      ;; VISIT-MODE decides what to do next.
       (cond
        ((eq visit-mode 'view)
-	(select-window toc-window)
+	(select-window outline-window)
 	(recenter))
        ((eq visit-mode 'goto)
 	(t3php-unhighlight 1)
 	(select-window show-window)
 	(recenter))
        ((eq visit-mode 'goto-and-kill)
-	(select-window toc-window)
+	(select-window outline-window)
 	(t3php-unhighlight 1)
-	(kill-buffer t3php-toc-buffer-name)
+	(kill-buffer t3php-outline-buffer-name)
         (unless (one-window-p)
 	  (delete-window))
 	(if (window-live-p show-window)
 	    (set-buffer show-buffer)
 	  (switch-to-buffer show-buffer))
-	(t3php-re-enlarge)
-	;; --- t3php TOC BUFFER -> t3php BUFFER ---
-	)
+	(t3php-re-enlarge))
        (t nil)))))
 
 (provide 't3php-mode)
