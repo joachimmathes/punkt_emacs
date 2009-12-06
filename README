@@ -1,0 +1,27 @@
+1. What is this?
+================
+
+This is a collection of Emacs major modes, which I wrote to optimize
+development in the TYPO3 environment, i.e. programming PHP and writing
+TypoScript. There will be another mode for CSV files some day, since I encounter
+them quite often in my daily work. Up to now you will only find a function to
+align columns in such a file according to a previously defined separator.
+
+2. Installation
+===============
+Please have a look at one of the various document file formats in the doc
+subfolder: info, pdf, ps, html (one web page per node) and html (entirely on one
+web page) are provided.
+
+3. Have fun
+===========
+I really enjoy working with Emacs. And even if there are quite a lot of so
+called modern IDEs out there, I think Emacs still is the best tool for me, when
+it comes to editing text files.  I would be very happy, if you find any use for
+my modes. And feel free to adjust them for your personal needs. If you have any
+further suggestions, just send an email.
+
+
+Inspire to share!
+
+Joachim Mathes
