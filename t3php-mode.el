@@ -527,6 +527,22 @@ This function inserts:
 
 (defun t3php-insert-class-name ()
   "Insert class name derived from buffer file name."
+(defun t3php-get-subpackage-name ()
+  "Return subpackage name derived from extension path."
+  (if (not (string-match-p
+            (concat
+             t3php-path-to-typo3-extension-directory
+             t3php-typo3-extension-directory
+	     ".*?/")
+	    buffer-file-name))
+      "<SUBPACKAGE>"
+    (string-match (concat t3php-path-to-typo3-extension-directory
+			  t3php-typo3-extension-directory
+                          "\\(.*?\\)/")
+                  (file-name-directory buffer-file-name))
+    (match-string 1 (file-name-directory buffer-file-name))
+    ))
+
 (defun t3php-get-class-name ()
   "Return class name derived from buffer file name."
   (if (string-match-p
