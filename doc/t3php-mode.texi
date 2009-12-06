@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header
-@setfilename typo3-emacs.info
-@settitle Emacs in the world of TYPO3
+@setfilename t3php-mode.info
+@settitle TYPO3-PHP and Emacs
 @setchapternewpage off
 @afourpaper
 @macro typothree {}
@@ -10,17 +10,14 @@ TYPO3
 @macro typothreephp {}
 T3PHP
 @end macro
-@macro ts {}
-TS
-@end macro
 @macro ext {extkey}
 @emph{\extkey\}
 @end macro
 @c %**end of header
 
 @copying
-This manual introduces a collection of Elisp files, which provide
-functionality for working with Emacs in the PHP and @typothree{} world.
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
 
 Copyright @copyright{} 2009 Joachim Mathes.
 
@@ -42,8 +39,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @end copying
 
 @titlepage
-@title TYPO3 and Emacs
-@subtitle Emacs in the world of TYPO3
+@title TYPO3-PHP and Emacs
+@subtitle Edit TYPO3-PHP files with Emacs
 @author Joachim Mathes (@email{joachim_mathes@@web.de})
 @page
 @vskip 0pt plus 1filll
@@ -65,10 +62,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @end ifnottex
 
 @menu
-* Introduction::     @typothree{} and Emacs
-* Installation::     Prepare Emacs
-* T3PHP mode::       Features, commands and key bindings
-* Using TS mode::    Features, commands and key bindings
+* Introduction:: @typothree{}-PHP and Emacs
+* Installation:: Prepare Emacs
+* Using T3PHP mode:: Features, commands and key bindings
 * Key Index::
 * Variable Index::
 * Function Index::
@@ -79,9 +75,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @comment  node-name,  next,  previous,  up
 @chapter Introduction
 
-This manual describes a collection of Extensions, i.e. Emacs Lisp files,
-which provide functionality for working with Emacs in the PHP and
-@typothree{} world.
+This manual describes T3PHP mode, which extends Emacs with functionality
+for editing @typothree{}-PHP files. Of course, it is also useful for PHP
+coding in general.
 
 GNU Emacs is an extensible, customizable text editor and can be obtained
 for free from @uref{http://ftp.gnu.org/pub/gnu/emacs/}. @xref{Top,
@@ -89,13 +85,9 @@ for free from @uref{http://ftp.gnu.org/pub/gnu/emacs/}. @xref{Top,
 on GNU Emacs version 23.1.1.
 
 @c =====================================================================
-@node Installation, T3PHP mode, Introduction, Top
+@node Installation, Using T3PHP mode, Introduction, Top
 @comment  node-name,  next,  previous,  up
 @chapter Installation
-
-The following description considers the installation of @typothreephp{}
-Mode, but the procedure is the same for @ts{} as it is for any other
-extension by the way.
 
 To install @typothreephp{} Mode just drop file @file{t3php-mode.el} into
 a directory on your load-path. If you are the administrator of the
@@ -118,9 +110,9 @@ your @file{~/.emacs} file, type @kbd{M-x load-file}, load the
 buffer by typing @kbd{M-x t3php-mode}.
 
 @c =====================================================================
-@node T3PHP mode, Using TS mode, Installation, Top
+@node Using T3PHP mode, Key Index, Installation, Top
 @comment  node-name,  next,  previous,  up
-@chapter T3PHP mode
+@chapter Using T3PHP mode
 
 @typothree{} Mode supports different display and editing features, which
 will be described in the following sections.
@@ -135,7 +127,7 @@ will be described in the following sections.
 @end menu
 
 @c ---------------------------------------------------------------------
-@node Customization, Syntax highlighting, , T3PHP mode
+@node Customization, Syntax highlighting, , Using T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Customization
 
@@ -344,7 +336,7 @@ Default: @samp{sea green}.
 @end deftypevar
 
 @c ---------------------------------------------------------------------
-@node Syntax highlighting, Line indentation, Customization, T3PHP mode
+@node Syntax highlighting, Line indentation, Customization, Using T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Syntax highlighting
 
@@ -361,7 +353,7 @@ Emacs you may have to add these lines to your @file{~/.emacs} file:
 @end lisp
 
 @c ---------------------------------------------------------------------
-@node Line indentation, Inserting code templates, Syntax highlighting, T3PHP mode
+@node Line indentation, Inserting code templates, Syntax highlighting, Using T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Line indentation
 
@@ -376,7 +368,7 @@ automatically after pressing @kbd{@key{RET}}. @xref{Customization}, for
 details.
 
 @c =====================================================================
-@node Inserting code templates, , Line indentation, T3PHP mode
+@node Inserting code templates, , Line indentation, Using T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Inserting code templates
 The following sections describe functions and their respective key
@@ -556,7 +548,7 @@ The following code example was inserted in an empty file named
 @end smallformat
 
 @c ---------------------------------------------------------------------
-@node Buffer outline, , Inserting classes, T3PHP mode
+@node Buffer outline, , Inserting classes, Using T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Buffer outline
 
@@ -688,15 +680,10 @@ Kill the outline buffer.
 Show a help buffer.
 @end table
 
-@c =====================================================================
-@node Using TS mode, Key Index, T3PHP mode, Top
-@comment  node-name,  next,  previous,  up
-@chapter Using TS mode
-
 @page
 
 @c =====================================================================
-@node Key Index, Variable Index, Using TS mode, Top
+@node Key Index, Variable Index, Using T3PHP mode, Top
 @comment  node-name,  next,  previous,  up
 @unnumbered Key Index
 
