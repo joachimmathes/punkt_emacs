@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header
 @setfilename t3php-mode.info
-@settitle TYPO3-PHP and Emacs
+@settitle Emacs TYPO3-PHP Mode Manual
 @setchapternewpage off
 @afourpaper
 @macro typothree {}
@@ -39,8 +39,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @end copying
 
 @titlepage
-@title TYPO3-PHP and Emacs
-@subtitle Edit TYPO3-PHP files with Emacs
+@title TYPO3-PHP Mode
+@subtitle An Emacs major mode for @typothree{}-PHP files
 @author Joachim Mathes (@email{joachim_mathes@@web.de})
 @page
 @vskip 0pt plus 1filll
@@ -56,7 +56,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 @ifnottex
 @node Top
-@top Emacs in the world of TYPO3
+@top TYPO3-PHP Mode
 
 @insertcopying
 @end ifnottex
@@ -101,8 +101,7 @@ To set up Emacs to automatically edit files ending in @file{.php} using
 file (GNU Emacs) or @file{~/.xemacs/init.el} file (XEmacs):
 @lisp
 (setq auto-mode-alist (cons '("\\.php$" . t3php-mode) auto-mode-alist))
-(autoload 't3php-mode "t3php-mode" "Typo3 PHP input file editing mode."
-t)
+(autoload 't3php-mode "t3php-mode" "TYPO3-PHP input file editing mode." t)
 @end lisp
 If you just want to test @typothreephp{} Mode or are not eager to modify
 your @file{~/.emacs} file, type @kbd{M-x load-file}, load the
@@ -360,7 +359,7 @@ Emacs you may have to add these lines to your @file{~/.emacs} file:
 A PHP code line is indented automatically when the @key{TAB} key is
 pressed while point is on the according line. The indentation takes
 place with respect to the indentation of previous
-lines. @xref{Customization}, for details. The default width is @code{2}.
+lines. @xref{Customization}, for details. The default width is @code{4}.
 
 Depending on the current value of the customizable variable
 @var{t3php-newline-function}, line indentation might be executed
