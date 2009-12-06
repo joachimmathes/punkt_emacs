@@ -7,14 +7,11 @@
 @macro typothree {}
 TYPO3
 @end macro
-@macro t3php {}
+@macro typothreephp {}
 T3PHP
 @end macro
-@macro tsmode {}
+@macro ts {}
 TS
-@end macro
-@macro toc {}
-table of contents
 @end macro
 @macro ext {extkey}
 @emph{\extkey\}
@@ -81,7 +78,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @node Introduction, Installation, Top, Top
 @comment  node-name,  next,  previous,  up
 @chapter Introduction
-This manual describes a collection of Extensions, i.e. Elisp files,
+
+This manual describes a collection of Extensions, i.e. Emacs Lisp files,
 which provide functionality for working with Emacs in the PHP and
 @typothree{} world.
 
@@ -94,26 +92,28 @@ on GNU Emacs version 23.1.1.
 @node Installation, T3PHP mode, Introduction, Top
 @comment  node-name,  next,  previous,  up
 @chapter Installation
-The following description considers the installation of @t3php{} Mode,
-but the procedure is the same for @tsmode{} as it is for any other
+
+The following description considers the installation of @typothreephp{}
+Mode, but the procedure is the same for @ts{} as it is for any other
 extension by the way.
 
-To install @t3php{} Mode just drop file @file{t3php-mode.el} into a
-directory on your load-path. If you are the administrator of the system
-you are working on, a possible directory could be
+To install @typothreephp{} Mode just drop file @file{t3php-mode.el} into
+a directory on your load-path. If you are the administrator of the
+system you are working on, a possible directory could be
 @file{/usr/share/emacs/site-lisp/skampi-mode}, for example. You might
 byte-compile it for better performance. @xref{Byte Compilation, , Byte
 Compilation, elisp, Emacs Lisp}.
 
 To set up Emacs to automatically edit files ending in @file{.php} using
-@t3php{} Mode, add the following lines to your @file{~/.emacs} file
-(GNU Emacs) or @file{~/.xemacs/init.el} file (XEmacs):
+@typothreephp{} Mode, add the following lines to your @file{~/.emacs}
+file (GNU Emacs) or @file{~/.xemacs/init.el} file (XEmacs):
 @lisp
 (setq auto-mode-alist (cons '("\\.php$" . t3php-mode) auto-mode-alist))
-(autoload 't3php-mode "t3php-mode" "Typo3 PHP input file editing mode." t)
+(autoload 't3php-mode "t3php-mode" "Typo3 PHP input file editing mode."
+t)
 @end lisp
-If you just want to test @t3php{} Mode or are not eager to modify your
-@file{~/.emacs} file, type @kbd{M-x load-file}, load the
+If you just want to test @typothreephp{} Mode or are not eager to modify
+your @file{~/.emacs} file, type @kbd{M-x load-file}, load the
 @file{t3php-mode.el} file and finally apply the mode to the current
 buffer by typing @kbd{M-x t3php-mode}.
 
@@ -121,8 +121,9 @@ buffer by typing @kbd{M-x t3php-mode}.
 @node T3PHP mode, Using TS mode, Installation, Top
 @comment  node-name,  next,  previous,  up
 @chapter T3PHP mode
-@typothree{} Mode supports different display and editing features, which will
-be described in the following sections.
+
+@typothree{} Mode supports different display and editing features, which
+will be described in the following sections.
 
 @menu
 * Customization::
@@ -137,12 +138,13 @@ be described in the following sections.
 @node Customization, Syntax highlighting, , T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Customization
-@t3php{} Mode defines a customization group in Emacs, which is a member
-of the Emacs standard customization group @code{Languages}, whose parent
-Emacs group is @code{Programming}. Use @kbd{M-x customize} to browse
-through the full list of customization groups or @kbd{M-x
-customize-group} with parameter @samp{t3php} to enter the @t3php{}
-Mode customization group directly
+
+@typothreephp{} Mode defines a customization group in Emacs, which is a
+member of the Emacs standard customization group @code{Languages}, whose
+parent Emacs group is @code{Programming}. Use @kbd{M-x customize} to
+browse through the full list of customization groups or @kbd{M-x
+customize-group} with parameter @samp{t3php} to enter the
+@typothreephp{} Mode customization group directly
 
 @noindent
 The following user-customizable variables are provided.
@@ -153,12 +155,6 @@ The current developer or author of the PHP code. The value of this
 variable is used in the php-doc comments.
 
 Default: @samp{Lisa Fremont <lisa@@fremont.de>}
-@end deftypevar
-
-@deftypevar face t3php-default-face
-The face which is used in a PHP buffer for certain syntactic elements.
-
-Default: @samp{default}
 @end deftypevar
 
 @anchor{x-t3php-typo3-extension-directory}
@@ -212,13 +208,58 @@ spellings. @emph{newline} refers to the code representation of a new
 line, while @emph{new line} means its interpretation as a visible new
 line in the editor after pressing @kbd{@key{RET}}.}, then indents the
 new line (the one following the newline just inserted) according to
-@t3php{} Mode's internal indentation strategies.
+@typothreephp{} Mode's internal indentation strategies.
 @item reindent-then-newline-and-indent
 This command reindents the current line, inserts a newline at point, and
 then indents the new line (the one following the newline just inserted).
 @end table
 
 Default: @samp{newline}.
+@end deftypevar
+
+@deftypevar boolean t3php-php-doc-align
+Determines whether the PHPDoc parameters are aligned after a method or
+class is inserted with @code{t3php-insert-method} or
+@code{t3php-insert-class} respectively. See @ref{Inserting methods} and
+@ref{Inserting classes}, for more information.
+
+Aligned parameters:
+@smallformat
+@verbatim
+1  /**
+2   * Define foobar
+3   *
+4   * @param   $foo
+5   * @param   $bar
+6   * @return
+7   * @author  Lisa Fremont <lisa@fremont.de>
+8   * @since   2009-12-02
+9   */
+10 public function foobar($foo, $bar) {
+11
+12 }
+@end verbatim
+@end smallformat
+
+Unaligned parameters:
+@smallformat
+@verbatim
+1  /**
+2   * Define foobar
+3   *
+4   * @param $foo
+5   * @param $bar
+6   * @return
+7   * @author Lisa Fremont <lisa@fremont.de>
+8   * @since 2009-12-02
+9   */
+10 public function foobar($foo, $bar) {
+11
+12 }
+@end verbatim
+@end smallformat
+
+Default: @samp{t}
 @end deftypevar
 
 @deftypevar string t3php-php-manual-url
@@ -235,21 +276,21 @@ function.
 Default: @samp{http://www.php.net/manual/en/}
 @end deftypevar
 
-@deftypevar boolean t3php-toc-keep-other-windows
-When the @toc{} is viewed, the boolean value of this variable
-decides if the currently selected @t3php{} Mode buffer will be
+@deftypevar boolean t3php-outline-keep-other-windows
+When the outline is viewed, the boolean value of this variable decides
+if the currently selected @typothreephp{} Mode buffer will be
 deleted. If the variable is set to true (@samp{t}) the current window is
-split and the @toc{} is displayed in the newly created window. When
-@code{nil}, all other windows except the selected one will be deleted, so
-that the @toc{} window fills an adjustable
-(@pxref{x-stswf,,t3php-toc-split-windows-fraction}) amount of the
+split and the outline is displayed in the newly created window. When
+@code{nil}, all other windows except the selected one will be deleted,
+so that the outline window fills an adjustable
+(@pxref{x-stswf,,t3php-outline-split-windows-fraction}) amount of the
 frame.
 
 Default: @samp{t}.
 @end deftypevar
 
-@deftypevar boolean t3php-toc-split-windows-horizontally
-This variable determines the splitting mode, if the @toc{} is
+@deftypevar boolean t3php-outline-split-windows-horizontally
+This variable determines the splitting mode, if the outline is
 displayed. If true, split the current window horizontally. Otherwise
 split the window vertically.
 
@@ -272,31 +313,31 @@ orientation, at least it is for mine. :-)
 @end deftypevar
 
 @anchor{x-stswf}
-@deftypevar number t3php-toc-split-windows-fraction
+@deftypevar number t3php-outline-split-windows-fraction
 This variable describes the fraction of the width or height of the
-window, which is used for the @toc{}.
+window, which is used for the outline.
 
 Default: @samp{.3}.
 @end deftypevar
 
-@deftypevar boolean t3php-toc-follow-mode
-If true, point in @toc{} buffer will make @t3php{} window to follow. It
-will show the corresponding part of the document. This flag can be
-toggled from within the @toc{} buffer with the @kbd{f} key.
+@deftypevar boolean t3php-outline-follow-mode
+If true, point in outline buffer will make @typothreephp{} window to
+follow. It will show the corresponding part of the document. This flag
+can be toggled from within the outline buffer with the @kbd{f} key.
 
 Default: @samp{nil}.
 @end deftypevar
 
-@deftypevar color t3php-toc-hl-line-color
+@deftypevar color t3php-outline-hl-line-color
 The color used to highlight the background of the horizontal line which
-marks the current line of the @toc{} buffer and the corresponding line
-in the @t3php{} buffer when follow mode is active.
+marks the current line of the outline buffer and the corresponding line
+in the @typothreephp{} buffer when follow mode is active.
 
 Default: @samp{DarkSlateBlue}.
 @end deftypevar
 
-@deftypevar color t3php-toc-block-name-color
-The color used to highlight the lines in the @toc{}, which refer to
+@deftypevar color t3php-outline-method-name-color
+The color used to highlight the lines in the outline, which refer to
 the corresponding method.
 
 Default: @samp{sea green}.
@@ -306,6 +347,7 @@ Default: @samp{sea green}.
 @node Syntax highlighting, Line indentation, Customization, T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Syntax highlighting
+
 Syntax highlighting is a convenient feature of an editor to improve the
 appearance hence the readability of code. @typothree{} Mode supports the
 highlighting of single line and multiline comments, keywords and several
@@ -322,6 +364,7 @@ Emacs you may have to add these lines to your @file{~/.emacs} file:
 @node Line indentation, Inserting code templates, Syntax highlighting, T3PHP mode
 @comment  node-name,  next,  previous,  up
 @section Line indentation
+
 A PHP code line is indented automatically when the @key{TAB} key is
 pressed while point is on the according line. The indentation takes
 place with respect to the indentation of previous
@@ -400,15 +443,16 @@ Parameter: @code{bar}
 8   * @since 2009-12-02
 9   */
 10 public function foobar($foo, $bar) {
-11    
+11
 12 }
 @end verbatim
 @end smallformat
 
-@c ---------------------------------------------------------------------
+@c .....................................................................
 @node Inserting classes,  Buffer outline, Inserting methods, Inserting code templates
 @comment  node-name,  next,  previous,  up
 @subsection Inserting classes
+
 @deffn {Interactive Command} t3php-insert-class
 Insert the rudimentary class framework code with respect to TYPO3 coding
 standards. The inserted code consists of
@@ -418,7 +462,7 @@ PHP tags
 @item
 a copyright notice where date and author are inserted automatically with
 respect to customizable variables @samp{t3php-year-format} and
-@samp{t3php-developer}. @pxref{x-t3php-year-format,, t3php-year-format} and
+@samp{t3php-developer}. See @ref{x-t3php-year-format,, t3php-year-format} and
 @ref{x-t3php-developer,, x-t3php-developer}, for more information.
 @item
 a marker comment for the class and function index which can be inserted
@@ -483,11 +527,11 @@ The following code example was inserted in an empty file named
 26  *
 27  * Hint: use extdeveval to insert/update function index above.
 28  */
-29 
-30 
-31 
-32 
-33 
+29
+30
+31
+32
+33
 34 /**
 35  *
 36  *
@@ -497,10 +541,10 @@ The following code example was inserted in an empty file named
 40  * @since      2009-12-02
 41  */
 42 class tslib_content {
-43 
+43
 44 }
-45 
-46 
+45
+46
 47 /*******************************************************************************
 48  * TYPO3 XCLASS INCLUSION (for class extension/overriding)
 49  ******************************************************************************/
@@ -533,7 +577,7 @@ The following code example was inserted in an empty file named
 @kindex @kbd{k}
 @kindex @kbd{?}
 
-The @toc{} buffer summarizes the methods of the PHP buffer and provides
+The outline buffer summarizes the methods of the PHP buffer and provides
 comfortable navigation through the PHP buffer. The first three lines are
 intangible and show the file name of the current PHP input file and the
 shortcuts of the most important commands.
@@ -549,15 +593,16 @@ shown in the echo area. On text-only terminals, Emacs can't follow the
 mouse, and therefore is not able to show the complete name on
 mouse-over.
 
-The color of the leftmost column @code{[P]} shows the method modifier:
-@itemize
-@item
-@code{private} = @samp{firebrick}
-@item
-@code{protected} = @samp{goldenrod}
-@item
-@code{public} = @samp{forest green}
-@end itemize
+The character and color of the leftmost column indicates the type of
+method modifier:
+@table @code
+@item private
+@code{[-]} (color: @samp{firebrick})
+@item protected
+@code{[#]} (color: @samp{goldenrod})
+@item public
+@code{[+]} (color: @samp{forest green})
+@end table
 
 
 The rightmost column presents the line numbers, which delimit the region
@@ -584,7 +629,7 @@ SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
 @end verbatim
 @end smallformat
 
-@deffn {Interactive Command} t3php-toc rescan
+@deffn {Interactive Command} t3php-outline rescan
 This command shows the outline of the current PHP buffer. If
 @var{rescan} is true, the PHP buffer will be rescanned before the ouline
 buffer is displayed.
@@ -614,21 +659,21 @@ Move to the previous selectable item.
 Move to the previous selectable item.
 
 @item C-@key{HOME}
-Move to the beginning of the @toc{} buffer.
+Move to the beginning of the outline buffer.
 
 @item C-@key{END}
-Move to the end of the @toc{} buffer..
+Move to the end of the outline buffer.
 
 @item @key{SPC}
 Show the corresponding location of the @typothree{} buffer.
 
 @item @key{TAB}
 Go to the corresponding location of the @typothree{} buffer and keep the
-@toc{} window.
+outline window.
 
 @item @key{RET}
 Go to the corresponding location of the @typothree{} buffer and hide the
-@toc{} window.
+outline window.
 
 @item f
 Toggle follow mode.
@@ -637,7 +682,7 @@ Toggle follow mode.
 Re-parse the @typothree{} buffer.
 
 @item k
-Kill the @toc{} buffer.
+Kill the outline buffer.
 
 @item ?
 Show a help buffer.
