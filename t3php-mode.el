@@ -54,11 +54,6 @@
   :prefix "t3php-"
   :group 'languages)
 
-(defcustom t3php-default-face 'default
-  "Default face in `t3php-mode' buffers."
-  :type 'face
-  :group 't3php)
-
 (defcustom t3php-typo3-extension-directory "ext/"
   "TYPO3 extension directory."
   :type 'string
@@ -268,11 +263,11 @@ list-colors-display"
       (1 font-lock-constant-face nil nil)) ;; $_GET & co
     '("\\$\\(\\sw+\\)" (1 font-lock-variable-name-face)) ;; $variable
     '("->\\(\\sw+\\)" (1 font-lock-variable-name-face t t)) ;; ->variable
-    '("->\\(\\sw+\\)\\s-*(" . (1 t3php-default-face t t)) ;; ->function_call
+    '("->\\(\\sw+\\)\\s-*(" . (1 'default t t)) ;; ->function_call
     '("\\(\\sw+\\)::\\sw+\\s-*(?" . (1 font-lock-type-face)) ;; class::member
-    '("::\\(\\sw+\\>[^(]\\)" . (1 t3php-default-face)) ;; class::constant
-    '("\\<\\sw+\\s-*[[(]" . t3php-default-face) ;; word( or word[
-    '("\\<[0-9]+" . t3php-default-face) ;; number (also matches word)
+    '("::\\(\\sw+\\>[^(]\\)" . (1 'default)) ;; class::constant
+    '("\\<\\sw+\\s-*[[(]" . 'default) ;; word( or word[
+    '("\\<[0-9]+" . 'default) ;; number (also matches word)
 
     ;; Exclude casts from bare-word treatment (may contain spaces)
     `(,(concat "(\\s-*\\(" t3php-types "\\)\\s-*)")
@@ -284,7 +279,7 @@ list-colors-display"
 
     ;; Warn about '$' immediately after ->
     '("\\$\\sw+->\\s-*\\(\\$\\)\\(\\sw+\\)"
-      (1 font-lock-warning-face) (2 t3php-default-face))
+      (1 font-lock-warning-face) (2 'default))
 
     ;; Warn about $word.word -- it could be a valid concatenation,
     ;; but without any spaces we'll assume $word->word was meant.
