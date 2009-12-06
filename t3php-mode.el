@@ -505,7 +505,7 @@ This function inserts:
 " * @since       " (t3php-current-date) "\n"
 " */\n"
 "class "
-(substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
+(t3php-insert-class-name)
 " {\n\n"
 "}\n\n\n"
 "/*******************************************************************************\n"
@@ -519,6 +519,15 @@ This function inserts:
 "']);\n"
 "}\n"
 "?>"))
+
+(defun t3php-insert-class-name ()
+  "Insert class name derived from buffer file name."
+  (if (string-match-p
+	    "^class."
+	    (buffer-file-name))
+      (substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
+    (file-name-sans-extension (file-name-nondirectory buffer-file-name))))
+
 
 (defun t3php-path-to-extension-file ()
   "Return path to extension file."
