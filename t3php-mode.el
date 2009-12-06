@@ -469,64 +469,89 @@ This function inserts:
   and leaves room for a class description
 * a special comment for inserting a function index automatically
   with the TYPO3 extension `Extension Development Evaluator'
-* a class header comment"
+* a class header comment
+* the class skeleton
+* a TYPO3 XCLASS inclusion section"
   (interactive)
-
   (insert "<?php\n"
-"/***************************************************************\n"
-" *  Copyright notice\n"
-" *\n"
-" *  (c) "  (t3php-current-year) " " t3php-developer "\n"
-" *  All rights reserved\n"
-" *\n"
-" *  This script is part of the TYPO3 project. The TYPO3 project is\n"
-" *  free software; you can redistribute it and/or modify\n"
-" *  it under the terms of the GNU General Public License as published by\n"
-" *  the Free Software Foundation; either version 2 of the License, or\n"
-" *  (at your option) any later version.\n"
-" *\n"
-" *  The GNU General Public License can be found at\n"
-" *  http://www.gnu.org/copyleft/gpl.html.\n"
-" *\n"
-" *  This script is distributed in the hope that it will be useful,\n"
-" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-" *  GNU General Public License for more details.\n"
-" *\n"
-" *  This copyright notice MUST APPEAR in all copies of the script!\n"
-" ***************************************************************/\n"
-"/**\n"
-" * [CLASS/FUNCTION INDEX of SCRIPT]\n"
-" *\n"
-" * Hint: use extdeveval to insert/update function index above.\n"
-" */\n"
-"\n\n\n\n\n"
-"/**\n"
-" *\n"
-" *\n"
-" * @author      " t3php-developer "\n"
-" * @package     TYPO3\n"
-" * @subpackage\n"
-" * @since       " (t3php-current-date) "\n"
-" */\n"
-"class "
-(t3php-insert-class-name)
-" {\n\n"
-"}\n\n\n"
-"/*******************************************************************************\n"
-" * TYPO3 XCLASS INCLUSION (for class extension/overriding)\n"
-" ******************************************************************************/\n"
-"if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
-(t3php-path-to-extension-file)
-"']) {\n"
-"    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
-(t3php-path-to-extension-file)
-"']);\n"
-"}\n"
-"?>"))
+	  "/***************************************************************\n"
+	  " *  Copyright notice\n"
+	  " *\n"
+	  " *  (c) "  (t3php-current-year) " " t3php-developer "\n"
+	  " *  All rights reserved\n"
+	  " *\n"
+	  " *  This script is part of the TYPO3 project. The TYPO3 project is\n"
+	  " *  free software; you can redistribute it and/or modify\n"
+	  " *  it under the terms of the GNU General Public License as published by\n"
+	  " *  the Free Software Foundation; either version 2 of the License, or\n"
+	  " *  (at your option) any later version.\n"
+	  " *\n"
+	  " *  The GNU General Public License can be found at\n"
+	  " *  http://www.gnu.org/copyleft/gpl.html.\n"
+	  " *\n"
+	  " *  This script is distributed in the hope that it will be useful,\n"
+	  " *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	  " *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+	  " *  GNU General Public License for more details.\n"
+	  " *\n"
+	  " *  This copyright notice MUST APPEAR in all copies of the script!\n"
+	  " ***************************************************************/\n"
+	  "/**\n"
+	  " *\n"
+	  " *\n"
+	  " * @author"
+	  (t3php-return-phpdoc-alignment 3)
+	  t3php-developer
+	  "\n"
+	  " * @since"
+	  (t3php-return-phpdoc-alignment 4)
+	  (t3php-current-date)
+	  "\n"
+	  " * @version"
+	  (t3php-return-phpdoc-alignment 2)
+	  "$Id$\n"
+	  " */\n"
+	  "/**\n"
+	  " * [CLASS/FUNCTION INDEX of SCRIPT]\n"
+	  " *\n"
+	  " * Hint: use extdeveval to insert/update function index above.\n"
+	  " */\n"
+	  "\n\n\n\n\n"
+	  "/**\n"
+	  " *\n"
+	  " *\n"
+	  " * @author"
+	  (t3php-return-phpdoc-alignment 9)
+	  t3php-developer
+	  "\n"
+	  " * @package"
+	  (t3php-return-phpdoc-alignment 8)
+	  "TYPO3\n"
+	  " * @subpackage"
+	  (t3php-return-phpdoc-alignment 2)
+	  (t3php-get-subpackage-name)
+	  "\n"
+	  " * @since"
+	  (t3php-return-phpdoc-alignment 10)
+	  (t3php-current-date)
+	  "\n"
+	  " */\n"
+	  "class "
+	  (t3php-get-class-name)
+	  " {\n\n"
+	  "}\n\n\n"
+	  "/*******************************************************************************\n"
+	  " * TYPO3 XCLASS INCLUSION (for class extension/overriding)\n"
+	  " ******************************************************************************/\n"
+	  "if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
+	  (t3php-path-to-extension-file)
+	  "']) {\n"
+	  "    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
+	  (t3php-path-to-extension-file)
+	  "']);\n"
+	  "}\n"
+	  "?>"))
 
-(defun t3php-insert-class-name ()
-  "Insert class name derived from buffer file name."
 (defun t3php-get-subpackage-name ()
   "Return subpackage name derived from extension path."
   (if (not (string-match-p
