@@ -8,7 +8,12 @@ MASTERFILE=ts-mode.texi
 
 .PHONY : all clean veryclean
 
-all : htmlsplit htmlnosplit pdf dvi ps
+all : info htmlsplit htmlnosplit pdf dvi ps
+
+info: ts-mode.info
+
+ts-mode.info: $(FILES)
+	@$(MAKEINFO) $(MASTERFILE)
 
 htmlsplit : ts-mode/index.html
 
@@ -40,4 +45,4 @@ clean :
 	       *.ky *.kys *.vr *.vrs *.pg *.tp
 
 veryclean : clean
-	@rm -rf *.pdf *.ps *.html *~ ts-mode
+	@rm -rf *.info *.pdf *.ps *.html *~ ts-mode

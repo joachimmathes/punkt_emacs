@@ -8,7 +8,12 @@ MASTERFILE=t3php-mode.texi
 
 .PHONY : all clean veryclean
 
-all : htmlsplit htmlnosplit pdf dvi ps
+all : info htmlsplit htmlnosplit pdf dvi ps
+
+info: t3php-mode.info
+
+t3php-mode.info: $(FILES)
+	@$(MAKEINFO) $(MASTERFILE)
 
 htmlsplit : t3php-mode/index.html
 
@@ -42,4 +47,4 @@ clean :
 	       *.ky *.kys *.vr *.vrs *.pg *.tp
 
 veryclean : clean
-	@rm -rf *.pdf *.ps *.html *~ t3php-mode
+	@rm -rf *.info *.pdf *.ps *.html *~ t3php-mode
