@@ -1133,7 +1133,7 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 	 method-name
 	 method-marker
 	 method-modifier
-	 (symbolized-method-modifier "[P]")
+	 symbolized-method-modifier
 	 (formatter (concat "%s "
 			    "%-"
 			    (number-to-string (+ max-method-name-length 6))
@@ -1154,21 +1154,25 @@ CONTENT is the list of lists returned by function `t3php-toc-content'."
 
       ;; Set text properties for method-modifier
       (cond ((string= "private" method-modifier)
+	     (setq symbolized-method-modifier "[-]")
 	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "firebrick")
 				symbolized-method-modifier))
 	    ((string= "protected" method-modifier)
+	     (setq symbolized-method-modifier "[#]")
 	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "goldenrod")
 				symbolized-method-modifier))
 	    ((string= "public" method-modifier)
+	     (setq symbolized-method-modifier "[+]")
 	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "forest green")
 				symbolized-method-modifier))
 	    ((eq nil method-modifier)
+	     (setq symbolized-method-modifier "[+]")
 	     (put-text-property 0 (length symbolized-method-modifier)
 				'font-lock-face `(:foreground
 						  "forest green")
