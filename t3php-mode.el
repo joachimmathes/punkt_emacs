@@ -536,9 +536,7 @@ This function inserts:
              t3php-path-to-typo3-extension-directory
              t3php-typo3-extension-directory) buffer-file-name))
       (concat "<PATH-TO-FILE>/"
-              (file-name-nondirectory buffer-file-name)
-	      t3php-path-to-typo3-extension-directory
-	      t3php-typo3-extension-directory)
+              (file-name-nondirectory buffer-file-name))
     (string-match (concat t3php-path-to-typo3-extension-directory
                           "\\("
                           t3php-typo3-extension-directory
