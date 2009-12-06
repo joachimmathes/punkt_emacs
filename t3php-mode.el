@@ -607,18 +607,22 @@ This function inserts:
     (insert (concat "/**\n"
 		    "*\n*\n"))
     (dolist (argument method-arguments)
-      (insert (concat "* @param $"
-		      argument
-		      "\n")))
-    (insert (concat "* @return\n"
-		    "* @author "
-		    t3php-developer
-		    "\n"
-		    "* @since "
-		    (t3php-current-date)
-		    "\n"
-		    "*/\n"
-		    ))
+      (insert "* @param"
+	      (t3php-return-phpdoc-alignment 3)
+	      "$"
+	      argument
+	      "\n"))
+    (insert "* @return\n"
+	    "* @author"
+	    (t3php-return-phpdoc-alignment 2)
+	    t3php-developer
+	    "\n"
+	    "* @since"
+	    (t3php-return-phpdoc-alignment 3)
+	    (t3php-current-date)
+	    "\n"
+	    "*/\n"
+	    )
     (insert
      (if (not (eq method-modifier nil))
                 (concat method-modifier " "))
