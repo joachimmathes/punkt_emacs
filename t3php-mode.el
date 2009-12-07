@@ -827,7 +827,7 @@ use."
     (make-string 1 ?\s)))
 
 (defun t3php-outline-mode ()
-  "Major mode for managing Table of Contents for php files.
+  "Major mode for managing the outline of php files.
 
 COMMANDS
 \\{t3php-outline-mode-map}
@@ -882,9 +882,9 @@ t3php-outline-block-name-color\t\tcolor used to highlight block names"
   (use-local-map t3php-outline-mode-map))
 
 (defun t3php-outline (&optional rescan)
-  "Show the table of contents for the current t3php buffer.
+  "Show the outline for the current t3php buffer.
 
-The table of contents consists of the methods in the current t3php buffer.  If
+The outline consists of the methods in the current t3php buffer.  If
 RESCAN is true, rescan the t3php buffer before displaying the *t3php-outline*
 buffer."
   (interactive)
@@ -934,12 +934,12 @@ buffer."
 
     (cond
      ((= (buffer-size) 0)
-     ;; If buffer is empty, fill it with the table of contents
+     ;; If buffer is empty, fill it with the outline
       (message "Building *t3php-outline* buffer...")
 
       (setq buffer-read-only nil)
       (insert (format
-"TABLE OF CONTENTS of %s
+"OUTLINE of %s
 SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
 -----------------------------------------------------------------------
 " (abbreviate-file-name t3php-outline-last-file)))
@@ -947,7 +947,7 @@ SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
       ;; Set text properties of *t3php-outline* buffer header
       (put-text-property (point-min) (point) 'font-lock-face font-lock-comment-face)
       (put-text-property (point-min) (point) 'intangible t)
-      ;; Fill the buffer with a table of methods
+      ;; Fill the buffer with the outline
       (dolist (line
 	       (t3php-outline-format
 		(t3php-outline-content
@@ -1017,8 +1017,8 @@ Deactivates the hl-line overlay on the current line."
   "Move to next selectable item.
 
 Up to now this is just the next line. There might be different kinds of contents
-in the table of contents in the future. It could be usefull to find the next
-meaningfull line by text properties."
+in the outline in the future. It could be usefull to find the next meaningfull
+line by text properties."
   (interactive "p")
   (forward-line arg))
 
@@ -1026,8 +1026,8 @@ meaningfull line by text properties."
   "Move to previous selectable item.
 
 Up to now this is just the next line. There might be different kinds of contents
-in the table of contents in the future. It could be usefull to find the next
-meaningfull line by text properties."
+in the outline in the future. It could be usefull to find the next meaningfull
+line by text properties."
   (interactive "p")
 
   (if (not arg)
@@ -1090,7 +1090,7 @@ meaningfull line by text properties."
   (goto-line (line-number-at-pos (point-max))))
 
 (defun t3php-outline-content (t3php-buffer)
-  "Returns table of contents of methods
+  "Return outline of methods.
 This is a list of lists containing the method modifier, method name,
 method start and end position."
   (save-current-buffer
@@ -1171,7 +1171,7 @@ method start and end position."
       (reverse list-of-methods))))
 
 (defun t3php-outline-format (content)
-  "Return a list of formatted lines for the table of contents.
+  "Return a list of formatted lines for the outline.
 CONTENT is the list of lists returned by function `t3php-outline-content'."
   (let* ((formatting-information (t3php-outline-formatting-information content))
 	 (formatted-content (list))
@@ -1264,7 +1264,7 @@ CONTENT is the list of lists returned by function `t3php-outline-content'."
     (reverse formatted-content)))
 
 (defun t3php-outline-formatting-information (content)
-  "Return a list of formatting information for the table of contents.
+  "Return a list of formatting information for the outline.
 The first item is the maximum string length allowed for method
 names.  The value is limited by the current window width with respect to the
 length of a string, which shows the measurement block start and end lines
