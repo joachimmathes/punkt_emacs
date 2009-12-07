@@ -600,12 +600,16 @@ This function inserts:
     (setq method-arguments (reverse method-arguments))
     (insert (concat "/**\n"
 		    "*\n*\n"))
-    (dolist (argument method-arguments)
+    (if (not (eq method-arguments nil))
+	(dolist (argument method-arguments)
+	  (insert "* @param"
+		  (t3php-return-phpdoc-alignment 3)
+		  "$"
+		  argument
+		  "\n"))
       (insert "* @param"
 	      (t3php-return-phpdoc-alignment 3)
-	      "$"
-	      argument
-	      "\n"))
+	      "void\n"))
     (insert "* @return\n"
 	    "* @author"
 	    (t3php-return-phpdoc-alignment 2)
