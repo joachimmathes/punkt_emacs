@@ -61,6 +61,44 @@ Copyright (C) 2009 Joachim Mathes.
 </li></ul>
 <li><a href="#Buffer-outline">3.5 Buffer outline</a>
 </li></ul>
+<li><a name="toc_TYPO3-Coding-Guidelines" href="#TYPO3-Coding-Guidelines">Appendix A TYPO3 Coding Guidelines</a>
+<ul>
+<li><a href="#General-requirements">A.1 General requirements</a>
+<ul>
+<li><a href="#PHP-tags">A.1.1 PHP Tags</a>
+<li><a href="#Line-breaks">A.1.2 Line breaks</a>
+<li><a href="#Line-length">A.1.3 Line length</a>
+<li><a href="#Whitespace-and-indentation">A.1.4 Whitespace and indentation</a>
+<li><a href="#Character-set">A.1.5 Character set</a>
+</li></ul>
+<li><a href="#File-structure">A.2 File structure</a>
+<ul>
+<li><a href="#Copyright-notice">A.2.1 Copyright notice</a>
+<li><a href="#File-information-block">A.2.2 File information block</a>
+<li><a href="#Included-files">A.2.3 Included files</a>
+<li><a href="#Class-information-block">A.2.4 Class information block</a>
+<li><a href="#PHP-class">A.2.5 PHP class</a>
+<li><a href="#XCLASS-declaration">A.2.6 XCLASS declaration</a>
+<li><a href="#Optional-module-execution-code">A.2.7 Optional module execution code</a>
+</li></ul>
+<li><a href="#PHP-syntax-formatting">A.3 PHP syntax formatting</a>
+<ul>
+<li><a href="#Identifiers">A.3.1 Identifiers</a>
+<li><a href="#Comments">A.3.2 Comments</a>
+<li><a href="#Debug-output">A.3.3 Debug output</a>
+<li><a href="#Curly-braces">A.3.4 Curly braces</a>
+<li><a href="#Conditions">A.3.5 Conditions</a>
+<li><a href="#Switch">A.3.6 Switch</a>
+<li><a href="#Loops">A.3.7 Loops</a>
+<li><a href="#Strings">A.3.8 Strings</a>
+<li><a href="#Booleans">A.3.9 Booleans</a>
+<li><a href="#PHP5-features">A.3.10 PHP5 features</a>
+<li><a href="#Global-variables">A.3.11 Global variables</a>
+<li><a href="#Functions">A.3.12 Functions</a>
+</li></ul>
+<li><a href="#Using-phpDoc">A.4 Using phpDoc</a>
+<li><a href="#The-ChangeLog-file">A.5 The ChangeLog file</a>
+</li></ul>
 <li><a name="toc_Key-Index" href="#Key-Index">Key Index</a>
 <li><a name="toc_Variable-Index" href="#Variable-Index">Variable Index</a>
 <li><a name="toc_Function-Index" href="#Function-Index">Function Index</a>
@@ -111,9 +149,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 <li><a accesskey="1" href="#Introduction">Introduction</a>:  TYPO3-PHP and Emacs
 <li><a accesskey="2" href="#Installation">Installation</a>:  Prepare Emacs
 <li><a accesskey="3" href="#Using-T3PHP-mode">Using T3PHP mode</a>:  Features, commands and key bindings
-<li><a accesskey="4" href="#Key-Index">Key Index</a>
-<li><a accesskey="5" href="#Variable-Index">Variable Index</a>
-<li><a accesskey="6" href="#Function-Index">Function Index</a>
+<li><a accesskey="4" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+<li><a accesskey="5" href="#Key-Index">Key Index</a>
+<li><a accesskey="6" href="#Variable-Index">Variable Index</a>
+<li><a accesskey="7" href="#Function-Index">Function Index</a>
 </ul>
 
 <!-- ===================================================================== -->
@@ -171,7 +210,7 @@ buffer by typing <kbd>M-x t3php-mode</kbd>.
 <div class="node">
 <a name="Using-T3PHP-mode"></a>
 <p><hr>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Key-Index">Key Index</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Installation">Installation</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
@@ -737,10 +776,1017 @@ outline window.
 
 <!-- ===================================================================== -->
 <div class="node">
+<a name="TYPO3-Coding-Guidelines"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Key-Index">Key Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-T3PHP-mode">Using T3PHP mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h2 class="appendix">Appendix A TYPO3 Coding Guidelines</h2>
+
+<p>This appendix refers to the section <em>PHP file formatting</em> of the
+manual <cite>TYPO3 Coding Guidelines</cite> by the <em>TYPO3 Core
+Development Team</em>. I decided to append this documentation to have a
+reference nearby, whenever I think of extending any T3PHP Mode
+features.
+
+<ul class="menu">
+<li><a accesskey="1" href="#General-requirements">General requirements</a>
+<li><a accesskey="2" href="#File-structure">File structure</a>
+<li><a accesskey="3" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+<li><a accesskey="4" href="#Using-phpDoc">Using phpDoc</a>
+<li><a accesskey="5" href="#The-ChangeLog-file">The ChangeLog file</a>
+</ul>
+
+<!--  -->
+<div class="node">
+<a name="General-requirements"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#File-structure">File structure</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">A.1 General requirements</h3>
+
+<ul class="menu">
+<li><a accesskey="1" href="#PHP-tags">PHP tags</a>
+<li><a accesskey="2" href="#Line-breaks">Line breaks</a>
+<li><a accesskey="3" href="#Line-length">Line length</a>
+<li><a accesskey="4" href="#Whitespace-and-indentation">Whitespace and indentation</a>
+<li><a accesskey="5" href="#Character-set">Character set</a>
+</ul>
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="PHP-tags"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Line-breaks">Line breaks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#General-requirements">General requirements</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.1.1 PHP Tags</h4>
+
+<p>Each PHP file in TYPO3 must use full PHP tags. There must be exactly one
+pair of opening and closing tags (no closing and opening tags in the
+middle of the file). Example:
+<pre class="smallformat"><pre class="verbatim">&lt;?php
+    // File content goes here
+?>
+</pre>
+</pre>
+   <p>There must be no empty lines after the closing PHP tag. Empty lines
+after closing tags break output compression in PHP and/or result in AJAX
+errors.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Line-breaks"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Line-length">Line length</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#PHP-tags">PHP tags</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#General-requirements">General requirements</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.1.2 Line breaks</h4>
+
+<p>TYPO3 uses Unix line endings (<code>\n</code>, PHP <code>chr(10)</code>). If a
+developer uses Windows or Mac OS X platform, the editor must be
+configured to use Unix line endings.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Line-length"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Whitespace-and-indentation">Whitespace and indentation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Line-breaks">Line breaks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#General-requirements">General requirements</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.1.3 Line length</h4>
+
+<p>Line length is limited to 80 characters. Longer lines should be split to
+several lines. Each line fragment starting from the second must be
+indented with one or more tab characters. Example:
+<pre class="smallformat"><pre class="verbatim">       $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid, title', 'pages',
+                    'pid=' . $this->fullQuoteStr($this->pid, 'pages') .
+                    $this->cObj->enableFields('pages'), '', 'title');
+</pre>
+</pre>
+   <p class="noindent">In certain cases splitting lines exactly at 80 characters is not
+feasible. In this case lines can be longer but such practice is
+discouraged.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Whitespace-and-indentation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Character-set">Character set</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Line-length">Line length</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#General-requirements">General requirements</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.1.4 Whitespace and indentation</h4>
+
+<p>TYPO3 uses tab characters to indent source code. One indentation level
+is one tab. There must be no white spaces in the end of a line. This
+can be done manually or using a text editor that takes care of this.
+
+<p class="noindent">Spaces must be added:
+
+     <ul>
+<li>on both sides of string, arithmetic, assignment and other similar
+operators (for example, <code>.</code>, <code>=</code>, <code>+</code>, -
+, <code>?</code>, <code>:</code>, <code>*</code>, etc)
+<li>after commas
+<li>in single line comments after the comment sign (double slash)
+<li>after asterisks in multiline comments
+</ul>
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Character-set"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Whitespace-and-indentation">Whitespace and indentation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#General-requirements">General requirements</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.1.5 Character set</h4>
+
+<p>TYPO3 PHP files use iso-8859-1 character set.
+
+<p class="noindent">All XML files use UTF-8 character set.
+
+<!--  -->
+<div class="node">
+<a name="File-structure"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#PHP-syntax-formatting">PHP syntax formatting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#General-requirements">General requirements</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">A.2 File structure</h3>
+
+<p>TYPO3 files use the following structure:
+     <ol type=1 start=1>
+<li>Opening PHP tag
+<li>Copyright notice
+<li>File information block (with optional function index) in phpDoc format
+<li>Included files
+<li>Class information block in phpDoc format
+<li>PHP class
+<li>XCLASS declaration
+<li>Optional module execution code (for example, in eID classes)
+        </ol>
+The following sections discuss each of these parts.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Copyright-notice">Copyright notice</a>
+<li><a accesskey="2" href="#File-information-block">File information block</a>
+<li><a accesskey="3" href="#Included-files">Included files</a>
+<li><a accesskey="4" href="#Class-information-block">Class information block</a>
+<li><a accesskey="5" href="#PHP-class">PHP class</a>
+<li><a accesskey="6" href="#XCLASS-declaration">XCLASS declaration</a>
+<li><a accesskey="7" href="#Optional-module-execution-code">Optional module execution code</a>
+</ul>
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Copyright-notice"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#File-information-block">File information block</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.1 Copyright notice</h4>
+
+<p>TYPO3 is released under the terms of GNU General Public License version
+2 or any later version. The copyright notice with a reference to the GPL
+must be included at the top of every TYPO3 PHP class file. <code>user_</code>
+files must have this copyright notice as well. Example:
+<pre class="smallformat"><pre class="verbatim">&lt;?php
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) YYYY Your name here (your@email.here)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  A copy is found in the textfile GPL.txt and important notices to the license
+ *  from the author is found in LICENSE.txt distributed with these scripts.
+ *
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+</pre>
+</pre>
+   <p class="noindent">This notice may not be altered except for the year, author name and author e-mail.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="File-information-block"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Included-files">Included files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Copyright-notice">Copyright notice</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.2 File information block</h4>
+
+<p>File information block follows the copyright statement and provides
+basic information about the file. It should include file name,
+description of the file and information about the author (or
+authors). Example:
+<pre class="verbatim">/**
+ * class.tx_myext_pi1.php
+ *
+ * Provides XYZ plugin implementation.
+ *
+ * $Id: class.tx_myext_pi1.php 9514 2008-07-23 17:06:12Z john_doe $
+ *
+ * @author John Doe &lt;john.doe@example.com>
+ */
+</pre>
+The example above uses SVN $Id$ meta keyword. SVN will expand it to a
+full version string when the file is committed.  The file information
+block can also contain the optional function index. This index is
+created and updated by the extdeveval extension.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Included-files"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Class-information-block">Class information block</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#File-information-block">File information block</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.3 Included files</h4>
+
+<p>Files are included using <code>require_once</code> function. All TYPO3 files
+must use absolute paths in calls to <code>require_once</code>. There are two
+ways to obtain the path to the included file:
+
+     <ol type=1 start=1>
+<li>Use one of the predefined TYPO3 constants: <code>PATH_tslib</code>,
+<code>PATH_t3lib</code>, <code>PATH_typo3</code>, <code>PATH_site</code>. The first three
+contain absolute paths to the corresponding TYPO3 directories. The last
+constant contains absolute path to the TYPO3 root directory. Example:
+<pre class="verbatim">     require_once(PATH_tslib . 'class.tslib_pibase.php');
+</pre>
+<li>Use <code>t3lib_extMgm::extPath()</code> function. This function accepts two
+arguments: extension key and path to the included file. The second
+argument is optional but recommended to use. Examples:
+<pre class="verbatim">     require_once(t3lib_extMgm::extPath('lang', 'lang.php'));
+     require_once(t3lib_extMgm::extPath('lang') . 'lang.php');
+</pre>
+        </ol>
+Always use one of these two ways to include files. This is required to
+include files even from the current directory. Some installations do not
+have the current directory in the PHP include path and
+<code>require_once</code> without a proper path will result in fatal PHP
+error.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Class-information-block"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#PHP-class">PHP class</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Included-files">Included files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.4 Class information block</h4>
+
+<p>Class information block is similar to the file information block and
+describes the class in the file. Example:
+<pre class="verbatim">/**
+ * This class provides XYZ plugin implementation.
+ *
+ * @author John Doe &lt;john.doe@example.com>
+ * @author Jane Doe &lt;jane.doe@example.com>
+ */
+</pre>
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="PHP-class"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#XCLASS-declaration">XCLASS declaration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Class-information-block">Class information block</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.5 PHP class</h4>
+
+<p>PHP class follows the Class information block. PHP code must be
+formatted as described in <a href="#PHP-syntax-formatting">PHP syntax formatting</a>.  The class name
+is expected to follow some conventions. The namespace and path parts are
+all lowercase and separated by underscores (&lsquo;<samp><span class="samp">_</span></samp>&rsquo;). At the end comes
+the &ldquo;true&rdquo; class name which must be written in upper camel case. 
+Taking again the example of file
+<samp><span class="file">class.t3lib_cache_backend_abstractbackend.php</span></samp>, the PHP class
+declaration will look like:
+<pre class="verbatim">class t3lib_cache_backend_AbstractBackend {
+    ...
+}
+</pre>
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="XCLASS-declaration"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Optional-module-execution-code">Optional module execution code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#PHP-class">PHP class</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.6 XCLASS declaration</h4>
+
+<p>The XCLASS declaration must follow the PHP class. The format of the
+XCLASS is very important. No spaces can be added or removed, no
+reformatting can be done to the declaration. If the formatting is
+changed, the TYPO3 Extension Manager will complain about a missing
+XCLASS declaration.
+
+   <p>The XCLASS declaration must include proper path to the current class
+file. The following example assumes that extension key is <code>myext</code>,
+file name is <samp><span class="file">class.tx_myext_pi1.php</span></samp> and file is located in the
+<samp><span class="file">pi1</span></samp> subdirectory of the extension:
+<pre class="smallformat"><pre class="verbatim">if (defined('TYPO3_MODE') &amp;&amp; $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/myext/pi1/class.tx_myext_pi1.php'])    {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/myext/pi1/class.tx_myext_pi1.php']);
+}
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Optional-module-execution-code"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#XCLASS-declaration">XCLASS declaration</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#File-structure">File structure</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.7 Optional module execution code</h4>
+
+<p>Module execution code instantiates the class and runs its
+method(s). Typically this code can be found in eID scripts and old
+Backend modules. Here is how it may look like:
+<pre class="verbatim">$controller = t3lib_div::makeInstance('tx_myext_ajaxcontroller');
+$controller->main();
+</pre>
+This code must appear <em>after</em> the XCLASS declaration. <code>$SOBE</code>
+is traditional but not required name.
+
+<!--  -->
+<div class="node">
+<a name="PHP-syntax-formatting"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Using-phpDoc">Using phpDoc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#File-structure">File structure</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">A.3 PHP syntax formatting</h3>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Identifiers">Identifiers</a>
+<li><a accesskey="2" href="#Comments">Comments</a>
+<li><a accesskey="3" href="#Debug-output">Debug output</a>
+<li><a accesskey="4" href="#Curly-braces">Curly braces</a>
+<li><a accesskey="5" href="#Conditions">Conditions</a>
+<li><a accesskey="6" href="#Switch">Switch</a>
+<li><a accesskey="7" href="#Loops">Loops</a>
+<li><a accesskey="8" href="#Strings">Strings</a>
+<li><a accesskey="9" href="#Booleans">Booleans</a>
+<li><a href="#PHP5-features">PHP5 features</a>
+<li><a href="#Global-variables">Global variables</a>
+<li><a href="#Functions">Functions</a>
+</ul>
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Identifiers"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Comments">Comments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.1 Identifiers</h4>
+
+<p>All identifiers must use camelCase and start with a lower case
+letter. Underscore characters are not allowed.  Abbreviations should be
+avoided. Examples of good identifiers:
+<pre class="smallformat"><pre class="verbatim">$goodName
+$anotherGoodName
+</pre>
+</pre>
+   <p class="noindent">Examples of bad identifiers:
+<pre class="smallformat"><pre class="verbatim">$BAD_name
+$unreasonablyLongNamesAreBadToo
+$noAbbrAlwd
+</pre>
+</pre>
+   <p class="noindent">Identifier names must be descriptive. However it is allowed to use
+traditional integer variables like <code>$i</code>, <code>$j</code>, <code>$k</code> in
+for loops. If such variables are used, their meaning must be absolutely
+clear from the context where they are used. 
+The same rules apply to functions and class methods. Examples:
+<pre class="smallformat"><pre class="verbatim">protected function getFeedbackForm()
+public function processSubmission()
+</pre>
+</pre>
+   <p class="noindent">Class constants should be clear about what they define. Correct:
+<pre class="smallformat"><pre class="verbatim">const USERLEVEL_MEMBER = 1;
+</pre>
+</pre>
+   <p class="noindent">Incorrect:
+<pre class="smallformat"><pre class="verbatim">const UL_MEMBER = 1;
+</pre>
+</pre>
+   <p class="noindent">Variables on the global scope may use upper case and underscore characters. 
+Examples:
+<pre class="smallformat"><pre class="verbatim">$TYPO3_CONF_VARS
+$TYPO3_DB
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Comments"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Debug-output">Debug output</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Identifiers">Identifiers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.2 Comments</h4>
+
+<p>Comments in the code are highly welcome and recommended. Inline comments
+must precede the commented line and be indented by one tab. Example:
+<pre class="smallformat"><pre class="verbatim">protected function processSubmission() {
+              // Check if user is logged in
+       if ($GLOBALS['TSFE']->fe_user->user['uid']) {
+              ...
+       }
+}
+</pre>
+</pre>
+   <p class="noindent">Class constants and variable comments should follow PHP doc style and
+precede the variable. Variable type must be specified for non–trivial
+types and optional for trivial types. Example:
+<pre class="smallformat"><pre class="verbatim">       /** Number of images submitted by user */
+       protected $numberOfImages;
+       /**
+         * Local instance of tslib_cObj class
+         *
+         * @var tslib_cObj
+         */
+       protected $localCobj;
+</pre>
+</pre>
+   <p>Single line comments are allowed when there is no type declaration for
+the class variable or constant. If a variable can hold values of
+different types, use <code>mixed</code> as type.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Debug-output"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Curly-braces">Curly braces</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Comments">Comments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.3 Debug output</h4>
+
+<p>During development it is allowed to use <code>debug()</code> or
+<code>t3lib_div::debug()</code> function calls to produce debug
+output. However all debug statements must be removed (removed, not
+commented!) before committing the code to the Subversion repository.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Curly-braces"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Conditions">Conditions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Debug-output">Debug output</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.4 Curly braces</h4>
+
+<p>Usage of opening and closing curly braces is mandatory in all cases
+where they can be used according to PHP syntax (except <code>case</code>
+statements).
+
+   <p>The opening curly brace is always on the same line as the preceding
+construction. There must be a space (not a tab!) before the opening
+brace. The opening brace is always followed by a new line.
+
+   <p>The closing curly brace must start on a new line and be indented to the
+same level as the construct with the opening brace. Example:
+<pre class="smallformat"><pre class="verbatim">protected function getForm() {
+       if ($this->extendedForm) {
+             // generate extended form here
+       } else {
+             // generate simple form here
+       }
+}
+The following is not allowed:
+protected function getForm()
+{
+       if ($this->extendedForm) { // generate extended form here
+       } else {
+             // generate simple form here
+       }
+}
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Conditions"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Switch">Switch</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Curly-braces">Curly braces</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.5 Conditions</h4>
+
+<p>Conditions consist from <code>if</code>, <code>elseif</code> and <code>else</code>
+keywords. TYPO3 code must not use the <code>else if</code> construct.
+
+<p class="noindent">
+<pre class="smallformat"><pre class="verbatim">The following is the correct layout for conditions:
+        if ($this->processSubmission) {
+              // Process submission here
+        } elseif ($this->internalError) {
+              // Handle internal error
+        } else {
+              // Something else here
+        }
+</pre>
+</pre>
+   <p class="noindent">Here is an example of the incorrect layout:
+<pre class="smallformat"><pre class="verbatim">        if ($this->processSubmission) {
+              // Process submission here
+        }
+        elseif ($this->internalError) {
+              // Handle internal error
+        } else { // Something else here
+</pre>
+</pre>
+   <p class="noindent">It is recommended to create conditions so that shortest block goes first. For example:
+<pre class="smallformat"><pre class="verbatim">        if (!$this->processSubmission) {
+              // Generate error message, 2 lines
+        } else {
+              // Process submission, 30 lines
+        }
+</pre>
+</pre>
+   <p class="noindent">If the condition is long, it must be split into several lines. Each
+condition on the line starting from the second should be indented with a
+two or more indents relative to the first line of the condition:
+<pre class="smallformat"><pre class="verbatim">        if ($this->getSomeCodition($this->getSomeValiarble()) &amp;&amp;
+                     $this->getAnotherCondition()) {
+              // Code follows here
+        }
+</pre>
+</pre>
+   <p class="noindent">Ternary conditional operator must be used only if it has two
+outcomes. Example:
+<pre class="smallformat"><pre class="verbatim">$result = ($useComma ? ',' : '.');
+</pre>
+</pre>
+   <p class="noindent">Wrong usage of ternary conditional operator:
+<pre class="smallformat"><pre class="verbatim">$result = ($useComma ? ',' : $useDot ? '.' : ';');
+</pre>
+</pre>
+   <p>Assignment in conditions should be avoided. However if it makes sense to
+do assignment in condition, it should be surrounded by the extra pair of
+brackets. Example:
+<pre class="smallformat"><pre class="verbatim">        if (($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+              // Do something
+        }
+</pre>
+</pre>
+   <p class="noindent">The following is allowed but not recommended:
+<pre class="smallformat"><pre class="verbatim">        if (false !== ($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+              // Do something
+        }
+</pre>
+</pre>
+   <p class="noindent">The following is not allowed (missing the extra pair of brackets):
+<pre class="smallformat"><pre class="verbatim">        while ($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res)) {
+              // Do something
+        }
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Switch"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Loops">Loops</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Conditions">Conditions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.6 Switch</h4>
+
+<p><code>case</code> statements are indented with a single indent (tab) inside
+the <code>switch</code> statement. The code inside the <code>case</code> statements
+is further indented with a single indent. The <code>break</code> statement is
+aligned with the code. Only one <code>break</code> statement is allowed per
+<code>case</code>.
+
+   <p>The <code>default</code> statement must be the last in the <code>switch</code> and
+must not have a <code>break</code> statement.
+
+   <p>If one <code>case</code> block has to pass control into another <code>case</code>
+block without having a <code>break</code>, there must be a comment about it in
+the code.
+
+<p class="noindent">Examples:
+<pre class="smallformat"><pre class="verbatim">switch ($useType) {
+      case 'extended':
+            $content .= $this->extendedUse();
+            // Fall through
+      case 'basic':
+            $content .= $this->basicUse();
+            break;
+      default:
+            $content .= $this->errorUse();
+}
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Loops"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Strings">Strings</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Switch">Switch</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.7 Loops</h4>
+
+<p>The following loops can be used:
+     <ul>
+<li><code>do</code>
+<li><code>while</code>
+<li><code>for</code>
+<li><code>foreach</code>
+</ul>
+   The use of each is not allowed in loops.
+
+   <p><code>for</code> loops must contain only variables inside (no function
+calls). The following is correct:
+<pre class="smallformat"><pre class="verbatim">      $size = count($dataArray);
+      for ($element = 0; $element &lt; $size; $element++) {
+            // Process element here
+      }
+</pre>
+</pre>
+   <p class="noindent">The following is not allowed:
+<pre class="smallformat"><pre class="verbatim">      for ($element = 0; $element &lt; count($dataArray); $element++) {
+            // Process element here
+      }
+</pre>
+</pre>
+   <p><code>do</code> and <code>while</code> loops must use extra brackets if assignment
+happens in the loop:
+<pre class="smallformat"><pre class="verbatim">      while (($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+            // Do something
+      }
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Strings"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Booleans">Booleans</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Loops">Loops</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.8 Strings</h4>
+
+<p>All strings must use single quotes. Double quotes are allowed only to
+create the new line character (&ldquo;<code>\n</code>&rdquo;).  String concatenation
+operator must be surrounded by spaces. Example:
+<pre class="smallformat"><pre class="verbatim">        $content = 'Hello ' . 'world!';
+</pre>
+</pre>
+   <p>However the space after the concatenation operator must not be present
+if the operator is the last construction on the line. See <a href="#Whitespace-and-indentation">Whitespace and indentation</a>, for more information.
+
+<p class="noindent">Variables must not be embedded into strings. Correct:
+<pre class="smallformat"><pre class="verbatim">        $content = 'Hello ' . $userName;
+</pre>
+</pre>
+   <p class="noindent">Incorrect:
+<pre class="smallformat"><pre class="verbatim">        $content = “Hello $userName”;
+</pre>
+</pre>
+   <p>Multiline string concatenations are allowed. Line concatenation operator
+must be at the end of the line. Lines starting from the second must be
+indented relative to the first line. It is recommended to indent lines
+one level from the start of the string on the first level:
+<pre class="smallformat"><pre class="verbatim">        $content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' .
+                          'Donec varius libero non nisi. Proin eros.';
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Booleans"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#PHP5-features">PHP5 features</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Strings">Strings</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.9 Booleans</h4>
+
+<p>Booleans must use PHP's language constructs and not explicit integer
+values like 0 or 1. Furthermore they should be written in uppercase,
+i.e. <code>TRUE</code> and <code>FALSE</code>.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="PHP5-features"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Global-variables">Global variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Booleans">Booleans</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.10 PHP5 features</h4>
+
+<p>The use of PHP5 features is strongly recommended for extensions and
+mandatory for the TYPO3 core versions 4.2 or greater.
+
+   <p>Class functions must have access type specifier: <code>public</code>,
+<code>protected</code> or <code>private</code>. Notice that private may prevent
+XCLASSing of the class. Therefore private can be used only if it is
+absolutely necessary.
+
+<p class="noindent">Class variables must use access specifier instead of <code>var</code> keyword.
+
+<p class="noindent">Type hinting must be used when function expects array or an instance of
+a certain class. Example:
+<pre class="smallformat"><pre class="verbatim">       protected function executeAction(tx_myext_action&amp; $action, array $extraParameters) {
+             // Do something
+       }
+</pre>
+</pre>
+   <p class="noindent">Static functions must use <code>static</code> keyword. This keyword must be
+the first keyword in the function definition:
+<pre class="smallformat"><pre class="verbatim">       static public function executeAction(tx_myext_action&amp; $action, array $extraParameters) {
+             // Do something
+       }
+</pre>
+</pre>
+   <p class="noindent"><code>abstract</code> keyword also must be on the first position in the
+function declaration:
+<pre class="smallformat"><pre class="verbatim">       abstract protected function render();
+</pre>
+</pre>
+   <!-- ..................................................................... -->
+<div class="node">
+<a name="Global-variables"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Functions">Functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#PHP5-features">PHP5 features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.11 Global variables</h4>
+
+<p>Use of <code>global</code> is not recommended. Always use
+<code>$GLOBALS['variable']</code>.
+
+<!-- ..................................................................... -->
+<div class="node">
+<a name="Functions"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Global-variables">Global variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#PHP-syntax-formatting">PHP syntax formatting</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.3.12 Functions</h4>
+
+<p>If a function returns a value, it must always return it. The following
+is not allowed:
+<pre class="smallformat"><pre class="verbatim">function extendedUse($enabled) {
+       if ($enabled) {
+              return 'Extended use';
+       }
+}
+</pre>
+</pre>
+   <p class="noindent">The following is the correct behavior:
+<pre class="smallformat"><pre class="verbatim">function extendedUse($enabled) {
+       $content = '';
+       if ($enabled) {
+              $content = 'Extended use';
+       }
+       return $content;
+}
+</pre>
+</pre>
+   <p class="noindent">In general there should be a single return statement in the function
+(see the preceding example). However a function can return during
+parameter validation before it starts its main logic. Example:
+<pre class="smallformat"><pre class="verbatim">function extendedUse($enabled, tx_myext_useparameters $useParameters) {
+       // Validation
+       if (count($useParameters->urlParts) &lt; 5) {
+              return 'Parameter validation failed';
+       }
+       // Main functionality
+       $content = '';
+       if ($enabled) {
+              $content = 'Extended use';
+       } else {
+              $content = 'Only basic use is available to you!';
+       }
+       return $content;
+}
+</pre>
+</pre>
+   <p>Functions should not be long. &ldquo;Long&rdquo; is not defined in terms of
+lines. General rule is that function should fit into 2/3 of the
+screen. This rule allows small changes in the function without splitting
+the function further.
+
+<!--  -->
+<div class="node">
+<a name="Using-phpDoc"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#The-ChangeLog-file">The ChangeLog file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#PHP-syntax-formatting">PHP syntax formatting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">A.4 Using phpDoc</h3>
+
+<p>phpDoc is used for documenting source code. Typically TYPO3 code uses
+the following phpDoc keywords:
+     <ul>
+<li>@author
+<li>@access
+<li>@global
+<li>@param
+<li>@package
+<li>@return
+<li>@see
+<li>@subpackage
+<li>@var
+</ul>
+   For more information on phpDoc see the phpDoc web site at
+<a href="http://www.phpdoc.org/">http://www.phpdoc.org/</a> TYPO3 requires that each class, function
+and method is documented with phpDoc. For information on phpDoc with use
+in classes see <a href="#Class-information-block">Class information block</a>. Note that the @author tag
+should <strong>not</strong> be used in function or method phpDoc comment blocks
+&mdash; only at class level &mdash; because it is too liable to change
+frequently and authors would accumulate indefinitely. <code>svn blame</code>
+is enough for tracking changes. 
+Functions should have parameters and return type documented. Example:
+<pre class="smallformat"><pre class="verbatim">/**
+  * Initializes the plugin. Checks the configuration and substitutes defaults for missing values.
+  * @param   array $conf Plugin configuration from TypoScript
+  * @return void
+  * @see     tx_myext_class:anotherFunc()
+  */
+protected function initialize(array $conf) {
+       // Do something
+}
+</pre>
+</pre>
+   <p class="noindent">Notice the use of <code>void</code> when function does not return a value.
+
+<!--  -->
+<div class="node">
+<a name="The-ChangeLog-file"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-phpDoc">Using phpDoc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">A.5 The ChangeLog file</h3>
+
+<p>TYPO3 core has a <samp><span class="file">ChangeLog</span></samp> file where all changes are
+recorded. This file is committed to the SVN together with the change.
+
+<p class="noindent">Each entry in the ChangeLog file has the following format:
+     <ul>
+<li>Information about the date of the change (YYYY-mm-dd), author name and
+author's e-mail address. These three pieces of information are
+separated strictly by two spaces (no tabs!) 
+<li>Empty line
+<li>One or more lines describing the change. Each such line is indented by a
+single tab
+<li>Empty line
+<li>Line that describes the change consists from the following parts:
+<li>Asterisk character
+<li>Type of the change (&ldquo;Fixed bug&rdquo; or &ldquo;Added feature&rdquo;)
+<li>Bug tracker issue id (&ldquo;#12345&rdquo;)
+<li>A colon
+<li>Bug tracker issue title or, if needed, a more meaningful title that
+describes the change (&ldquo;great feature for TYPO3&rdquo;)
+<li>Optional “thanks to” message of the patch was submitted by the contributor
+</ul>
+   In some cases the line can have free format. This applies to
+non–functional changes, like &ldquo;Formatting change&rdquo; or &ldquo;Fixed copyright
+dates&rdquo;).
+
+<p class="noindent">Here is an example of the ChangeLog entry:
+<pre class="smallformat"><pre class="verbatim">2009-01-06   John Doe   &lt;john@doe.com>
+      * Fixed bug #12345: typolink does not take XYZ into account
+      * Added feature #12345: Google sitemap in the TYPO3 core (thanks to Jane Doe)
+</pre>
+</pre>
+   <p class="noindent"><code>ChangeLog</code> file updates are mandatory for every change in the
+TYPO3 core. Extension authors are strongly recommended to use such file
+with the same format in their extensions.
+
+<!-- ===================================================================== -->
+<div class="node">
 <a name="Key-Index"></a>
 <p><hr>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-Index">Variable Index</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-T3PHP-mode">Using T3PHP mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>

@@ -52,6 +52,7 @@ specialized on editing PHP code in the TYPO3 world.
 * Introduction:: TYPO3-PHP and Emacs
 * Installation:: Prepare Emacs
 * Using T3PHP mode:: Features, commands and key bindings
+* TYPO3 Coding Guidelines::
 * Key Index::
 * Variable Index::
 * Function Index::
@@ -95,7 +96,7 @@ and finally apply the mode to the current buffer by typing `M-x
 t3php-mode'.
 
 
-File: t3php-mode.info,  Node: Using T3PHP mode,  Next: Key Index,  Prev: Installation,  Up: Top
+File: t3php-mode.info,  Node: Using T3PHP mode,  Next: TYPO3 Coding Guidelines,  Prev: Installation,  Up: Top
 
 3 Using T3PHP mode
 ******************
@@ -606,7 +607,757 @@ bindings:
      Show a help buffer.
 
 
-File: t3php-mode.info,  Node: Key Index,  Next: Variable Index,  Prev: Using T3PHP mode,  Up: Top
+File: t3php-mode.info,  Node: TYPO3 Coding Guidelines,  Next: Key Index,  Prev: Using T3PHP mode,  Up: Top
+
+Appendix A TYPO3 Coding Guidelines
+**********************************
+
+This appendix refers to the section _PHP file formatting_ of the manual
+`TYPO3 Coding Guidelines' by the _TYPO3 Core Development Team_. I
+decided to append this documentation to have a reference nearby,
+whenever I think of extending any T3PHP Mode features.
+
+* Menu:
+
+* General requirements::
+* File structure::
+* PHP syntax formatting::
+* Using phpDoc::
+* The ChangeLog file::
+
+
+File: t3php-mode.info,  Node: General requirements,  Next: File structure,  Up: TYPO3 Coding Guidelines
+
+A.1 General requirements
+========================
+
+* Menu:
+
+* PHP tags::
+* Line breaks::
+* Line length::
+* Whitespace and indentation::
+* Character set::
+
+
+File: t3php-mode.info,  Node: PHP tags,  Next: Line breaks,  Up: General requirements
+
+A.1.1 PHP Tags
+--------------
+
+Each PHP file in TYPO3 must use full PHP tags. There must be exactly one
+pair of opening and closing tags (no closing and opening tags in the
+middle of the file). Example:
+<?php
+    // File content goes here
+?>
+   There must be no empty lines after the closing PHP tag. Empty lines
+after closing tags break output compression in PHP and/or result in AJAX
+errors.
+
+
+File: t3php-mode.info,  Node: Line breaks,  Next: Line length,  Prev: PHP tags,  Up: General requirements
+
+A.1.2 Line breaks
+-----------------
+
+TYPO3 uses Unix line endings (`\n', PHP `chr(10)'). If a developer uses
+Windows or Mac OS X platform, the editor must be configured to use Unix
+line endings.
+
+
+File: t3php-mode.info,  Node: Line length,  Next: Whitespace and indentation,  Prev: Line breaks,  Up: General requirements
+
+A.1.3 Line length
+-----------------
+
+Line length is limited to 80 characters. Longer lines should be split to
+several lines. Each line fragment starting from the second must be
+indented with one or more tab characters. Example:
+       $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid, title', 'pages',
+                    'pid=' . $this->fullQuoteStr($this->pid, 'pages') .
+                    $this->cObj->enableFields('pages'), '', 'title');
+   In certain cases splitting lines exactly at 80 characters is not
+feasible. In this case lines can be longer but such practice is
+discouraged.
+
+
+File: t3php-mode.info,  Node: Whitespace and indentation,  Next: Character set,  Prev: Line length,  Up: General requirements
+
+A.1.4 Whitespace and indentation
+--------------------------------
+
+TYPO3 uses tab characters to indent source code. One indentation level
+is one tab. There must be no white spaces in the end of a line. This
+can be done manually or using a text editor that takes care of this.
+
+Spaces must be added:
+
+   * on both sides of string, arithmetic, assignment and other similar
+     operators (for example, `.', `=', `+', - , `?', `:', `*', etc)
+
+   * after commas
+
+   * in single line comments after the comment sign (double slash)
+
+   * after asterisks in multiline comments
+
+
+File: t3php-mode.info,  Node: Character set,  Prev: Whitespace and indentation,  Up: General requirements
+
+A.1.5 Character set
+-------------------
+
+TYPO3 PHP files use iso-8859-1 character set.
+
+All XML files use UTF-8 character set.
+
+
+File: t3php-mode.info,  Node: File structure,  Next: PHP syntax formatting,  Prev: General requirements,  Up: TYPO3 Coding Guidelines
+
+A.2 File structure
+==================
+
+TYPO3 files use the following structure:
+  1. Opening PHP tag
+
+  2. Copyright notice
+
+  3. File information block (with optional function index) in phpDoc
+     format
+
+  4. Included files
+
+  5. Class information block in phpDoc format
+
+  6. PHP class
+
+  7. XCLASS declaration
+
+  8. Optional module execution code (for example, in eID classes)
+        The following sections discuss each of these parts.
+
+* Menu:
+
+* Copyright notice::
+* File information block::
+* Included files::
+* Class information block::
+* PHP class::
+* XCLASS declaration::
+* Optional module execution code::
+
+
+File: t3php-mode.info,  Node: Copyright notice,  Next: File information block,  Up: File structure
+
+A.2.1 Copyright notice
+----------------------
+
+TYPO3 is released under the terms of GNU General Public License version
+2 or any later version. The copyright notice with a reference to the GPL
+must be included at the top of every TYPO3 PHP class file. `user_'
+files must have this copyright notice as well. Example:
+<?php
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) YYYY Your name here (your@email.here)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  A copy is found in the textfile GPL.txt and important notices to the license
+ *  from the author is found in LICENSE.txt distributed with these scripts.
+ *
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+This notice may not be altered except for the year, author name and
+author e-mail.
+
+
+File: t3php-mode.info,  Node: File information block,  Next: Included files,  Prev: Copyright notice,  Up: File structure
+
+A.2.2 File information block
+----------------------------
+
+File information block follows the copyright statement and provides
+basic information about the file. It should include file name,
+description of the file and information about the author (or authors).
+Example:
+/**
+ * class.tx_myext_pi1.php
+ *
+ * Provides XYZ plugin implementation.
+ *
+ * $Id: class.tx_myext_pi1.php 9514 2008-07-23 17:06:12Z john_doe $
+ *
+ * @author John Doe <john.doe@example.com>
+ */
+ The example above uses SVN $Id$ meta keyword. SVN will expand it to a
+full version string when the file is committed.  The file information
+block can also contain the optional function index. This index is
+created and updated by the extdeveval extension.
+
+
+File: t3php-mode.info,  Node: Included files,  Next: Class information block,  Prev: File information block,  Up: File structure
+
+A.2.3 Included files
+--------------------
+
+Files are included using `require_once' function. All TYPO3 files must
+use absolute paths in calls to `require_once'. There are two ways to
+obtain the path to the included file:
+
+  1. Use one of the predefined TYPO3 constants: `PATH_tslib',
+     `PATH_t3lib', `PATH_typo3', `PATH_site'. The first three contain
+     absolute paths to the corresponding TYPO3 directories. The last
+     constant contains absolute path to the TYPO3 root directory.
+     Example: require_once(PATH_tslib . 'class.tslib_pibase.php');
+
+  2. Use `t3lib_extMgm::extPath()' function. This function accepts two
+     arguments: extension key and path to the included file. The second
+     argument is optional but recommended to use. Examples: require_once(t3lib_extMgm::extPath('lang', 'lang.php'));
+     require_once(t3lib_extMgm::extPath('lang') . 'lang.php');
+        Always use one of these two ways to include files. This is
+required to include files even from the current directory. Some
+installations do not have the current directory in the PHP include path
+and `require_once' without a proper path will result in fatal PHP error.
+
+
+File: t3php-mode.info,  Node: Class information block,  Next: PHP class,  Prev: Included files,  Up: File structure
+
+A.2.4 Class information block
+-----------------------------
+
+Class information block is similar to the file information block and
+describes the class in the file. Example:
+/**
+ * This class provides XYZ plugin implementation.
+ *
+ * @author John Doe <john.doe@example.com>
+ * @author Jane Doe <jane.doe@example.com>
+ */
+
+
+File: t3php-mode.info,  Node: PHP class,  Next: XCLASS declaration,  Prev: Class information block,  Up: File structure
+
+A.2.5 PHP class
+---------------
+
+PHP class follows the Class information block. PHP code must be
+formatted as described in *note PHP syntax formatting::.  The class name
+is expected to follow some conventions. The namespace and path parts are
+all lowercase and separated by underscores (`_'). At the end comes the
+"true" class name which must be written in upper camel case.  Taking
+again the example of file
+`class.t3lib_cache_backend_abstractbackend.php', the PHP class
+declaration will look like:
+class t3lib_cache_backend_AbstractBackend {
+    ...
+}
+
+
+File: t3php-mode.info,  Node: XCLASS declaration,  Next: Optional module execution code,  Prev: PHP class,  Up: File structure
+
+A.2.6 XCLASS declaration
+------------------------
+
+The XCLASS declaration must follow the PHP class. The format of the
+XCLASS is very important. No spaces can be added or removed, no
+reformatting can be done to the declaration. If the formatting is
+changed, the TYPO3 Extension Manager will complain about a missing
+XCLASS declaration.
+
+   The XCLASS declaration must include proper path to the current class
+file. The following example assumes that extension key is `myext', file
+name is `class.tx_myext_pi1.php' and file is located in the `pi1'
+subdirectory of the extension:
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/myext/pi1/class.tx_myext_pi1.php'])    {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/myext/pi1/class.tx_myext_pi1.php']);
+}
+
+
+File: t3php-mode.info,  Node: Optional module execution code,  Prev: XCLASS declaration,  Up: File structure
+
+A.2.7 Optional module execution code
+------------------------------------
+
+Module execution code instantiates the class and runs its method(s).
+Typically this code can be found in eID scripts and old Backend
+modules. Here is how it may look like:
+$controller = t3lib_div::makeInstance('tx_myext_ajaxcontroller');
+$controller->main();
+ This code must appear _after_ the XCLASS declaration. `$SOBE' is
+traditional but not required name.
+
+
+File: t3php-mode.info,  Node: PHP syntax formatting,  Next: Using phpDoc,  Prev: File structure,  Up: TYPO3 Coding Guidelines
+
+A.3 PHP syntax formatting
+=========================
+
+* Menu:
+
+* Identifiers::
+* Comments::
+* Debug output::
+* Curly braces::
+* Conditions::
+* Switch::
+* Loops::
+* Strings::
+* Booleans::
+* PHP5 features::
+* Global variables::
+* Functions::
+
+
+File: t3php-mode.info,  Node: Identifiers,  Next: Comments,  Up: PHP syntax formatting
+
+A.3.1 Identifiers
+-----------------
+
+All identifiers must use camelCase and start with a lower case letter.
+Underscore characters are not allowed.  Abbreviations should be
+avoided. Examples of good identifiers:
+$goodName
+$anotherGoodName
+   Examples of bad identifiers:
+$BAD_name
+$unreasonablyLongNamesAreBadToo
+$noAbbrAlwd
+   Identifier names must be descriptive. However it is allowed to use
+traditional integer variables like `$i', `$j', `$k' in for loops. If
+such variables are used, their meaning must be absolutely clear from
+the context where they are used.  The same rules apply to functions and
+class methods. Examples:
+protected function getFeedbackForm()
+public function processSubmission()
+   Class constants should be clear about what they define. Correct:
+const USERLEVEL_MEMBER = 1;
+   Incorrect:
+const UL_MEMBER = 1;
+   Variables on the global scope may use upper case and underscore
+characters.  Examples:
+$TYPO3_CONF_VARS
+$TYPO3_DB
+
+
+File: t3php-mode.info,  Node: Comments,  Next: Debug output,  Prev: Identifiers,  Up: PHP syntax formatting
+
+A.3.2 Comments
+--------------
+
+Comments in the code are highly welcome and recommended. Inline comments
+must precede the commented line and be indented by one tab. Example:
+protected function processSubmission() {
+              // Check if user is logged in
+       if ($GLOBALS['TSFE']->fe_user->user['uid']) {
+              ...
+       }
+}
+   Class constants and variable comments should follow PHP doc style and
+precede the variable. Variable type must be specified for non–trivial
+types and optional for trivial types. Example:
+       /** Number of images submitted by user */
+       protected $numberOfImages;
+       /**
+         * Local instance of tslib_cObj class
+         *
+         * @var tslib_cObj
+         */
+       protected $localCobj;
+   Single line comments are allowed when there is no type declaration
+for the class variable or constant. If a variable can hold values of
+different types, use `mixed' as type.
+
+
+File: t3php-mode.info,  Node: Debug output,  Next: Curly braces,  Prev: Comments,  Up: PHP syntax formatting
+
+A.3.3 Debug output
+------------------
+
+During development it is allowed to use `debug()' or
+`t3lib_div::debug()' function calls to produce debug output. However
+all debug statements must be removed (removed, not commented!) before
+committing the code to the Subversion repository.
+
+
+File: t3php-mode.info,  Node: Curly braces,  Next: Conditions,  Prev: Debug output,  Up: PHP syntax formatting
+
+A.3.4 Curly braces
+------------------
+
+Usage of opening and closing curly braces is mandatory in all cases
+where they can be used according to PHP syntax (except `case'
+statements).
+
+   The opening curly brace is always on the same line as the preceding
+construction. There must be a space (not a tab!) before the opening
+brace. The opening brace is always followed by a new line.
+
+   The closing curly brace must start on a new line and be indented to
+the same level as the construct with the opening brace. Example:
+protected function getForm() {
+       if ($this->extendedForm) {
+             // generate extended form here
+       } else {
+             // generate simple form here
+       }
+}
+The following is not allowed:
+protected function getForm()
+{
+       if ($this->extendedForm) { // generate extended form here
+       } else {
+             // generate simple form here
+       }
+}
+
+
+File: t3php-mode.info,  Node: Conditions,  Next: Switch,  Prev: Curly braces,  Up: PHP syntax formatting
+
+A.3.5 Conditions
+----------------
+
+Conditions consist from `if', `elseif' and `else' keywords. TYPO3 code
+must not use the `else if' construct.
+
+
+The following is the correct layout for conditions:
+        if ($this->processSubmission) {
+              // Process submission here
+        } elseif ($this->internalError) {
+              // Handle internal error
+        } else {
+              // Something else here
+        }
+   Here is an example of the incorrect layout:
+        if ($this->processSubmission) {
+              // Process submission here
+        }
+        elseif ($this->internalError) {
+              // Handle internal error
+        } else { // Something else here
+   It is recommended to create conditions so that shortest block goes
+first. For example:
+        if (!$this->processSubmission) {
+              // Generate error message, 2 lines
+        } else {
+              // Process submission, 30 lines
+        }
+   If the condition is long, it must be split into several lines. Each
+condition on the line starting from the second should be indented with a
+two or more indents relative to the first line of the condition:
+        if ($this->getSomeCodition($this->getSomeValiarble()) &&
+                     $this->getAnotherCondition()) {
+              // Code follows here
+        }
+   Ternary conditional operator must be used only if it has two
+outcomes. Example:
+$result = ($useComma ? ',' : '.');
+   Wrong usage of ternary conditional operator:
+$result = ($useComma ? ',' : $useDot ? '.' : ';');
+   Assignment in conditions should be avoided. However if it makes
+sense to do assignment in condition, it should be surrounded by the
+extra pair of brackets. Example:
+        if (($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+              // Do something
+        }
+   The following is allowed but not recommended:
+        if (false !== ($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+              // Do something
+        }
+   The following is not allowed (missing the extra pair of brackets):
+        while ($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res)) {
+              // Do something
+        }
+
+
+File: t3php-mode.info,  Node: Switch,  Next: Loops,  Prev: Conditions,  Up: PHP syntax formatting
+
+A.3.6 Switch
+------------
+
+`case' statements are indented with a single indent (tab) inside the
+`switch' statement. The code inside the `case' statements is further
+indented with a single indent. The `break' statement is aligned with
+the code. Only one `break' statement is allowed per `case'.
+
+   The `default' statement must be the last in the `switch' and must
+not have a `break' statement.
+
+   If one `case' block has to pass control into another `case' block
+without having a `break', there must be a comment about it in the code.
+
+Examples:
+switch ($useType) {
+      case 'extended':
+            $content .= $this->extendedUse();
+            // Fall through
+      case 'basic':
+            $content .= $this->basicUse();
+            break;
+      default:
+            $content .= $this->errorUse();
+}
+
+
+File: t3php-mode.info,  Node: Loops,  Next: Strings,  Prev: Switch,  Up: PHP syntax formatting
+
+A.3.7 Loops
+-----------
+
+The following loops can be used:
+   * `do'
+
+   * `while'
+
+   * `for'
+
+   * `foreach'
+   The use of each is not allowed in loops.
+
+   `for' loops must contain only variables inside (no function calls).
+The following is correct:
+      $size = count($dataArray);
+      for ($element = 0; $element < $size; $element++) {
+            // Process element here
+      }
+   The following is not allowed:
+      for ($element = 0; $element < count($dataArray); $element++) {
+            // Process element here
+      }
+   `do' and `while' loops must use extra brackets if assignment happens
+in the loop:
+      while (($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+            // Do something
+      }
+
+
+File: t3php-mode.info,  Node: Strings,  Next: Booleans,  Prev: Loops,  Up: PHP syntax formatting
+
+A.3.8 Strings
+-------------
+
+All strings must use single quotes. Double quotes are allowed only to
+create the new line character ("`\n'").  String concatenation operator
+must be surrounded by spaces. Example:
+        $content = 'Hello ' . 'world!';
+   However the space after the concatenation operator must not be
+present if the operator is the last construction on the line. *Note
+Whitespace and indentation::, for more information.
+
+Variables must not be embedded into strings. Correct:
+        $content = 'Hello ' . $userName;
+   Incorrect:
+        $content = “Hello $userName”;
+   Multiline string concatenations are allowed. Line concatenation
+operator must be at the end of the line. Lines starting from the second
+must be indented relative to the first line. It is recommended to
+indent lines one level from the start of the string on the first level:
+        $content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' .
+                          'Donec varius libero non nisi. Proin eros.';
+
+
+File: t3php-mode.info,  Node: Booleans,  Next: PHP5 features,  Prev: Strings,  Up: PHP syntax formatting
+
+A.3.9 Booleans
+--------------
+
+Booleans must use PHP's language constructs and not explicit integer
+values like 0 or 1. Furthermore they should be written in uppercase,
+i.e. `TRUE' and `FALSE'.
+
+
+File: t3php-mode.info,  Node: PHP5 features,  Next: Global variables,  Prev: Booleans,  Up: PHP syntax formatting
+
+A.3.10 PHP5 features
+--------------------
+
+The use of PHP5 features is strongly recommended for extensions and
+mandatory for the TYPO3 core versions 4.2 or greater.
+
+   Class functions must have access type specifier: `public',
+`protected' or `private'. Notice that private may prevent XCLASSing of
+the class. Therefore private can be used only if it is absolutely
+necessary.
+
+Class variables must use access specifier instead of `var' keyword.
+
+Type hinting must be used when function expects array or an instance of
+a certain class. Example:
+       protected function executeAction(tx_myext_action& $action, array $extraParameters) {
+             // Do something
+       }
+   Static functions must use `static' keyword. This keyword must be the
+first keyword in the function definition:
+       static public function executeAction(tx_myext_action& $action, array $extraParameters) {
+             // Do something
+       }
+   `abstract' keyword also must be on the first position in the
+function declaration:
+       abstract protected function render();
+
+
+File: t3php-mode.info,  Node: Global variables,  Next: Functions,  Prev: PHP5 features,  Up: PHP syntax formatting
+
+A.3.11 Global variables
+-----------------------
+
+Use of `global' is not recommended. Always use `$GLOBALS['variable']'.
+
+
+File: t3php-mode.info,  Node: Functions,  Prev: Global variables,  Up: PHP syntax formatting
+
+A.3.12 Functions
+----------------
+
+If a function returns a value, it must always return it. The following
+is not allowed:
+function extendedUse($enabled) {
+       if ($enabled) {
+              return 'Extended use';
+       }
+}
+   The following is the correct behavior:
+function extendedUse($enabled) {
+       $content = '';
+       if ($enabled) {
+              $content = 'Extended use';
+       }
+       return $content;
+}
+   In general there should be a single return statement in the function
+(see the preceding example). However a function can return during
+parameter validation before it starts its main logic. Example:
+function extendedUse($enabled, tx_myext_useparameters $useParameters) {
+       // Validation
+       if (count($useParameters->urlParts) < 5) {
+              return 'Parameter validation failed';
+       }
+       // Main functionality
+       $content = '';
+       if ($enabled) {
+              $content = 'Extended use';
+       } else {
+              $content = 'Only basic use is available to you!';
+       }
+       return $content;
+}
+   Functions should not be long. "Long" is not defined in terms of
+lines. General rule is that function should fit into 2/3 of the screen.
+This rule allows small changes in the function without splitting the
+function further.
+
+
+File: t3php-mode.info,  Node: Using phpDoc,  Next: The ChangeLog file,  Prev: PHP syntax formatting,  Up: TYPO3 Coding Guidelines
+
+A.4 Using phpDoc
+================
+
+phpDoc is used for documenting source code. Typically TYPO3 code uses
+the following phpDoc keywords:
+   * @author
+
+   * @access
+
+   * @global
+
+   * @param
+
+   * @package
+
+   * @return
+
+   * @see
+
+   * @subpackage
+
+   * @var
+   For more information on phpDoc see the phpDoc web site at
+`http://www.phpdoc.org/' TYPO3 requires that each class, function and
+method is documented with phpDoc. For information on phpDoc with use in
+classes see *note Class information block::. Note that the @author tag
+should *not* be used in function or method phpDoc comment blocks --
+only at class level -- because it is too liable to change frequently
+and authors would accumulate indefinitely. `svn blame' is enough for
+tracking changes.  Functions should have parameters and return type
+documented. Example:
+/**
+  * Initializes the plugin. Checks the configuration and substitutes defaults for missing values.
+  * @param   array $conf Plugin configuration from TypoScript
+  * @return void
+  * @see     tx_myext_class:anotherFunc()
+  */
+protected function initialize(array $conf) {
+       // Do something
+}
+   Notice the use of `void' when function does not return a value.
+
+
+File: t3php-mode.info,  Node: The ChangeLog file,  Prev: Using phpDoc,  Up: TYPO3 Coding Guidelines
+
+A.5 The ChangeLog file
+======================
+
+TYPO3 core has a `ChangeLog' file where all changes are recorded. This
+file is committed to the SVN together with the change.
+
+Each entry in the ChangeLog file has the following format:
+   * Information about the date of the change (YYYY-mm-dd), author name
+     and author's e-mail address. These three pieces of information are
+     separated strictly by two spaces (no tabs!)
+
+   * Empty line
+
+   * One or more lines describing the change. Each such line is
+     indented by a single tab
+
+   * Empty line
+
+   * Line that describes the change consists from the following parts:
+
+   * Asterisk character
+
+   * Type of the change ("Fixed bug" or "Added feature")
+
+   * Bug tracker issue id ("#12345")
+
+   * A colon
+
+   * Bug tracker issue title or, if needed, a more meaningful title that
+     describes the change ("great feature for TYPO3")
+
+   * Optional “thanks to” message of the patch was submitted by the
+     contributor
+   In some cases the line can have free format. This applies to
+non–functional changes, like "Formatting change" or "Fixed copyright
+dates").
+
+Here is an example of the ChangeLog entry:
+2009-01-06   John Doe   <john@doe.com>
+      * Fixed bug #12345: typolink does not take XYZ into account
+      * Added feature #12345: Google sitemap in the TYPO3 core (thanks to Jane Doe)
+   `ChangeLog' file updates are mandatory for every change in the TYPO3
+core. Extension authors are strongly recommended to use such file with
+the same format in their extensions.
+
+
+File: t3php-mode.info,  Node: Key Index,  Next: Variable Index,  Prev: TYPO3 Coding Guidelines,  Up: Top
 
 Key Index
 *********
@@ -674,26 +1425,56 @@ Function Index
 
 Tag Table:
 Node: Top982
-Node: Introduction2170
-Node: Installation2664
-Node: Using T3PHP mode3689
-Node: Customization4082
-Ref: x-t3php-developer4619
-Ref: x-t3php-typo3-extension-directory4824
-Ref: x-t3php-path-to-typo3-extension-directory4992
-Ref: x-t3php-year-format5296
-Ref: fig:split_v8622
-Ref: fig:split_h8990
-Ref: x-stswf9363
-Ref: Customization-Footnote-110349
-Node: Syntax highlighting10617
-Node: Line indentation11234
-Node: Inserting code templates11860
-Node: Inserting methods12201
-Node: Inserting classes13416
-Node: Buffer outline17012
-Node: Key Index20595
-Node: Variable Index21907
-Node: Function Index23227
+Node: Introduction2198
+Node: Installation2692
+Node: Using T3PHP mode3717
+Node: Customization4124
+Ref: x-t3php-developer4661
+Ref: x-t3php-typo3-extension-directory4866
+Ref: x-t3php-path-to-typo3-extension-directory5034
+Ref: x-t3php-year-format5338
+Ref: fig:split_v8664
+Ref: fig:split_h9032
+Ref: x-stswf9405
+Ref: Customization-Footnote-110391
+Node: Syntax highlighting10659
+Node: Line indentation11276
+Node: Inserting code templates11902
+Node: Inserting methods12243
+Node: Inserting classes13458
+Node: Buffer outline17054
+Node: TYPO3 Coding Guidelines20637
+Node: General requirements21197
+Node: PHP tags21459
+Node: Line breaks21943
+Node: Line length22248
+Node: Whitespace and indentation22970
+Node: Character set23670
+Node: File structure23907
+Node: Copyright notice24664
+Node: File information block26285
+Node: Included files27130
+Node: Class information block28419
+Node: PHP class28858
+Node: XCLASS declaration29536
+Node: Optional module execution code30459
+Node: PHP syntax formatting31007
+Node: Identifiers31376
+Node: Comments32417
+Node: Debug output33457
+Node: Curly braces33851
+Node: Conditions34857
+Node: Switch37123
+Node: Loops38031
+Node: Strings38856
+Node: Booleans39973
+Node: PHP5 features40276
+Node: Global variables41447
+Node: Functions41686
+Node: Using phpDoc43066
+Node: The ChangeLog file44393
+Node: Key Index46034
+Node: Variable Index47353
+Node: Function Index48673
 
 End Tag Table

@@ -1,12 +1,13 @@
 <html lang="en">
 <head>
-<title>Using T3PHP mode - Emacs TYPO3-PHP Mode Manual</title>
+<title>File information block - Emacs TYPO3-PHP Mode Manual</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="Emacs TYPO3-PHP Mode Manual">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="Installation.html#Installation" title="Installation">
-<link rel="next" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines" title="TYPO3 Coding Guidelines">
+<link rel="up" href="File-structure.html#File-structure" title="File structure">
+<link rel="prev" href="Copyright-notice.html#Copyright-notice" title="Copyright notice">
+<link rel="next" href="Included-files.html#Included-files" title="Included files">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
 This manual introduces a TYPO3-PHP major mode for Emacs, which is
@@ -44,29 +45,36 @@ Copyright (C) 2009 Joachim Mathes.
 </head>
 <body>
 <div class="node">
-<a name="Using-T3PHP-mode"></a>
+<a name="File-information-block"></a>
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Installation.html#Installation">Installation</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Included-files.html#Included-files">Included files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Copyright-notice.html#Copyright-notice">Copyright notice</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="File-structure.html#File-structure">File structure</a>
 <hr>
 </div>
 
 <!-- node-name,  next,  previous,  up -->
-<h2 class="chapter">3 Using T3PHP mode</h2>
+<h4 class="subsection">A.2.2 File information block</h4>
 
-<p>TYPO3 Mode supports different display and editing features, which
-will be described in the following sections.
+<p>File information block follows the copyright statement and provides
+basic information about the file. It should include file name,
+description of the file and information about the author (or
+authors). Example:
+<pre class="verbatim">/**
+ * class.tx_myext_pi1.php
+ *
+ * Provides XYZ plugin implementation.
+ *
+ * $Id: class.tx_myext_pi1.php 9514 2008-07-23 17:06:12Z john_doe $
+ *
+ * @author John Doe &lt;john.doe@example.com>
+ */
+</pre>
+The example above uses SVN $Id$ meta keyword. SVN will expand it to a
+full version string when the file is committed.  The file information
+block can also contain the optional function index. This index is
+created and updated by the extdeveval extension.
 
-<ul class="menu">
-<li><a accesskey="1" href="Customization.html#Customization">Customization</a>
-<li><a accesskey="2" href="Syntax-highlighting.html#Syntax-highlighting">Syntax highlighting</a>
-<li><a accesskey="3" href="Line-indentation.html#Line-indentation">Line indentation</a>
-<li><a accesskey="4" href="Inserting-code-templates.html#Inserting-code-templates">Inserting code templates</a>
-<li><a accesskey="5" href="Inserting-classes.html#Inserting-classes">Inserting classes</a>
-<li><a accesskey="6" href="Buffer-outline.html#Buffer-outline">Buffer outline</a>
-</ul>
-
-<!--  -->
+<!-- ..................................................................... -->
    </body></html>
 

@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+<title>The ChangeLog file - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines" title="TYPO3 Coding Guidelines">
+<link rel="prev" href="Using-phpDoc.html#Using-phpDoc" title="Using phpDoc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="The-ChangeLog-file"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Using-phpDoc.html#Using-phpDoc">Using phpDoc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">A.5 The ChangeLog file</h3>
+
+<p>TYPO3 core has a <samp><span class="file">ChangeLog</span></samp> file where all changes are
+recorded. This file is committed to the SVN together with the change.
+
+<p class="noindent">Each entry in the ChangeLog file has the following format:
+     <ul>
+<li>Information about the date of the change (YYYY-mm-dd), author name and
+author's e-mail address. These three pieces of information are
+separated strictly by two spaces (no tabs!) 
+<li>Empty line
+<li>One or more lines describing the change. Each such line is indented by a
+single tab
+<li>Empty line
+<li>Line that describes the change consists from the following parts:
+<li>Asterisk character
+<li>Type of the change (&ldquo;Fixed bug&rdquo; or &ldquo;Added feature&rdquo;)
+<li>Bug tracker issue id (&ldquo;#12345&rdquo;)
+<li>A colon
+<li>Bug tracker issue title or, if needed, a more meaningful title that
+describes the change (&ldquo;great feature for TYPO3&rdquo;)
+<li>Optional “thanks to” message of the patch was submitted by the contributor
+</ul>
+   In some cases the line can have free format. This applies to
+non–functional changes, like &ldquo;Formatting change&rdquo; or &ldquo;Fixed copyright
+dates&rdquo;).
+
+<p class="noindent">Here is an example of the ChangeLog entry:
+<pre class="smallformat"><pre class="verbatim">2009-01-06   John Doe   &lt;john@doe.com>
+      * Fixed bug #12345: typolink does not take XYZ into account
+      * Added feature #12345: Google sitemap in the TYPO3 core (thanks to Jane Doe)
+</pre>
+</pre>
+   <p class="noindent"><code>ChangeLog</code> file updates are mandatory for every change in the
+TYPO3 core. Extension authors are strongly recommended to use such file
+with the same format in their extensions.
+
+<!-- ===================================================================== -->
+   </body></html>
+

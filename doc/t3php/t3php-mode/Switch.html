@@ -1,12 +1,13 @@
 <html lang="en">
 <head>
-<title>Using T3PHP mode - Emacs TYPO3-PHP Mode Manual</title>
+<title>Switch - Emacs TYPO3-PHP Mode Manual</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="Emacs TYPO3-PHP Mode Manual">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="Installation.html#Installation" title="Installation">
-<link rel="next" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines" title="TYPO3 Coding Guidelines">
+<link rel="up" href="PHP-syntax-formatting.html#PHP-syntax-formatting" title="PHP syntax formatting">
+<link rel="prev" href="Conditions.html#Conditions" title="Conditions">
+<link rel="next" href="Loops.html#Loops" title="Loops">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
 This manual introduces a TYPO3-PHP major mode for Emacs, which is
@@ -44,29 +45,43 @@ Copyright (C) 2009 Joachim Mathes.
 </head>
 <body>
 <div class="node">
-<a name="Using-T3PHP-mode"></a>
+<a name="Switch"></a>
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Installation.html#Installation">Installation</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Loops.html#Loops">Loops</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Conditions.html#Conditions">Conditions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="PHP-syntax-formatting.html#PHP-syntax-formatting">PHP syntax formatting</a>
 <hr>
 </div>
 
 <!-- node-name,  next,  previous,  up -->
-<h2 class="chapter">3 Using T3PHP mode</h2>
+<h4 class="subsection">A.3.6 Switch</h4>
 
-<p>TYPO3 Mode supports different display and editing features, which
-will be described in the following sections.
+<p><code>case</code> statements are indented with a single indent (tab) inside
+the <code>switch</code> statement. The code inside the <code>case</code> statements
+is further indented with a single indent. The <code>break</code> statement is
+aligned with the code. Only one <code>break</code> statement is allowed per
+<code>case</code>.
 
-<ul class="menu">
-<li><a accesskey="1" href="Customization.html#Customization">Customization</a>
-<li><a accesskey="2" href="Syntax-highlighting.html#Syntax-highlighting">Syntax highlighting</a>
-<li><a accesskey="3" href="Line-indentation.html#Line-indentation">Line indentation</a>
-<li><a accesskey="4" href="Inserting-code-templates.html#Inserting-code-templates">Inserting code templates</a>
-<li><a accesskey="5" href="Inserting-classes.html#Inserting-classes">Inserting classes</a>
-<li><a accesskey="6" href="Buffer-outline.html#Buffer-outline">Buffer outline</a>
-</ul>
+   <p>The <code>default</code> statement must be the last in the <code>switch</code> and
+must not have a <code>break</code> statement.
 
-<!--  -->
+   <p>If one <code>case</code> block has to pass control into another <code>case</code>
+block without having a <code>break</code>, there must be a comment about it in
+the code.
+
+<p class="noindent">Examples:
+<pre class="smallformat"><pre class="verbatim">switch ($useType) {
+      case 'extended':
+            $content .= $this->extendedUse();
+            // Fall through
+      case 'basic':
+            $content .= $this->basicUse();
+            break;
+      default:
+            $content .= $this->errorUse();
+}
+</pre>
+</pre>
+   <!-- ..................................................................... -->
    </body></html>
 

@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>Included files - Emacs TYPO3-PHP Mode Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Emacs TYPO3-PHP Mode Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="File-structure.html#File-structure" title="File structure">
+<link rel="prev" href="File-information-block.html#File-information-block" title="File information block">
+<link rel="next" href="Class-information-block.html#Class-information-block" title="Class information block">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This manual introduces a TYPO3-PHP major mode for Emacs, which is
+specialized on editing PHP code in the TYPO3 world.
+
+Copyright (C) 2009 Joachim Mathes.
+
+     This program is free software; you can redistribute it and/or
+     modify it under the terms of the GNU General Public License as
+     published by the Free Software Foundation; either version 2 of the
+     License, or (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     02110-1301, USA.
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Included-files"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Class-information-block.html#Class-information-block">Class information block</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="File-information-block.html#File-information-block">File information block</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="File-structure.html#File-structure">File structure</a>
+<hr>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">A.2.3 Included files</h4>
+
+<p>Files are included using <code>require_once</code> function. All TYPO3 files
+must use absolute paths in calls to <code>require_once</code>. There are two
+ways to obtain the path to the included file:
+
+     <ol type=1 start=1>
+<li>Use one of the predefined TYPO3 constants: <code>PATH_tslib</code>,
+<code>PATH_t3lib</code>, <code>PATH_typo3</code>, <code>PATH_site</code>. The first three
+contain absolute paths to the corresponding TYPO3 directories. The last
+constant contains absolute path to the TYPO3 root directory. Example:
+<pre class="verbatim">     require_once(PATH_tslib . 'class.tslib_pibase.php');
+</pre>
+<li>Use <code>t3lib_extMgm::extPath()</code> function. This function accepts two
+arguments: extension key and path to the included file. The second
+argument is optional but recommended to use. Examples:
+<pre class="verbatim">     require_once(t3lib_extMgm::extPath('lang', 'lang.php'));
+     require_once(t3lib_extMgm::extPath('lang') . 'lang.php');
+</pre>
+        </ol>
+Always use one of these two ways to include files. This is required to
+include files even from the current directory. Some installations do not
+have the current directory in the PHP include path and
+<code>require_once</code> without a proper path will result in fatal PHP
+error.
+
+<!-- ..................................................................... -->
+   </body></html>
+

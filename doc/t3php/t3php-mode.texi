@@ -65,6 +65,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 * Introduction:: @typothree{}-PHP and Emacs
 * Installation:: Prepare Emacs
 * Using T3PHP mode:: Features, commands and key bindings
+* TYPO3 Coding Guidelines::
 * Key Index::
 * Variable Index::
 * Function Index::
@@ -109,7 +110,7 @@ your @file{~/.emacs} file, type @kbd{M-x load-file}, load the
 buffer by typing @kbd{M-x t3php-mode}.
 
 @c =====================================================================
-@node Using T3PHP mode, Key Index, Installation, Top
+@node Using T3PHP mode, TYPO3 Coding Guidelines, Installation, Top
 @comment  node-name,  next,  previous,  up
 @chapter Using T3PHP mode
 
@@ -682,7 +683,953 @@ Show a help buffer.
 @page
 
 @c =====================================================================
-@node Key Index, Variable Index, Using T3PHP mode, Top
+@node TYPO3 Coding Guidelines, Key Index, Using T3PHP mode, Top
+@comment  node-name,  next,  previous,  up
+@appendix TYPO3 Coding Guidelines
+
+This appendix refers to the section @emph{PHP file formatting} of the
+manual @cite{TYPO3 Coding Guidelines} by the @emph{TYPO3 Core
+Development Team}. I decided to append this documentation to have a
+reference nearby, whenever I think of extending any @typothreephp{} Mode
+features.
+
+@menu
+* General requirements::
+* File structure::
+* PHP syntax formatting::
+* Using phpDoc::
+* The ChangeLog file::
+@end menu
+
+@c ---------------------------------------------------------------------
+@node General requirements, File structure, , TYPO3 Coding Guidelines
+@comment  node-name,  next,  previous,  up
+@section General requirements
+
+@menu
+* PHP tags::
+* Line breaks::
+* Line length::
+* Whitespace and indentation::
+* Character set::
+@end menu
+
+@c .....................................................................
+@node PHP tags, Line breaks, , General requirements
+@comment  node-name,  next,  previous,  up
+@subsection PHP Tags
+
+Each PHP file in TYPO3 must use full PHP tags. There must be exactly one
+pair of opening and closing tags (no closing and opening tags in the
+middle of the file). Example:
+@smallformat
+@verbatim
+<?php
+    // File content goes here
+?>
+@end verbatim
+@end smallformat
+There must be no empty lines after the closing PHP tag. Empty lines
+after closing tags break output compression in PHP and/or result in AJAX
+errors.
+
+@c .....................................................................
+@node Line breaks, Line length, PHP tags, General requirements
+@comment  node-name,  next,  previous,  up
+@subsection Line breaks
+
+TYPO3 uses Unix line endings (@code{\n}, PHP @code{chr(10)}). If a
+developer uses Windows or Mac OS X platform, the editor must be
+configured to use Unix line endings.
+
+@c .....................................................................
+@node Line length, Whitespace and indentation, Line breaks, General requirements
+@comment  node-name,  next,  previous,  up
+@subsection Line length
+
+Line length is limited to 80 characters. Longer lines should be split to
+several lines. Each line fragment starting from the second must be
+indented with one or more tab characters. Example:
+@smallformat
+@verbatim
+       $rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid, title', 'pages',
+                    'pid=' . $this->fullQuoteStr($this->pid, 'pages') .
+                    $this->cObj->enableFields('pages'), '', 'title');
+@end verbatim
+@end smallformat
+@noindent
+In certain cases splitting lines exactly at 80 characters is not
+feasible. In this case lines can be longer but such practice is
+discouraged.
+
+@c .....................................................................
+@node Whitespace and indentation, Character set, Line length, General requirements
+@comment  node-name,  next,  previous,  up
+@subsection Whitespace and indentation
+
+TYPO3 uses tab characters to indent source code. One indentation level
+is one tab. There must be no white spaces in the end of a line. This
+can be done manually or using a text editor that takes care of this.
+
+@noindent
+Spaces must be added:
+
+@itemize
+@item
+on both sides of string, arithmetic, assignment and other similar
+operators (for example, @code{.}, @code{=}, @code{+}, -
+, @code{?}, @code{:}, @code{*}, etc)
+@item
+after commas
+@item
+in single line comments after the comment sign (double slash)
+@item
+after asterisks in multiline comments
+@end itemize
+
+@c .....................................................................
+@node Character set, , Whitespace and indentation, General requirements
+@comment  node-name,  next,  previous,  up
+@subsection Character set
+
+TYPO3 PHP files use iso-8859-1 character set.
+
+@noindent
+All XML files use UTF-8 character set.
+
+@c ---------------------------------------------------------------------
+@node File structure, PHP syntax formatting, General requirements, TYPO3 Coding Guidelines
+@comment  node-name,  next,  previous,  up
+@section File structure
+
+TYPO3 files use the following structure:
+@enumerate
+@item
+Opening PHP tag
+@item
+Copyright notice
+@item
+File information block (with optional function index) in phpDoc format
+@item
+Included files
+@item
+Class information block in phpDoc format
+@item
+PHP class
+@item
+XCLASS declaration
+@item
+Optional module execution code (for example, in eID classes)
+@end enumerate
+@noindent
+The following sections discuss each of these parts.
+
+@menu
+* Copyright notice::
+* File information block::
+* Included files::
+* Class information block::
+* PHP class::
+* XCLASS declaration::
+* Optional module execution code::
+@end menu
+
+@c .....................................................................
+@node Copyright notice, File information block, , File structure
+@comment  node-name,  next,  previous,  up
+@subsection Copyright notice
+
+TYPO3 is released under the terms of GNU General Public License version
+2 or any later version. The copyright notice with a reference to the GPL
+must be included at the top of every TYPO3 PHP class file. @code{user_}
+files must have this copyright notice as well. Example:
+@smallformat
+@verbatim
+<?php
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) YYYY Your name here (your@email.here)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  A copy is found in the textfile GPL.txt and important notices to the license
+ *  from the author is found in LICENSE.txt distributed with these scripts.
+ *
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+@end verbatim
+@end smallformat
+
+@noindent
+This notice may not be altered except for the year, author name and author e-mail.
+
+@c .....................................................................
+@node File information block, Included files, Copyright notice, File structure
+@comment  node-name,  next,  previous,  up
+@subsection File information block
+
+File information block follows the copyright statement and provides
+basic information about the file. It should include file name,
+description of the file and information about the author (or
+authors). Example:
+@verbatim
+/**
+ * class.tx_myext_pi1.php
+ *
+ * Provides XYZ plugin implementation.
+ *
+ * $Id: class.tx_myext_pi1.php 9514 2008-07-23 17:06:12Z john_doe $
+ *
+ * @author John Doe <john.doe@example.com>
+ */
+@end verbatim
+@noindent
+The example above uses SVN $Id$ meta keyword. SVN will expand it to a
+full version string when the file is committed.  The file information
+block can also contain the optional function index. This index is
+created and updated by the extdeveval extension.
+
+@c .....................................................................
+@node Included files, Class information block, File information block, File structure
+@comment  node-name,  next,  previous,  up
+@subsection Included files
+
+Files are included using @code{require_once} function. All TYPO3 files
+must use absolute paths in calls to @code{require_once}. There are two
+ways to obtain the path to the included file:
+
+@enumerate
+@item
+Use one of the predefined TYPO3 constants: @code{PATH_tslib},
+@code{PATH_t3lib}, @code{PATH_typo3}, @code{PATH_site}. The first three
+contain absolute paths to the corresponding TYPO3 directories. The last
+constant contains absolute path to the TYPO3 root directory. Example:
+@verbatim
+require_once(PATH_tslib . 'class.tslib_pibase.php');
+@end verbatim
+@item
+Use @code{t3lib_extMgm::extPath()} function. This function accepts two
+arguments: extension key and path to the included file. The second
+argument is optional but recommended to use. Examples:
+@verbatim
+require_once(t3lib_extMgm::extPath('lang', 'lang.php'));
+require_once(t3lib_extMgm::extPath('lang') . 'lang.php');
+@end verbatim
+@end enumerate
+@noindent
+Always use one of these two ways to include files. This is required to
+include files even from the current directory. Some installations do not
+have the current directory in the PHP include path and
+@code{require_once} without a proper path will result in fatal PHP
+error.
+
+@c .....................................................................
+@node Class information block, PHP class, Included files, File structure
+@comment  node-name,  next,  previous,  up
+@subsection Class information block
+
+Class information block is similar to the file information block and
+describes the class in the file. Example:
+@verbatim
+/**
+ * This class provides XYZ plugin implementation.
+ *
+ * @author John Doe <john.doe@example.com>
+ * @author Jane Doe <jane.doe@example.com>
+ */
+@end verbatim
+
+@c .....................................................................
+@node PHP class, XCLASS declaration, Class information block, File structure
+@comment  node-name,  next,  previous,  up
+@subsection PHP class
+
+PHP class follows the Class information block. PHP code must be
+formatted as described in @ref{PHP syntax formatting}.  The class name
+is expected to follow some conventions. The namespace and path parts are
+all lowercase and separated by underscores (@samp{_}). At the end comes
+the ``true'' class name which must be written in upper camel case.
+Taking again the example of file
+@file{class.t3lib_cache_backend_abstractbackend.php}, the PHP class
+declaration will look like:
+@verbatim
+class t3lib_cache_backend_AbstractBackend {
+    ...
+}
+@end verbatim
+
+@c .....................................................................
+@node XCLASS declaration, Optional module execution code, PHP class, File structure
+@comment  node-name,  next,  previous,  up
+@subsection XCLASS declaration
+
+The XCLASS declaration must follow the PHP class. The format of the
+XCLASS is very important. No spaces can be added or removed, no
+reformatting can be done to the declaration. If the formatting is
+changed, the TYPO3 Extension Manager will complain about a missing
+XCLASS declaration.
+
+The XCLASS declaration must include proper path to the current class
+file. The following example assumes that extension key is @code{myext},
+file name is @file{class.tx_myext_pi1.php} and file is located in the
+@file{pi1} subdirectory of the extension:
+@smallformat
+@verbatim
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/myext/pi1/class.tx_myext_pi1.php'])    {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/myext/pi1/class.tx_myext_pi1.php']);
+}
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Optional module execution code, , XCLASS declaration, File structure
+@comment  node-name,  next,  previous,  up
+@subsection Optional module execution code
+
+Module execution code instantiates the class and runs its
+method(s). Typically this code can be found in eID scripts and old
+Backend modules. Here is how it may look like:
+@verbatim
+$controller = t3lib_div::makeInstance('tx_myext_ajaxcontroller');
+$controller->main();
+@end verbatim
+@noindent
+This code must appear @emph{after} the XCLASS declaration. @code{$SOBE}
+is traditional but not required name.
+
+@c ---------------------------------------------------------------------
+@node PHP syntax formatting, Using phpDoc, File structure, TYPO3 Coding Guidelines
+@comment  node-name,  next,  previous,  up
+@section PHP syntax formatting
+
+@menu
+* Identifiers::
+* Comments::
+* Debug output::
+* Curly braces::
+* Conditions::
+* Switch::
+* Loops::
+* Strings::
+* Booleans::
+* PHP5 features::
+* Global variables::
+* Functions::
+@end menu
+
+@c .....................................................................
+@node Identifiers, Comments, , PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Identifiers
+
+All identifiers must use camelCase and start with a lower case
+letter. Underscore characters are not allowed.  Abbreviations should be
+avoided. Examples of good identifiers:
+@smallformat
+@verbatim
+$goodName
+$anotherGoodName
+@end verbatim
+@end smallformat
+@noindent
+Examples of bad identifiers:
+@smallformat
+@verbatim
+$BAD_name
+$unreasonablyLongNamesAreBadToo
+$noAbbrAlwd
+@end verbatim
+@end smallformat
+@noindent
+Identifier names must be descriptive. However it is allowed to use
+traditional integer variables like @code{$i}, @code{$j}, @code{$k} in
+for loops. If such variables are used, their meaning must be absolutely
+clear from the context where they are used.
+@noindent
+The same rules apply to functions and class methods. Examples:
+@smallformat
+@verbatim
+protected function getFeedbackForm()
+public function processSubmission()
+@end verbatim
+@end smallformat
+@noindent
+Class constants should be clear about what they define. Correct:
+@smallformat
+@verbatim
+const USERLEVEL_MEMBER = 1;
+@end verbatim
+@end smallformat
+@noindent
+Incorrect:
+@smallformat
+@verbatim
+const UL_MEMBER = 1;
+@end verbatim
+@end smallformat
+@noindent
+Variables on the global scope may use upper case and underscore characters.
+Examples:
+@smallformat
+@verbatim
+$TYPO3_CONF_VARS
+$TYPO3_DB
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Comments, Debug output, Identifiers, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Comments
+
+Comments in the code are highly welcome and recommended. Inline comments
+must precede the commented line and be indented by one tab. Example:
+@smallformat
+@verbatim
+protected function processSubmission() {
+              // Check if user is logged in
+       if ($GLOBALS['TSFE']->fe_user->user['uid']) {
+              ...
+       }
+}
+@end verbatim
+@end smallformat
+@noindent
+Class constants and variable comments should follow PHP doc style and
+precede the variable. Variable type must be specified for non–trivial
+types and optional for trivial types. Example:
+@smallformat
+@verbatim
+       /** Number of images submitted by user */
+       protected $numberOfImages;
+       /**
+         * Local instance of tslib_cObj class
+         *
+         * @var tslib_cObj
+         */
+       protected $localCobj;
+@end verbatim
+@end smallformat
+Single line comments are allowed when there is no type declaration for
+the class variable or constant. If a variable can hold values of
+different types, use @code{mixed} as type.
+
+@c .....................................................................
+@node Debug output, Curly braces, Comments, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Debug output
+
+During development it is allowed to use @code{debug()} or
+@code{t3lib_div::debug()} function calls to produce debug
+output. However all debug statements must be removed (removed, not
+commented!) before committing the code to the Subversion repository.
+
+@c .....................................................................
+@node Curly braces, Conditions, Debug output, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Curly braces
+
+Usage of opening and closing curly braces is mandatory in all cases
+where they can be used according to PHP syntax (except @code{case}
+statements).
+
+The opening curly brace is always on the same line as the preceding
+construction. There must be a space (not a tab!) before the opening
+brace. The opening brace is always followed by a new line.
+
+The closing curly brace must start on a new line and be indented to the
+same level as the construct with the opening brace. Example:
+@smallformat
+@verbatim
+protected function getForm() {
+       if ($this->extendedForm) {
+             // generate extended form here
+       } else {
+             // generate simple form here
+       }
+}
+The following is not allowed:
+protected function getForm()
+{
+       if ($this->extendedForm) { // generate extended form here
+       } else {
+             // generate simple form here
+       }
+}
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Conditions, Switch, Curly braces, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Conditions
+
+Conditions consist from @code{if}, @code{elseif} and @code{else}
+keywords. TYPO3 code must not use the @code{else if} construct.
+
+@noindent
+@smallformat
+@verbatim
+The following is the correct layout for conditions:
+        if ($this->processSubmission) {
+              // Process submission here
+        } elseif ($this->internalError) {
+              // Handle internal error
+        } else {
+              // Something else here
+        }
+@end verbatim
+@end smallformat
+@noindent
+Here is an example of the incorrect layout:
+@smallformat
+@verbatim
+        if ($this->processSubmission) {
+              // Process submission here
+        }
+        elseif ($this->internalError) {
+              // Handle internal error
+        } else { // Something else here
+@end verbatim
+@end smallformat
+@noindent
+It is recommended to create conditions so that shortest block goes first. For example:
+@smallformat
+@verbatim
+        if (!$this->processSubmission) {
+              // Generate error message, 2 lines
+        } else {
+              // Process submission, 30 lines
+        }
+@end verbatim
+@end smallformat
+@noindent
+If the condition is long, it must be split into several lines. Each
+condition on the line starting from the second should be indented with a
+two or more indents relative to the first line of the condition:
+@smallformat
+@verbatim
+        if ($this->getSomeCodition($this->getSomeValiarble()) &&
+                     $this->getAnotherCondition()) {
+              // Code follows here
+        }
+@end verbatim
+@end smallformat
+@noindent
+Ternary conditional operator must be used only if it has two
+outcomes. Example:
+@smallformat
+@verbatim
+$result = ($useComma ? ',' : '.');
+@end verbatim
+@end smallformat
+@noindent
+Wrong usage of ternary conditional operator:
+@smallformat
+@verbatim
+$result = ($useComma ? ',' : $useDot ? '.' : ';');
+@end verbatim
+@end smallformat
+Assignment in conditions should be avoided. However if it makes sense to
+do assignment in condition, it should be surrounded by the extra pair of
+brackets. Example:
+@smallformat
+@verbatim
+        if (($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+              // Do something
+        }
+@end verbatim
+@end smallformat
+@noindent
+The following is allowed but not recommended:
+@smallformat
+@verbatim
+        if (false !== ($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+              // Do something
+        }
+@end verbatim
+@end smallformat
+@noindent
+The following is not allowed (missing the extra pair of brackets):
+@smallformat
+@verbatim
+        while ($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res)) {
+              // Do something
+        }
+@end verbatim
+@end smallformat
+
+
+@c .....................................................................
+@node Switch, Loops, Conditions, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Switch
+
+@code{case} statements are indented with a single indent (tab) inside
+the @code{switch} statement. The code inside the @code{case} statements
+is further indented with a single indent. The @code{break} statement is
+aligned with the code. Only one @code{break} statement is allowed per
+@code{case}.
+
+The @code{default} statement must be the last in the @code{switch} and
+must not have a @code{break} statement.
+
+If one @code{case} block has to pass control into another @code{case}
+block without having a @code{break}, there must be a comment about it in
+the code.
+
+@noindent
+Examples:
+@smallformat
+@verbatim
+switch ($useType) {
+      case 'extended':
+            $content .= $this->extendedUse();
+            // Fall through
+      case 'basic':
+            $content .= $this->basicUse();
+            break;
+      default:
+            $content .= $this->errorUse();
+}
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Loops, Strings, Switch, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Loops
+
+The following loops can be used:
+@itemize
+@item
+@code{do}
+@item
+@code{while}
+@item
+@code{for}
+@item
+@code{foreach}
+@end itemize
+@noindent
+The use of each is not allowed in loops.
+
+@code{for} loops must contain only variables inside (no function
+calls). The following is correct:
+@smallformat
+@verbatim
+      $size = count($dataArray);
+      for ($element = 0; $element < $size; $element++) {
+            // Process element here
+      }
+@end verbatim
+@end smallformat
+@noindent
+The following is not allowed:
+@smallformat
+@verbatim
+      for ($element = 0; $element < count($dataArray); $element++) {
+            // Process element here
+      }
+@end verbatim
+@end smallformat
+@code{do} and @code{while} loops must use extra brackets if assignment
+happens in the loop:
+@smallformat
+@verbatim
+      while (($fields = $GLOBALS['TYPO3_DB']->sql_fetch_result($res))) {
+            // Do something
+      }
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Strings, Booleans, Loops, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Strings
+
+All strings must use single quotes. Double quotes are allowed only to
+create the new line character (``@code{\n}'').  String concatenation
+operator must be surrounded by spaces. Example:
+@smallformat
+@verbatim
+        $content = 'Hello ' . 'world!';
+@end verbatim
+@end smallformat
+However the space after the concatenation operator must not be present
+if the operator is the last construction on the line. @xref{Whitespace
+and indentation}, for more information.
+
+@noindent
+Variables must not be embedded into strings. Correct:
+@smallformat
+@verbatim
+        $content = 'Hello ' . $userName;
+@end verbatim
+@end smallformat
+@noindent
+Incorrect:
+@smallformat
+@verbatim
+        $content = “Hello $userName”;
+@end verbatim
+@end smallformat
+Multiline string concatenations are allowed. Line concatenation operator
+must be at the end of the line. Lines starting from the second must be
+indented relative to the first line. It is recommended to indent lines
+one level from the start of the string on the first level:
+@smallformat
+@verbatim
+        $content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' .
+                          'Donec varius libero non nisi. Proin eros.';
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Booleans, PHP5 features, Strings, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Booleans
+
+Booleans must use PHP's language constructs and not explicit integer
+values like 0 or 1. Furthermore they should be written in uppercase,
+i.e. @code{TRUE} and @code{FALSE}.
+
+@c .....................................................................
+@node PHP5 features, Global variables, Booleans, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection PHP5 features
+
+The use of PHP5 features is strongly recommended for extensions and
+mandatory for the TYPO3 core versions 4.2 or greater.
+
+Class functions must have access type specifier: @code{public},
+@code{protected} or @code{private}. Notice that private may prevent
+XCLASSing of the class. Therefore private can be used only if it is
+absolutely necessary.
+
+@noindent
+Class variables must use access specifier instead of @code{var} keyword.
+
+@noindent
+Type hinting must be used when function expects array or an instance of
+a certain class. Example:
+@smallformat
+@verbatim
+       protected function executeAction(tx_myext_action& $action, array $extraParameters) {
+             // Do something
+       }
+@end verbatim
+@end smallformat
+@noindent
+Static functions must use @code{static} keyword. This keyword must be
+the first keyword in the function definition:
+@smallformat
+@verbatim
+       static public function executeAction(tx_myext_action& $action, array $extraParameters) {
+             // Do something
+       }
+@end verbatim
+@end smallformat
+@noindent
+@code{abstract} keyword also must be on the first position in the
+function declaration:
+@smallformat
+@verbatim
+       abstract protected function render();
+@end verbatim
+@end smallformat
+
+@c .....................................................................
+@node Global variables, Functions, PHP5 features, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Global variables
+
+Use of @code{global} is not recommended. Always use
+@code{$GLOBALS['variable']}.
+
+@c .....................................................................
+@node Functions, , Global variables, PHP syntax formatting
+@comment  node-name,  next,  previous,  up
+@subsection Functions
+
+If a function returns a value, it must always return it. The following
+is not allowed:
+@smallformat
+@verbatim
+function extendedUse($enabled) {
+       if ($enabled) {
+              return 'Extended use';
+       }
+}
+@end verbatim
+@end smallformat
+@noindent
+The following is the correct behavior:
+@smallformat
+@verbatim
+function extendedUse($enabled) {
+       $content = '';
+       if ($enabled) {
+              $content = 'Extended use';
+       }
+       return $content;
+}
+@end verbatim
+@end smallformat
+@noindent
+In general there should be a single return statement in the function
+(see the preceding example). However a function can return during
+parameter validation before it starts its main logic. Example:
+@smallformat
+@verbatim
+function extendedUse($enabled, tx_myext_useparameters $useParameters) {
+       // Validation
+       if (count($useParameters->urlParts) < 5) {
+              return 'Parameter validation failed';
+       }
+       // Main functionality
+       $content = '';
+       if ($enabled) {
+              $content = 'Extended use';
+       } else {
+              $content = 'Only basic use is available to you!';
+       }
+       return $content;
+}
+@end verbatim
+@end smallformat
+Functions should not be long. ``Long'' is not defined in terms of
+lines. General rule is that function should fit into 2/3 of the
+screen. This rule allows small changes in the function without splitting
+the function further.
+
+@c ---------------------------------------------------------------------
+@node Using phpDoc, The ChangeLog file, PHP syntax formatting, TYPO3 Coding Guidelines
+@comment  node-name,  next,  previous,  up
+@section Using phpDoc
+
+phpDoc is used for documenting source code. Typically TYPO3 code uses
+the following phpDoc keywords:
+@itemize
+@item
+@@author
+@item
+@@access
+@item
+@@global
+@item
+@@param
+@item
+@@package
+@item
+@@return
+@item
+@@see
+@item
+@@subpackage
+@item
+@@var
+@end itemize
+@noindent
+For more information on phpDoc see the phpDoc web site at
+@uref{http://www.phpdoc.org/} TYPO3 requires that each class, function
+and method is documented with phpDoc. For information on phpDoc with use
+in classes see @ref{Class information block}. Note that the @@author tag
+should @strong{not} be used in function or method phpDoc comment blocks
+--- only at class level --- because it is too liable to change
+frequently and authors would accumulate indefinitely. @code{svn blame}
+is enough for tracking changes.
+@noindent
+Functions should have parameters and return type documented. Example:
+@smallformat
+@verbatim
+/**
+  * Initializes the plugin. Checks the configuration and substitutes defaults for missing values.
+  * @param   array $conf Plugin configuration from TypoScript
+  * @return void
+  * @see     tx_myext_class:anotherFunc()
+  */
+protected function initialize(array $conf) {
+       // Do something
+}
+@end verbatim
+@end smallformat
+@noindent
+Notice the use of @code{void} when function does not return a value.
+
+@c ---------------------------------------------------------------------
+@node The ChangeLog file, , Using phpDoc, TYPO3 Coding Guidelines
+@comment  node-name,  next,  previous,  up
+@section The ChangeLog file
+
+TYPO3 core has a @file{ChangeLog} file where all changes are
+recorded. This file is committed to the SVN together with the change.
+
+@noindent
+Each entry in the ChangeLog file has the following format:
+@itemize
+@item
+Information about the date of the change (YYYY-mm-dd), author name and
+author's e-mail address. These three pieces of information are
+separated strictly by two spaces (no tabs!)
+@item
+Empty line
+@item
+One or more lines describing the change. Each such line is indented by a
+single tab
+@item
+Empty line
+@item
+Line that describes the change consists from the following parts:
+@item
+Asterisk character
+@item
+Type of the change (``Fixed bug'' or ``Added feature'')
+@item
+Bug tracker issue id (``#12345'')
+@item
+A colon
+@item
+Bug tracker issue title or, if needed, a more meaningful title that
+describes the change (``great feature for TYPO3'')
+@item
+Optional “thanks to” message of the patch was submitted by the contributor
+@end itemize
+@noindent
+In some cases the line can have free format. This applies to
+non–functional changes, like ``Formatting change'' or ``Fixed copyright
+dates'').
+
+@noindent
+Here is an example of the ChangeLog entry:
+@smallformat
+@verbatim
+2009-01-06   John Doe   <john@doe.com>
+      * Fixed bug #12345: typolink does not take XYZ into account
+      * Added feature #12345: Google sitemap in the TYPO3 core (thanks to Jane Doe)
+@end verbatim
+@end smallformat
+@noindent
+@code{ChangeLog} file updates are mandatory for every change in the
+TYPO3 core. Extension authors are strongly recommended to use such file
+with the same format in their extensions.
+
+@c =====================================================================
+@node Key Index, Variable Index, TYPO3 Coding Guidelines, Top
 @comment  node-name,  next,  previous,  up
 @unnumbered Key Index
 

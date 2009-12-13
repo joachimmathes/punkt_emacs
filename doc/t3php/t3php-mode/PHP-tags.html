@@ -1,12 +1,12 @@
 <html lang="en">
 <head>
-<title>Using T3PHP mode - Emacs TYPO3-PHP Mode Manual</title>
+<title>PHP tags - Emacs TYPO3-PHP Mode Manual</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="Emacs TYPO3-PHP Mode Manual">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="Installation.html#Installation" title="Installation">
-<link rel="next" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines" title="TYPO3 Coding Guidelines">
+<link rel="up" href="General-requirements.html#General-requirements" title="General requirements">
+<link rel="next" href="Line-breaks.html#Line-breaks" title="Line breaks">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
 This manual introduces a TYPO3-PHP major mode for Emacs, which is
@@ -44,29 +44,28 @@ Copyright (C) 2009 Joachim Mathes.
 </head>
 <body>
 <div class="node">
-<a name="Using-T3PHP-mode"></a>
+<a name="PHP-tags"></a>
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="TYPO3-Coding-Guidelines.html#TYPO3-Coding-Guidelines">TYPO3 Coding Guidelines</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Installation.html#Installation">Installation</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Line-breaks.html#Line-breaks">Line breaks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="General-requirements.html#General-requirements">General requirements</a>
 <hr>
 </div>
 
 <!-- node-name,  next,  previous,  up -->
-<h2 class="chapter">3 Using T3PHP mode</h2>
+<h4 class="subsection">A.1.1 PHP Tags</h4>
 
-<p>TYPO3 Mode supports different display and editing features, which
-will be described in the following sections.
+<p>Each PHP file in TYPO3 must use full PHP tags. There must be exactly one
+pair of opening and closing tags (no closing and opening tags in the
+middle of the file). Example:
+<pre class="smallformat"><pre class="verbatim">&lt;?php
+    // File content goes here
+?>
+</pre>
+</pre>
+   <p>There must be no empty lines after the closing PHP tag. Empty lines
+after closing tags break output compression in PHP and/or result in AJAX
+errors.
 
-<ul class="menu">
-<li><a accesskey="1" href="Customization.html#Customization">Customization</a>
-<li><a accesskey="2" href="Syntax-highlighting.html#Syntax-highlighting">Syntax highlighting</a>
-<li><a accesskey="3" href="Line-indentation.html#Line-indentation">Line indentation</a>
-<li><a accesskey="4" href="Inserting-code-templates.html#Inserting-code-templates">Inserting code templates</a>
-<li><a accesskey="5" href="Inserting-classes.html#Inserting-classes">Inserting classes</a>
-<li><a accesskey="6" href="Buffer-outline.html#Buffer-outline">Buffer outline</a>
-</ul>
-
-<!--  -->
+<!-- ..................................................................... -->
    </body></html>
 
