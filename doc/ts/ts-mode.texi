@@ -76,7 +76,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 @chapter Introduction
 
 This manual describes TS mode, which extends Emacs with functionality
-for editing @ts{} files.
+for editing @ts{} files. @ts{} is an intrinsic part of
+@typothree{}. Generally speaking it is a syntax for defining information
+in a hierarchical structure using simple ASCII text content.
 
 GNU Emacs is an extensible, customizable text editor and can be obtained
 for free from @uref{http://ftp.gnu.org/pub/gnu/emacs/}. @xref{Top,
@@ -110,7 +112,7 @@ buffer by typing @kbd{M-x ts-mode}.
 @c =====================================================================
 @node Using TS mode, Key Index, Installation, Top
 @comment  node-name,  next,  previous,  up
-@chapter Using T3PHP mode
+@chapter Using TS Mode
 
 @ts{} Mode supports different display and editing features, which
 will be described in the following sections.

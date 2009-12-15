@@ -63,7 +63,9 @@ File: ts-mode.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up: T
 **************
 
 This manual describes TS mode, which extends Emacs with functionality
-for editing TypoScript files.
+for editing TypoScript files. TypoScript is an intrinsic part of TYPO3.
+Generally speaking it is a syntax for defining information in a
+hierarchical structure using simple ASCII text content.
 
    GNU Emacs is an extensible, customizable text editor and can be
 obtained for free from `http://ftp.gnu.org/pub/gnu/emacs/'. *Note
@@ -96,8 +98,8 @@ ts-mode'.
 
 File: ts-mode.info,  Node: Using TS mode,  Next: Key Index,  Prev: Installation,  Up: Top
 
-3 Using T3PHP mode
-******************
+3 Using TS Mode
+***************
 
 TypoScript Mode supports different display and editing features, which
 will be described in the following sections.
@@ -302,15 +304,15 @@ Function Index
 Tag Table:
 Node: Top952
 Node: Introduction2113
-Node: Installation2546
-Node: Using TS mode3561
-Node: Customization3895
-Ref: Customization-Footnote-15735
-Node: Syntax highlighting6003
-Node: Line indentation6619
-Node: Folding7377
-Node: Key Index8890
-Node: Variable Index9320
-Node: Function Index9761
+Node: Installation2708
+Node: Using TS mode3723
+Node: Customization4051
+Ref: Customization-Footnote-15891
+Node: Syntax highlighting6159
+Node: Line indentation6775
+Node: Folding7533
+Node: Key Index9046
+Node: Variable Index9476
+Node: Function Index9917
 
 End Tag Table
