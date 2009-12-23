@@ -32,7 +32,7 @@
 ;; byte-compile it.  To set up Emacs to automatically edit files ending in ".ts"
 ;; using ts-mode add the following to your ~/.emacs file (GNU Emacs) or
 ;; ~/.xemacs/init.el file (XEmacs):
-;;    (setq auto-mode-alist (cons '("\\.php$" . csv-mode) auto-mode-alist))
+;;    (setq auto-mode-alist (cons '("\\.csv$" . csv-mode) auto-mode-alist))
 ;;    (autoload 'csv-mode "csv-mode" "CSV file editing mode." t)
 
 ;; This file is *NOT* part of GNU Emacs.
