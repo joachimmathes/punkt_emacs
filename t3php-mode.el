@@ -363,7 +363,7 @@ This vector concerns only highlighting of horizontal lines.")
 (defun t3php-mode ()
   "Major mode for editing TYPO3 PHP files.
 Bug reports, suggestions for new features and critics should go to
-`joachim_mathes@web.de'.
+`joachim <underscore> mathes <at> web <dot> de'.
 
 This mode knows about syntax highlighting and code creation.
 
