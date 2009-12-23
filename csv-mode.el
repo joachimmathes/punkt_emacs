@@ -101,9 +101,10 @@ VARIABLES"
 
 (defun csv-align-records ()
   "Align columns of a buffer visting a csv file."
+  (interactive)
   (message "Operating...")
 
-  ;; Analyze csv lines  
+  ;; Analyze csv lines
   (let ((formatter (list))
         (line-elements-lengths (list)))
     (save-excursion
@@ -114,7 +115,7 @@ VARIABLES"
           (beginning-of-line)
           (setq line-elements (split-string
                                (buffer-substring (line-beginning-position) (line-end-position))
-                               (char-to-string csv-separator)))
+                               csv-separator))
           (dolist (element line-elements)
             (cond ((eq nil (nth 0 line-elements-lengths))
                    (push (length element) line-elements-lengths-temp))
@@ -145,11 +146,11 @@ VARIABLES"
         (beginning-of-line)
     	(setq line-elements (split-string
     			     (delete-and-extract-region (line-beginning-position) (line-end-position))
-    			     (char-to-string csv-separator)))
+    			     csv-separator))
     	(dolist (element line-elements)
     	  (insert (format (nth element-position formatter) (nth element-position line-elements)))
 	  (if (< element-position (1- (length line-elements)))
-	      (insert (char-to-string csv-separator)))
+	      (insert csv-separator))
     	  (setq element-position (1+ element-position)))
         (forward-line)))))
   (message "done"))
