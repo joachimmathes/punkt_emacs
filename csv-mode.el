@@ -88,6 +88,8 @@ VARIABLES"
   (if csv-mode-map
       nil
     (setq csv-mode-map (make-sparse-keymap))
+    (define-key csv-mode-map "\C-cf" 'csv-forward-column)
+    (define-key csv-mode-map "\C-cb" 'csv-backward-column)
     (define-key csv-mode-map "\C-ca" 'csv-align-records))
   (use-local-map csv-mode-map)
 
@@ -154,6 +156,18 @@ VARIABLES"
     	  (setq element-position (1+ element-position)))
         (forward-line)))))
   (message "done"))
+
+(defun csv-forward-column (arg)
+  "Move point forward ARG columns."
+  (interactive "p")
+  (re-search-forward "|" nil 'limit arg))
+
+(defun csv-backward-column (arg)
+  "Move point backward ARG columns."
+  (interactive "p")
+  (re-search-backward "|" nil t)
+  (if (re-search-backward "|" nil 'limit arg)
+      (forward-char)))
 
 (provide 'csv-mode)
 
