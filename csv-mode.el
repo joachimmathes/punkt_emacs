@@ -48,10 +48,17 @@
   :prefix "csv-"
   :group 'languages)
 
-(defcustom csv-separator ","
+(defcustom csv-separator "|"
   "Default csv separator."
   :type 'string
   :group 'csv)
+
+;;;; Constants
+
+(defconst csv-font-lock-keywords
+  (list
+   (cons "|" font-lock-comment-face)
+   "Low level highlighting for PHP mode."))
 
 ;;;; Internal variables
 
@@ -81,8 +88,7 @@ VARIABLES"
   (make-local-variable 'show-paren-mode)
 
   (when (not csv-mode-syntax-table)
-    (setq csv-mode-syntax-table (make-syntax-table))
-    (modify-syntax-entry ?\_ "w" csv-mode-syntax-table))
+    (setq csv-mode-syntax-table (make-syntax-table)))
   (set-syntax-table csv-mode-syntax-table)
 
   (if csv-mode-map
