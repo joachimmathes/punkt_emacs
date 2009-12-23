@@ -49,7 +49,7 @@
 
 ;;;; User definable variables
 
-(defgroup typo3php nil
+(defgroup t3php nil
   "Major mode for editing TYPO3 PHP files."
   :prefix "t3php-"
   :group 'languages)
