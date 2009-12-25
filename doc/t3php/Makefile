@@ -36,7 +36,7 @@ t3php-mode.dvi : $(FILES)
 
 t3php-mode/index.html : $(FILES)
 	@$(MAKEINFO) --html $(MASTERFILE)
-	@mkdir t3php-mode/images/
+	@mkdir -p t3php-mode/images/
 	@cp images/* t3php-mode/images/
 
 t3php-mode.html : $(FILES)
