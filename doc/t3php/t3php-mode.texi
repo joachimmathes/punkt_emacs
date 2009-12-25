@@ -93,7 +93,7 @@ on GNU Emacs version 23.1.1.
 To install @typothreephp{} Mode just drop file @file{t3php-mode.el} into
 a directory on your load-path. If you are the administrator of the
 system you are working on, a possible directory could be
-@file{/usr/share/emacs/site-lisp/skampi-mode}, for example. You might
+@file{/usr/share/emacs/site-lisp/t3php-mode}, for example. You might
 byte-compile it for better performance. @xref{Byte Compilation, , Byte
 Compilation, elisp, Emacs Lisp}.
 
