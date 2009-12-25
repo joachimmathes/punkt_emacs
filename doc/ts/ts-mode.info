@@ -81,7 +81,7 @@ File: ts-mode.info,  Node: Installation,  Next: Using TS mode,  Prev: Introducti
 To install TypoScript Mode just drop file `ts-mode.el' into a directory
 on your load-path. If you are the administrator of the system you are
 working on, a possible directory could be
-`/usr/share/emacs/site-lisp/skampi-mode', for example. You might
+`/usr/share/emacs/site-lisp/ts-mode', for example. You might
 byte-compile it for better performance. *Note Byte Compilation:
 (elisp)Byte Compilation.
 
@@ -305,14 +305,14 @@ Tag Table:
 Node: Top952
 Node: Introduction2113
 Node: Installation2708
-Node: Using TS mode3723
-Node: Customization4051
-Ref: Customization-Footnote-15891
-Node: Syntax highlighting6159
-Node: Line indentation6775
-Node: Folding7533
-Node: Key Index9046
-Node: Variable Index9476
-Node: Function Index9917
+Node: Using TS mode3719
+Node: Customization4047
+Ref: Customization-Footnote-15887
+Node: Syntax highlighting6155
+Node: Line indentation6771
+Node: Folding7529
+Node: Key Index9042
+Node: Variable Index9472
+Node: Function Index9913
 
 End Tag Table

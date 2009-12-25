@@ -81,7 +81,7 @@ File: t3php-mode.info,  Node: Installation,  Next: Using T3PHP mode,  Prev: Intr
 To install T3PHP Mode just drop file `t3php-mode.el' into a directory
 on your load-path. If you are the administrator of the system you are
 working on, a possible directory could be
-`/usr/share/emacs/site-lisp/skampi-mode', for example. You might
+`/usr/share/emacs/site-lisp/t3php-mode', for example. You might
 byte-compile it for better performance. *Note Byte Compilation:
 (elisp)Byte Compilation.
 
@@ -1427,54 +1427,54 @@ Tag Table:
 Node: Top982
 Node: Introduction2198
 Node: Installation2692
-Node: Using T3PHP mode3717
-Node: Customization4124
-Ref: x-t3php-developer4661
-Ref: x-t3php-typo3-extension-directory4866
-Ref: x-t3php-path-to-typo3-extension-directory5034
-Ref: x-t3php-year-format5338
-Ref: fig:split_v8664
-Ref: fig:split_h9032
-Ref: x-stswf9405
-Ref: Customization-Footnote-110391
-Node: Syntax highlighting10659
-Node: Line indentation11276
-Node: Inserting code templates11902
-Node: Inserting methods12243
-Node: Inserting classes13458
-Node: Buffer outline17054
-Node: TYPO3 Coding Guidelines20637
-Node: General requirements21197
-Node: PHP tags21459
-Node: Line breaks21943
-Node: Line length22248
-Node: Whitespace and indentation22970
-Node: Character set23670
-Node: File structure23907
-Node: Copyright notice24664
-Node: File information block26285
-Node: Included files27130
-Node: Class information block28419
-Node: PHP class28858
-Node: XCLASS declaration29536
-Node: Optional module execution code30459
-Node: PHP syntax formatting31007
-Node: Identifiers31376
-Node: Comments32417
-Node: Debug output33457
-Node: Curly braces33851
-Node: Conditions34857
-Node: Switch37123
-Node: Loops38031
-Node: Strings38856
-Node: Booleans39973
-Node: PHP5 features40276
-Node: Global variables41447
-Node: Functions41686
-Node: Using phpDoc43066
-Node: The ChangeLog file44393
-Node: Key Index46034
-Node: Variable Index47353
-Node: Function Index48673
+Node: Using T3PHP mode3716
+Node: Customization4123
+Ref: x-t3php-developer4660
+Ref: x-t3php-typo3-extension-directory4865
+Ref: x-t3php-path-to-typo3-extension-directory5033
+Ref: x-t3php-year-format5337
+Ref: fig:split_v8663
+Ref: fig:split_h9031
+Ref: x-stswf9404
+Ref: Customization-Footnote-110390
+Node: Syntax highlighting10658
+Node: Line indentation11275
+Node: Inserting code templates11901
+Node: Inserting methods12242
+Node: Inserting classes13457
+Node: Buffer outline17053
+Node: TYPO3 Coding Guidelines20636
+Node: General requirements21196
+Node: PHP tags21458
+Node: Line breaks21942
+Node: Line length22247
+Node: Whitespace and indentation22969
+Node: Character set23669
+Node: File structure23906
+Node: Copyright notice24663
+Node: File information block26284
+Node: Included files27129
+Node: Class information block28418
+Node: PHP class28857
+Node: XCLASS declaration29535
+Node: Optional module execution code30458
+Node: PHP syntax formatting31006
+Node: Identifiers31375
+Node: Comments32416
+Node: Debug output33456
+Node: Curly braces33850
+Node: Conditions34856
+Node: Switch37122
+Node: Loops38030
+Node: Strings38855
+Node: Booleans39972
+Node: PHP5 features40275
+Node: Global variables41446
+Node: Functions41685
+Node: Using phpDoc43065
+Node: The ChangeLog file44392
+Node: Key Index46033
+Node: Variable Index47352
+Node: Function Index48672
 
 End Tag Table
