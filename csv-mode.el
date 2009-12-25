@@ -100,7 +100,8 @@ VARIABLES"
     (setq csv-mode-map (make-sparse-keymap))
     (define-key csv-mode-map "\C-cf" 'csv-forward-column)
     (define-key csv-mode-map "\C-cb" 'csv-backward-column)
-    (define-key csv-mode-map "\C-ca" 'csv-align-records))
+    (define-key csv-mode-map "\C-ca" 'csv-align-records)
+    (define-key csv-mode-map "\C-cs" 'csv-set-separator))
   (use-local-map csv-mode-map)
 
   (setq major-mode 'csv-mode
@@ -111,6 +112,13 @@ VARIABLES"
 
   (if csv-mode-hook
       (run-hooks 'csv-mode-hook)))
+
+(defun csv-set-separator (separator)
+  "Set separator."
+  (interactive "cSeparator: ")
+  (setq csv-current-separator (string separator)
+	font-lock-keywords (list `(,(symbol-value 'csv-current-separator) . font-lock-comment-face)))
+  (font-lock-default-fontify-buffer))
 
 (defun csv-align-records ()
   "Align columns of a buffer visting a csv file."
