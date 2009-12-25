@@ -48,7 +48,7 @@
   :prefix "csv-"
   :group 'languages)
 
-(defcustom csv-separator "|"
+(defcustom csv-separator ","
   "Default csv separator."
   :type 'string
   :group 'csv)
@@ -57,10 +57,13 @@
 
 (defconst csv-font-lock-keywords
   (list
-   (cons "|" font-lock-comment-face)
-   "Low level highlighting for PHP mode."))
+   (cons csv-separator font-lock-comment-face))
+   "Low level highlighting for PHP mode.")
 
 ;;;; Internal variables
+
+(defvar csv-current-separator nil
+  "Current separator.")
 
 (defvar csv-mode-syntax-table nil
   "Syntax table used in CSV Mode buffers.")
@@ -86,6 +89,7 @@ VARIABLES"
   (kill-all-local-variables)
   (make-local-variable 'font-lock-defaults)
   (make-local-variable 'show-paren-mode)
+  (make-local-variable 'csv-current-separator)
 
   (when (not csv-mode-syntax-table)
     (setq csv-mode-syntax-table (make-syntax-table)))
@@ -101,6 +105,7 @@ VARIABLES"
 
   (setq major-mode 'csv-mode
         mode-name "CSV"
+	csv-current-separator csv-separator
         font-lock-defaults '(csv-font-lock-keywords)
         show-paren-mode t)
 
@@ -123,7 +128,7 @@ VARIABLES"
           (beginning-of-line)
           (setq line-elements (split-string
                                (buffer-substring (line-beginning-position) (line-end-position))
-                               csv-separator))
+                               csv-current-separator))
           (dolist (element line-elements)
             (cond ((eq nil (nth 0 line-elements-lengths))
                    (push (length element) line-elements-lengths-temp))
@@ -154,11 +159,11 @@ VARIABLES"
         (beginning-of-line)
     	(setq line-elements (split-string
     			     (delete-and-extract-region (line-beginning-position) (line-end-position))
-    			     csv-separator))
+    			     csv-current-separator))
     	(dolist (element line-elements)
     	  (insert (format (nth element-position formatter) (nth element-position line-elements)))
 	  (if (< element-position (1- (length line-elements)))
-	      (insert csv-separator))
+	      (insert csv-current-separator))
     	  (setq element-position (1+ element-position)))
         (forward-line)))))
   (message "done"))
@@ -166,13 +171,13 @@ VARIABLES"
 (defun csv-forward-column (arg)
   "Move point forward ARG columns."
   (interactive "p")
-  (re-search-forward "|" nil 'limit arg))
+  (re-search-forward csv-current-separator nil 'limit arg))
 
 (defun csv-backward-column (arg)
   "Move point backward ARG columns."
   (interactive "p")
-  (re-search-backward "|" nil t)
-  (if (re-search-backward "|" nil 'limit arg)
+  (re-search-backward csv-current-separator nil t)
+  (if (re-search-backward csv-current-separator nil 'limit arg)
       (forward-char)))
 
 (provide 'csv-mode)
