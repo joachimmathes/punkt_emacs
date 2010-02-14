@@ -309,7 +309,7 @@ RET              Go to the location and hide the *t3php-outline* window.
 f                Toggle follow mode.
 r                Reparse the PHP buffer.
 q                Hide *t3php-outline* window.
-k                Kill *t3php-outline* buffer.
+q                Quit *t3php-outline* buffer.
 ?                Show this help side.")
 
 
@@ -884,7 +884,7 @@ t3php-outline-block-name-color\t\tcolor used to highlight block names"
     (define-key t3php-outline-mode-map "\C-m" 't3php-outline-goto-line-and-kill)
     (define-key t3php-outline-mode-map "f"    't3php-outline-toggle-follow)
     (define-key t3php-outline-mode-map "r"    't3php-outline-rescan)
-    (define-key t3php-outline-mode-map "k"    't3php-outline-kill))
+    (define-key t3php-outline-mode-map "q"    't3php-outline-quit))
   (use-local-map t3php-outline-mode-map))
 
 (defun t3php-outline (&optional rescan)
@@ -1071,8 +1071,8 @@ line by text properties."
   (switch-to-buffer-other-window (get-file-buffer t3php-outline-last-file))
   (t3php-outline t))
 
-(defun t3php-outline-kill ()
-  "Kill the *t3php-outline* buffer."
+(defun t3php-outline-quit ()
+  "Quit (kill) the *t3php-outline* buffer."
   (interactive)
   (kill-buffer t3php-outline-buffer-name)
   (unless (one-window-p)
