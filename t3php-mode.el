@@ -433,7 +433,9 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
         comment-end ""
         comment-start-skip "// "
         indent-line-function 't3php-indent-line
-        show-trailing-whitespace t
+	indent-tabs-mode t
+        tab-width 4 
+	show-trailing-whitespace t
         parse-sexp-ignore-comments t
         show-paren-mode t)
 
