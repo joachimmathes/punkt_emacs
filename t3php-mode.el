@@ -461,7 +461,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 This function inserts:
 * php tags
 * copyright with current date and t3php-author
-* a comment block which contains SCM ID tag `$Id$', author, date
+* a comment block which contains SCM version ID tag, author, date
   and leaves room for a class description
 * a special comment for inserting a function index automatically
   with the TYPO3 extension `Extension Development Evaluator'
@@ -505,7 +505,7 @@ This function inserts:
 	  "\n"
 	  " * @version"
 	  (t3php-return-phpdoc-alignment 2)
-	  "$Id$\n"
+	  "$" "Id" "$\n"
 	  " */\n"
 	  "/**\n"
 	  " * [CLASS/FUNCTION INDEX of SCRIPT]\n"
