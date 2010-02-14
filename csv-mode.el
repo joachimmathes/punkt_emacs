@@ -46,7 +46,7 @@
 (defgroup csv nil
   "Major mode for editing CSV files."
   :prefix "csv-"
-  :group 'languages)
+  :group 'data)
 
 (defcustom csv-separator ","
   "Default csv separator."
