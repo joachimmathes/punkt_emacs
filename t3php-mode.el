@@ -946,7 +946,7 @@ buffer."
       (setq buffer-read-only nil)
       (insert (format
 "OUTLINE of %s
-SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan  [k]ill [?]Help
+SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan [q]uit [?]Help
 -----------------------------------------------------------------------
 " (abbreviate-file-name t3php-outline-last-file)))
 
