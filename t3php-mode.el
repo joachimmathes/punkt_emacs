@@ -89,8 +89,8 @@ See `format-time-string' function for further detail."
 (defcustom t3php-newline-function 'newline-and-indent
   "Function to be called upon pressing `RET'."
   :type '(choice (const newline)
-		 (const newline-and-indent)
-		 (const reindent-then-newline-and-indent))
+                 (const newline-and-indent)
+                 (const reindent-then-newline-and-indent))
   :group 't3php)
 
 (defcustom t3php-phpdoc-align t
@@ -433,9 +433,9 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
         comment-end ""
         comment-start-skip "// "
         indent-line-function 't3php-indent-line
-	indent-tabs-mode t
+        indent-tabs-mode t
         tab-width 4 
-	show-trailing-whitespace nil
+        show-trailing-whitespace nil
         parse-sexp-ignore-comments t
         show-paren-mode t)
 
@@ -470,83 +470,83 @@ This function inserts:
 * a TYPO3 XCLASS inclusion section"
   (interactive)
   (insert "<?php\n"
-	  "/***************************************************************\n"
-	  " *  Copyright notice\n"
-	  " *\n"
-	  " *  (c) "  (t3php-current-year) " " t3php-author "\n"
-	  " *  All rights reserved\n"
-	  " *\n"
-	  " *  This script is part of the TYPO3 project. The TYPO3 project is\n"
-	  " *  free software; you can redistribute it and/or modify\n"
-	  " *  it under the terms of the GNU General Public License as published by\n"
-	  " *  the Free Software Foundation; either version 2 of the License, or\n"
-	  " *  (at your option) any later version.\n"
-	  " *\n"
-	  " *  The GNU General Public License can be found at\n"
-	  " *  http://www.gnu.org/copyleft/gpl.html.\n"
-	  " *\n"
-	  " *  This script is distributed in the hope that it will be useful,\n"
-	  " *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	  " *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	  " *  GNU General Public License for more details.\n"
-	  " *\n"
-	  " *  This copyright notice MUST APPEAR in all copies of the script!\n"
-	  " ***************************************************************/\n"
-	  "/**\n"
-	  " *\n"
-	  " *\n"
-	  " * @author"
-	  (t3php-return-phpdoc-alignment 3)
-	  t3php-author
-	  "\n"
-	  " * @since"
-	  (t3php-return-phpdoc-alignment 4)
-	  (t3php-current-date)
-	  "\n"
-	  " * @version"
-	  (t3php-return-phpdoc-alignment 2)
-	  "$" "Id" "$\n"
-	  " */\n"
-	  "/**\n"
-	  " * [CLASS/FUNCTION INDEX of SCRIPT]\n"
-	  " *\n"
-	  " * Hint: use extdeveval to insert/update function index above.\n"
-	  " */\n"
-	  "\n\n\n\n\n"
-	  "/**\n"
-	  " *\n"
-	  " *\n"
-	  " * @author"
-	  (t3php-return-phpdoc-alignment 9)
-	  t3php-author
-	  "\n"
-	  " * @package"
-	  (t3php-return-phpdoc-alignment 8)
-	  "TYPO3\n"
-	  " * @subpackage"
-	  (t3php-return-phpdoc-alignment 2)
-	  (t3php-get-subpackage-name)
-	  "\n"
-	  " * @since"
-	  (t3php-return-phpdoc-alignment 10)
-	  (t3php-current-date)
-	  "\n"
-	  " */\n"
-	  "class "
-	  (t3php-get-class-name)
-	  " {\n\n"
-	  "}\n\n\n"
-	  "/*******************************************************************************\n"
-	  " * TYPO3 XCLASS INCLUSION (for class extension/overriding)\n"
-	  " ******************************************************************************/\n"
-	  "if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
-	  (t3php-path-to-extension-file)
-	  "']) {\n"
-	  "    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
-	  (t3php-path-to-extension-file)
-	  "']);\n"
-	  "}\n"
-	  "?>"))
+          "/***************************************************************\n"
+          " *  Copyright notice\n"
+          " *\n"
+          " *  (c) "  (t3php-current-year) " " t3php-author "\n"
+          " *  All rights reserved\n"
+          " *\n"
+          " *  This script is part of the TYPO3 project. The TYPO3 project is\n"
+          " *  free software; you can redistribute it and/or modify\n"
+          " *  it under the terms of the GNU General Public License as published by\n"
+          " *  the Free Software Foundation; either version 2 of the License, or\n"
+          " *  (at your option) any later version.\n"
+          " *\n"
+          " *  The GNU General Public License can be found at\n"
+          " *  http://www.gnu.org/copyleft/gpl.html.\n"
+          " *\n"
+          " *  This script is distributed in the hope that it will be useful,\n"
+          " *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+          " *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+          " *  GNU General Public License for more details.\n"
+          " *\n"
+          " *  This copyright notice MUST APPEAR in all copies of the script!\n"
+          " ***************************************************************/\n"
+          "/**\n"
+          " *\n"
+          " *\n"
+          " * @author"
+          (t3php-return-phpdoc-alignment 3)
+          t3php-author
+          "\n"
+          " * @since"
+          (t3php-return-phpdoc-alignment 4)
+          (t3php-current-date)
+          "\n"
+          " * @version"
+          (t3php-return-phpdoc-alignment 2)
+          "$" "Id" "$\n"
+          " */\n"
+          "/**\n"
+          " * [CLASS/FUNCTION INDEX of SCRIPT]\n"
+          " *\n"
+          " * Hint: use extdeveval to insert/update function index above.\n"
+          " */\n"
+          "\n\n\n\n\n"
+          "/**\n"
+          " *\n"
+          " *\n"
+          " * @author"
+          (t3php-return-phpdoc-alignment 9)
+          t3php-author
+          "\n"
+          " * @package"
+          (t3php-return-phpdoc-alignment 8)
+          "TYPO3\n"
+          " * @subpackage"
+          (t3php-return-phpdoc-alignment 2)
+          (t3php-get-subpackage-name)
+          "\n"
+          " * @since"
+          (t3php-return-phpdoc-alignment 10)
+          (t3php-current-date)
+          "\n"
+          " */\n"
+          "class "
+          (t3php-get-class-name)
+          " {\n\n"
+          "}\n\n\n"
+          "/*******************************************************************************\n"
+          " * TYPO3 XCLASS INCLUSION (for class extension/overriding)\n"
+          " ******************************************************************************/\n"
+          "if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
+          (t3php-path-to-extension-file)
+          "']) {\n"
+          "    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
+          (t3php-path-to-extension-file)
+          "']);\n"
+          "}\n"
+          "?>"))
 
 (defun t3php-get-subpackage-name ()
   "Return subpackage name derived from extension path."
@@ -554,11 +554,11 @@ This function inserts:
             (concat
              t3php-path-to-typo3-extension-directory
              t3php-typo3-extension-directory
-	     ".*?/")
-	    buffer-file-name))
+             ".*?/")
+            buffer-file-name))
       "<SUBPACKAGE>"
     (string-match (concat t3php-path-to-typo3-extension-directory
-			  t3php-typo3-extension-directory
+                          t3php-typo3-extension-directory
                           "\\(.*?\\)/")
                   (file-name-directory buffer-file-name))
     (match-string 1 (file-name-directory buffer-file-name))
@@ -567,8 +567,8 @@ This function inserts:
 (defun t3php-get-class-name ()
   "Return class name derived from buffer file name."
   (if (string-match-p
-	    "^class."
-	    (file-name-nondirectory buffer-file-name))
+            "^class."
+            (file-name-nondirectory buffer-file-name))
       (substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
     (file-name-sans-extension (file-name-nondirectory buffer-file-name))))
 
@@ -592,37 +592,37 @@ This function inserts:
   "Insert signature and header comment for METHOD-NAME."
   (interactive "sMethod name: ")
   (let ((method-argument)
-	(method-arguments (list))
-	(argument-position 0)
-	(start-point (point))
-	method-modifier)
+        (method-arguments (list))
+        (argument-position 0)
+        (start-point (point))
+        method-modifier)
     (setq method-modifier (t3php-read-method-modifier))
     (while (not (string= (setq method-argument (call-interactively 't3php-read-method-arguments)) ""))
       (push method-argument method-arguments))
     (setq method-arguments (reverse method-arguments))
     (insert (concat "/**\n"
-		    "*\n*\n"))
+                    "*\n*\n"))
     (if (not (eq method-arguments nil))
-	(dolist (argument method-arguments)
-	  (insert "* @param"
-		  (t3php-return-phpdoc-alignment 3)
-		  "$"
-		  argument
-		  "\n"))
+        (dolist (argument method-arguments)
+          (insert "* @param"
+                  (t3php-return-phpdoc-alignment 3)
+                  "$"
+                  argument
+                  "\n"))
       (insert "* @param"
-	      (t3php-return-phpdoc-alignment 3)
-	      "void\n"))
+              (t3php-return-phpdoc-alignment 3)
+              "void\n"))
     (insert "* @return\n"
-	    "* @author"
-	    (t3php-return-phpdoc-alignment 2)
-	    t3php-author
-	    "\n"
-	    "* @since"
-	    (t3php-return-phpdoc-alignment 3)
-	    (t3php-current-date)
-	    "\n"
-	    "*/\n"
-	    )
+            "* @author"
+            (t3php-return-phpdoc-alignment 2)
+            t3php-author
+            "\n"
+            "* @since"
+            (t3php-return-phpdoc-alignment 3)
+            (t3php-current-date)
+            "\n"
+            "*/\n"
+            )
     (insert
      (if (not (eq method-modifier nil))
                 (concat method-modifier " "))
@@ -647,10 +647,10 @@ This function inserts:
                                                ("private" 2)
                                                ("protected" 3))
                                              nil
-					     nil
-					     nil
-					     nil
-					     nil)))
+                                             nil
+                                             nil
+                                             nil
+                                             nil)))
     method-modifier))
 
 (defun t3php-read-method-arguments (method-argument)
@@ -692,7 +692,7 @@ The region is described by the delimiters BEGIN and END.  If no optional BUFFER
 provided the current buffer is used.  Highlighting is handled with
 overlays.  Different indices map to different overlays."
   (move-overlay (aref t3php-highlight-overlays index)
-		begin end (or buffer (current-buffer))))
+                begin end (or buffer (current-buffer))))
 
 (defun t3php-unhighlight (index)
   "Detach overlay INDEX."
@@ -713,13 +713,13 @@ overlays.  Different indices map to different overlays."
 (defun t3php-indent-line ()
   "Indent current line."
   (let ((cp (point))                ; current point
-	(cc (current-column))       ; current column
-	(ci (current-indentation))  ; current indentation
-	(cl (line-number-at-pos))   ; current line
-	(counter 0)
-	ps                          ; parser state
-	psp			    ; parser state position
-	save-indent-column)
+        (cc (current-column))       ; current column
+        (ci (current-indentation))  ; current indentation
+        (cl (line-number-at-pos))   ; current line
+        (counter 0)
+        ps                          ; parser state
+        psp                         ; parser state position
+        save-indent-column)
 
     ;; Evaluate parser state
     (save-excursion
@@ -730,55 +730,55 @@ overlays.  Different indices map to different overlays."
        ;; Check if parser state position is:
        ;; -> Inside a comment
        ((nth 8 ps)
-	(setq psp (nth 8 ps))
-	(goto-char psp)
-	(setq save-indent-column (+ (current-column)
-				    1)))
+        (setq psp (nth 8 ps))
+        (goto-char psp)
+        (setq save-indent-column (+ (current-column)
+                                    1)))
        ;; Check if parser state position is:
        ;; -> Inside a parenthetical grouping
        ((nth 1 ps)
-	(setq psp (nth 1 ps))
-	(cond
-	 ;; Check if point is looking at a string and a closing curly brace
-	 ((looking-at "[ \t[:alnum:]]*[)}]")
-	  (goto-char psp)
-	  (back-to-indentation)
-	  (setq save-indent-column (current-column)))
-	 ;; Check if previous non empty line is a `case' line
-	 ((t3php-look-for-case-line)
-	  (goto-char psp)
-	  (back-to-indentation)
-	  (setq save-indent-column (+ (current-column)
-				      (* 2 t3php-block-indentation))))
-	 (t
-	  (goto-char psp)
-	  (back-to-indentation)
-	  (setq save-indent-column (+ (current-column)
-				      t3php-block-indentation)))))
+        (setq psp (nth 1 ps))
+        (cond
+         ;; Check if point is looking at a string and a closing curly brace
+         ((looking-at "[ \t[:alnum:]]*[)}]")
+          (goto-char psp)
+          (back-to-indentation)
+          (setq save-indent-column (current-column)))
+         ;; Check if previous non empty line is a `case' line
+         ((t3php-look-for-case-line)
+          (goto-char psp)
+          (back-to-indentation)
+          (setq save-indent-column (+ (current-column)
+                                      (* 2 t3php-block-indentation))))
+         (t
+          (goto-char psp)
+          (back-to-indentation)
+          (setq save-indent-column (+ (current-column)
+                                      t3php-block-indentation)))))
        ;; Check if parser state position is:
        ;; -> nil
        (t
-       	;; Skip empty lines
-       	(forward-line -1)
-       	(while (and (looking-at "^[ \t]*\n")
-       		    (not (bobp)))
-       	  (forward-line -1))
-       	(back-to-indentation)
-	(setq save-indent-column (current-column)))))
+        ;; Skip empty lines
+        (forward-line -1)
+        (while (and (looking-at "^[ \t]*\n")
+                    (not (bobp)))
+          (forward-line -1))
+        (back-to-indentation)
+        (setq save-indent-column (current-column)))))
 
     ;; Set indentation value on current line
     (back-to-indentation)
     (backward-delete-char-untabify (current-column))
     (indent-to save-indent-column)
     (if (> cc ci)
-	(forward-char (- cc ci)))))
+        (forward-char (- cc ci)))))
 
 (defun t3php-look-for-case-line ()
   "Check if previous non empty line is a `case' line."
   (save-excursion
     (forward-line -1)
     (while (and (looking-at "^[ \t]*\n")
-		(not (bobp)))
+                (not (bobp)))
       (forward-line -1))
     (beginning-of-line)
     (looking-at "^\\s-*case")))
@@ -787,13 +787,13 @@ overlays.  Different indices map to different overlays."
   "Return the parser state at point."
   (save-excursion
     (let ((here (point))
-	  sps)
+          sps)
       ;; For correct indentation the character position of the start of the
       ;; innermost parenthetical grouping has to be found.
       (goto-char (point-min))
       ;; Now get the parser state, i.e. the depth in parentheses.
       (save-excursion
-	(setq sps (parse-partial-sexp (point) here)))
+        (setq sps (parse-partial-sexp (point) here)))
       sps)))
 
 (defun t3php-electric-brace (arg)
@@ -805,7 +805,7 @@ Argument ARG prefix."
   (self-insert-command (prefix-numeric-value arg))
 
   (when (and (looking-at "[ \t]*$")
-	     (looking-back "^[ \t]*[})]"))
+             (looking-back "^[ \t]*[})]"))
     (t3php-indent-line)))
 
 (defun t3php-newline ()
@@ -857,9 +857,9 @@ t3php-outline-block-name-color\t\tcolor used to highlight block names"
         show-paren-mode nil)
 
   (add-hook 'pre-command-hook
-	    't3php-outline-pre-command-hook nil t)
+            't3php-outline-pre-command-hook nil t)
   (add-hook 'post-command-hook
-	    't3php-outline-post-command-hook nil t)
+            't3php-outline-post-command-hook nil t)
 
   (if t3php-outline-mode-map
       nil
@@ -896,7 +896,7 @@ buffer."
   (interactive)
 
   (if (or (not (string= t3php-outline-last-file (buffer-file-name)))
-	  rescan)
+          rescan)
       (t3php-outline-erase-outline-buffer))
 
   (setq t3php-outline-last-file (buffer-file-name))
@@ -910,31 +910,31 @@ buffer."
 
   ;; Set the window configuration
   (let ((unsplittable (frame-parameter (selected-frame) 'unsplittable))
-	outline-window foobar)
+        outline-window foobar)
     ;; Select outline buffer window
     (if (setq outline-window (get-buffer-window t3php-outline-buffer-name))
-	(select-window outline-window)
+        (select-window outline-window)
       (when (or (not t3php-outline-keep-other-windows)
-		(< (window-height) (* 2 window-min-height)))
-	(delete-other-windows))
+                (< (window-height) (* 2 window-min-height)))
+        (delete-other-windows))
 
       ;; Remember size of window
       (setq t3php-outline-last-window-width (window-width)
-	    t3php-outline-last-window-height (window-height))
+            t3php-outline-last-window-height (window-height))
 
       ;; Split window
       (unless unsplittable
-	(if t3php-outline-split-windows-horizontally
-	    (split-window-horizontally
-	     (floor (* (window-width)
-		       t3php-outline-split-windows-fraction)))
-	  (split-window-vertically
-	   (floor (* (window-height)
-		     t3php-outline-split-windows-fraction)))))
+        (if t3php-outline-split-windows-horizontally
+            (split-window-horizontally
+             (floor (* (window-width)
+                       t3php-outline-split-windows-fraction)))
+          (split-window-vertically
+           (floor (* (window-height)
+                     t3php-outline-split-windows-fraction)))))
 
       ;; Set major mode for and switch to *t3php-outline* buffer
       (let ((default-major-mode 't3php-outline-mode))
-	(switch-to-buffer t3php-outline-buffer-name)))
+        (switch-to-buffer t3php-outline-buffer-name)))
 
     (or (eq major-mode 't3php-outline-mode) (t3php-outline-mode))
 
@@ -955,10 +955,10 @@ SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan [q]uit [?]Help
       (put-text-property (point-min) (point) 'intangible t)
       ;; Fill the buffer with the outline
       (dolist (line
-	       (t3php-outline-format
-		(t3php-outline-content
-		 (get-file-buffer t3php-outline-last-file))))
-	(insert line))
+               (t3php-outline-format
+                (t3php-outline-content
+                 (get-file-buffer t3php-outline-last-file))))
+        (insert line))
       (goto-line 4)
       (beginning-of-line)
       (setq buffer-read-only t)
@@ -972,9 +972,9 @@ SPC=view TAB=goto RET=goto+kill [f]ollow [r]escan [q]uit [?]Help
   "Erase T3PHP OUTLINE buffer, if it exists."
   (if (get-buffer t3php-outline-buffer-name)
       (save-excursion
-	(set-buffer t3php-outline-buffer-name)
-	(let ((buffer-read-only nil))
-	  (erase-buffer)))))
+        (set-buffer t3php-outline-buffer-name)
+        (let ((buffer-read-only nil))
+          (erase-buffer)))))
 
 (defun t3php-outline-post-command-hook ()
   "Used in `post-command-hook' for *t3php-outline* buffer.
@@ -983,14 +983,14 @@ Activates the hl-line overlay on the current line.
 Handles follow mode if activated."
   (when (get-buffer t3php-outline-buffer-name)
     (t3php-highlight 0
-		     (line-beginning-position)
-		     (line-beginning-position 2)
-		     (get-buffer t3php-outline-buffer-name)))
+                     (line-beginning-position)
+                     (line-beginning-position 2)
+                     (get-buffer t3php-outline-buffer-name)))
   (if (integerp t3php-outline-follow-mode)
       ;; Remove delayed follow action.
       (setq t3php-outline-follow-mode t)
     (when (and t3php-outline-follow-mode
-	       (not (equal t3php-outline-last-follow-point (point))))
+               (not (equal t3php-outline-last-follow-point (point))))
       (setq t3php-outline-last-follow-point (point))
       (t3php-outline-visit-location 'view))))
 
@@ -1006,10 +1006,10 @@ Deactivates the hl-line overlay on the current line."
   (if t3php-outline-split-windows-horizontally
       (enlarge-window-horizontally
        (max 0 (- (or t3php-outline-last-window-width (window-width))
-		 (window-width))))
+                 (window-width))))
     (enlarge-window
      (max 0 (- (or t3php-outline-last-window-height (window-height))
-	       (window-height))))))
+               (window-height))))))
 
 (defun t3php-outline-show-help ()
   "Show a summary of key bindings."
@@ -1079,7 +1079,7 @@ line by text properties."
     (delete-window))
   (if (eq nil (marker-position t3php-outline-return-marker))
       (progn (switch-to-buffer nil)
-	     (message "No associated buffer found."))
+             (message "No associated buffer found."))
     (switch-to-buffer (marker-buffer t3php-outline-return-marker))
     (t3php-re-enlarge)
     (goto-char (marker-position t3php-outline-return-marker))))
@@ -1108,99 +1108,99 @@ method start and end position."
     ;; `t3php-outline-marker-list', which keeps track of all markers.
     (when t3php-outline-marker-list
       (dolist (t3php-outline-marker t3php-outline-marker-list)
-	(set-marker t3php-outline-marker nil))
+        (set-marker t3php-outline-marker nil))
       (setq t3php-outline-marker-list (list)))
 
     ;; Switch to t3php buffer.
     (set-buffer t3php-buffer)
 
     (let ((start (point-min))
-	  (end (point-max))
-	  (method-end (point-min))
-	  tbs
-	  list-of-methods)
+          (end (point-max))
+          (method-end (point-min))
+          tbs
+          list-of-methods)
       (save-excursion
-	(goto-char start)
+        (goto-char start)
 
-	(catch 'no-valid-method
-	  (while t
-	    (let ((method-marker (make-marker))
-		  (method-start
-		   ;; Look for method method start
-		   (save-excursion
-		     (goto-char method-end)
-		     (setq tbs (re-search-forward
-				"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function.*" nil t))
-		     ;; If search was successfull set method-start to the beginning
-		     ;; of the line; return nil otherwise
-		     (if (not tbs)
-			 nil
-		       (goto-char tbs)
-		       (beginning-of-line)
-		       (point)))))
-	      (if method-start
-		  (let (method-name
-			method-modifier)
-			 ;; Save method name
-		    (save-excursion
-		      (goto-char method-start)
-		      (looking-at
-		       (concat
-			"^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
-			"\\(\\w+?\\)\\s-*("))
-		      (setq method-name (match-string 2)
-			    method-modifier (match-string 1)))
-		    ;; Look for measurment method end
-		    (save-excursion
-		      (goto-char method-start)
-		      (end-of-defun)
-		      (setq method-end (point)))
-		    ;; The following local variables are defined up to here:
-		    ;; [1] method-start   : point of measurement method start
-		    ;; [2] method-end     : point of method end
-		    ;; [3] method-name    : name of method
-		    ;; [4] method-modifier: name of method modifier
-		    (if (and (<= method-start end)
-			     (<= method-end end))
-			(progn
-			  (set-marker method-marker method-start)
-			  (push method-marker t3php-outline-marker-list)
-			  (push (list
-				 (line-number-at-pos method-start)  ; method start
-				 (line-number-at-pos method-end)    ; method end
-				 method-name                        ; method name
-				 method-marker                      ; method marker
-				 method-modifier)                   ; method modifier
-				list-of-methods))
-		      (throw 'no-valid-method t)))
-		(throw 'no-valid-method t))))))
+        (catch 'no-valid-method
+          (while t
+            (let ((method-marker (make-marker))
+                  (method-start
+                   ;; Look for method method start
+                   (save-excursion
+                     (goto-char method-end)
+                     (setq tbs (re-search-forward
+                                "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function.*" nil t))
+                     ;; If search was successfull set method-start to the beginning
+                     ;; of the line; return nil otherwise
+                     (if (not tbs)
+                         nil
+                       (goto-char tbs)
+                       (beginning-of-line)
+                       (point)))))
+              (if method-start
+                  (let (method-name
+                        method-modifier)
+                         ;; Save method name
+                    (save-excursion
+                      (goto-char method-start)
+                      (looking-at
+                       (concat
+                        "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
+                        "\\(\\w+?\\)\\s-*("))
+                      (setq method-name (match-string 2)
+                            method-modifier (match-string 1)))
+                    ;; Look for measurment method end
+                    (save-excursion
+                      (goto-char method-start)
+                      (end-of-defun)
+                      (setq method-end (point)))
+                    ;; The following local variables are defined up to here:
+                    ;; [1] method-start   : point of measurement method start
+                    ;; [2] method-end     : point of method end
+                    ;; [3] method-name    : name of method
+                    ;; [4] method-modifier: name of method modifier
+                    (if (and (<= method-start end)
+                             (<= method-end end))
+                        (progn
+                          (set-marker method-marker method-start)
+                          (push method-marker t3php-outline-marker-list)
+                          (push (list
+                                 (line-number-at-pos method-start)  ; method start
+                                 (line-number-at-pos method-end)    ; method end
+                                 method-name                        ; method name
+                                 method-marker                      ; method marker
+                                 method-modifier)                   ; method modifier
+                                list-of-methods))
+                      (throw 'no-valid-method t)))
+                (throw 'no-valid-method t))))))
       (reverse list-of-methods))))
 
 (defun t3php-outline-format (content)
   "Return a list of formatted lines for the outline.
 CONTENT is the list of lists returned by function `t3php-outline-content'."
   (let* ((formatting-information (t3php-outline-formatting-information content))
-	 (formatted-content (list))
-	 (max-method-name-length (nth 0 formatting-information))
-	 (max-method-inf-from-length (nth 1 formatting-information))
-	 (max-method-inf-to-length (nth 2 formatting-information))
-	 (max-method-inf-length (nth 3 formatting-information))
-	 method-start
-	 method-end
-	 method-name
-	 method-marker
-	 method-modifier
-	 symbolized-method-modifier
-	 (formatter (concat "%s "
-			    "%-"
-			    (number-to-string (+ max-method-name-length 6))
-			    "s"
-			    "[ %"
-			    (number-to-string max-method-inf-from-length)
-			    "d-%-"
-			    (number-to-string max-method-inf-to-length)
-			    "d ]\n"))
-	 formatted-line)
+         (formatted-content (list))
+         (max-method-name-length (nth 0 formatting-information))
+         (max-method-inf-from-length (nth 1 formatting-information))
+         (max-method-inf-to-length (nth 2 formatting-information))
+         (max-method-inf-length (nth 3 formatting-information))
+         method-start
+         method-end
+         method-name
+         method-marker
+         method-modifier
+         symbolized-method-modifier
+         (formatter (concat "%s "
+                            "%-"
+                            (number-to-string (+ max-method-name-length 6))
+                            "s"
+                            "[ %"
+                            (number-to-string max-method-inf-from-length)
+                            "d-%-"
+                            (number-to-string max-method-inf-to-length)
+                            "d ]\n"))
+         formatted-line)
     (dolist (line content)
       (setq method-start (nth 0 line))
       (setq method-end (nth 1 line))
@@ -1210,53 +1210,53 @@ CONTENT is the list of lists returned by function `t3php-outline-content'."
 
       ;; Set text properties for method-modifier
       (cond ((string= "private" method-modifier)
-	     (setq symbolized-method-modifier "[-]")
-	     (put-text-property 0 (length symbolized-method-modifier)
-				'font-lock-face `(:foreground
-						  "firebrick")
-				symbolized-method-modifier))
-	    ((string= "protected" method-modifier)
-	     (setq symbolized-method-modifier "[#]")
-	     (put-text-property 0 (length symbolized-method-modifier)
-				'font-lock-face `(:foreground
-						  "goldenrod")
-				symbolized-method-modifier))
-	    ((string= "public" method-modifier)
-	     (setq symbolized-method-modifier "[+]")
-	     (put-text-property 0 (length symbolized-method-modifier)
-				'font-lock-face `(:foreground
-						  "forest green")
-				symbolized-method-modifier))
-	    ((eq nil method-modifier)
-	     (setq symbolized-method-modifier "[+]")
-	     (put-text-property 0 (length symbolized-method-modifier)
-				'font-lock-face `(:foreground
-						  "forest green")
-				symbolized-method-modifier)))
+             (setq symbolized-method-modifier "[-]")
+             (put-text-property 0 (length symbolized-method-modifier)
+                                'font-lock-face `(:foreground
+                                                  "firebrick")
+                                symbolized-method-modifier))
+            ((string= "protected" method-modifier)
+             (setq symbolized-method-modifier "[#]")
+             (put-text-property 0 (length symbolized-method-modifier)
+                                'font-lock-face `(:foreground
+                                                  "goldenrod")
+                                symbolized-method-modifier))
+            ((string= "public" method-modifier)
+             (setq symbolized-method-modifier "[+]")
+             (put-text-property 0 (length symbolized-method-modifier)
+                                'font-lock-face `(:foreground
+                                                  "forest green")
+                                symbolized-method-modifier))
+            ((eq nil method-modifier)
+             (setq symbolized-method-modifier "[+]")
+             (put-text-property 0 (length symbolized-method-modifier)
+                                'font-lock-face `(:foreground
+                                                  "forest green")
+                                symbolized-method-modifier)))
 
       ;; Set text properties for method-name
       (remove-text-properties 0 (length method-name)
-			 '(face nil) method-name)
+                         '(face nil) method-name)
       (put-text-property 0 (length method-name)
-			 'font-lock-face `(:foreground
-					   ,t3php-outline-method-name-color)
-			 method-name)
+                         'font-lock-face `(:foreground
+                                           ,t3php-outline-method-name-color)
+                         method-name)
       (put-text-property 0 (length method-name)
-			 'help-echo method-name
-			 method-name)
+                         'help-echo method-name
+                         method-name)
       (put-text-property 0 (length method-name)
-			 'fontified t
-			 method-name)
+                         'fontified t
+                         method-name)
 
       (setq formatted-line
-	    (if (> (length method-name) max-method-name-length)
-		(format formatter symbolized-method-modifier
-			(concat (substring method-name
-					   0
-					   max-method-name-length)
-				"...")
-			method-start method-end)
-	      (format formatter symbolized-method-modifier method-name method-start method-end)))
+            (if (> (length method-name) max-method-name-length)
+                (format formatter symbolized-method-modifier
+                        (concat (substring method-name
+                                           0
+                                           max-method-name-length)
+                                "...")
+                        method-start method-end)
+              (format formatter symbolized-method-modifier method-name method-start method-end)))
       ;; The asterisk `*' holds the method information like `method-name' and
       ;; `method-marker' as a text property.
       (put-text-property 0 1 'data `(,method-marker ,method-name) formatted-line)
@@ -1281,24 +1281,24 @@ a list like this: (max-block-name-length max-block-inf-from-size
 max-block-inf-to-size max-block-inf-size).  CONTENT is the list of lists returned
 by function `t3php-outline-content'"
   (let ((max-from 0)
-	(max-to 0)
-	(formatting-information (list)))
+        (max-to 0)
+        (formatting-information (list)))
       (dolist (line content)
-	(setq max-from (max max-from (nth 0 line)))
-	(setq max-to (max max-to (nth 1 line))))
+        (setq max-from (max max-from (nth 0 line)))
+        (setq max-to (max max-to (nth 1 line))))
       ;; The block size information string shall look like this:
       ;; [ 1234-5678 ]
       ;; Thus evaluate the string length with respect to this.
       (push (+ (length (number-to-string max-from))
-	       (length (number-to-string max-to))
-	       5)
-	    formatting-information) ; number of characters `[ - ]' = 5
+               (length (number-to-string max-to))
+               5)
+            formatting-information) ; number of characters `[ - ]' = 5
 
       (push (length (number-to-string max-to))
-	    formatting-information)
+            formatting-information)
 
       (push (length (number-to-string max-from))
-	    formatting-information)
+            formatting-information)
 
       ;; The maximum block name length shall be 20.
       (push 40 formatting-information)
@@ -1307,27 +1307,27 @@ by function `t3php-outline-content'"
 (defun t3php-outline-visit-location (visit-mode)
   "Visit t3php buffer according to VISIT-MODE."
   (let* ((outline-data (get-text-property (point) 'data))
-	 (outline-window (selected-window))
-	 (t3php-marker (nth 0 outline-data))
-	 (t3php-block-name (nth 1 outline-data))
-	 show-window show-buffer
-	 match)
+         (outline-window (selected-window))
+         (t3php-marker (nth 0 outline-data))
+         (t3php-block-name (nth 1 outline-data))
+         show-window show-buffer
+         match)
 
     (unless outline-data (message "%s" "Don't know which outline line to visit."))
 
     (setq match
-	  (cond
-	   ((and (markerp t3php-marker) (marker-buffer t3php-marker))
-	    ;; Marker is available and buffer still exists.
-	    (switch-to-buffer-other-window (marker-buffer t3php-marker))
-	    (goto-char (marker-position t3php-marker))
-	    (looking-at (concat
-			 "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
-			 t3php-block-name)))
-	   (t
-	    ;; Marker is lost. A backup method might be implemented in the
-	    ;; future. For now just print an error message.
-	    (message "Marker is lost."))))
+          (cond
+           ((and (markerp t3php-marker) (marker-buffer t3php-marker))
+            ;; Marker is available and buffer still exists.
+            (switch-to-buffer-other-window (marker-buffer t3php-marker))
+            (goto-char (marker-position t3php-marker))
+            (looking-at (concat
+                         "^\\s-*\\(?:\\(?:abstract\\|final\\)\\s-+\\)?\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)?\\(?:static\\s-+\\)?function\\s-+&?"
+                         t3php-block-name)))
+           (t
+            ;; Marker is lost. A backup method might be implemented in the
+            ;; future. For now just print an error message.
+            (message "Marker is lost."))))
 
     (when match
       (goto-char (match-beginning 0))
@@ -1335,32 +1335,32 @@ by function `t3php-outline-content'"
       (add-hook 'pre-command-hook 't3php-highlight-shall-vanish))
 
     (setq show-window (selected-window)
-	  show-buffer (current-buffer))
+          show-buffer (current-buffer))
 
     (if (not match)
-	(progn
-	  (select-window outline-window)
-	  (message "Cannot find location."))
+        (progn
+          (select-window outline-window)
+          (message "Cannot find location."))
 
       ;; VISIT-MODE decides what to do next.
       (cond
        ((eq visit-mode 'view)
-	(select-window outline-window)
-	(recenter))
+        (select-window outline-window)
+        (recenter))
        ((eq visit-mode 'goto)
-	(t3php-unhighlight 1)
-	(select-window show-window)
-	(recenter))
+        (t3php-unhighlight 1)
+        (select-window show-window)
+        (recenter))
        ((eq visit-mode 'goto-and-kill)
-	(select-window outline-window)
-	(t3php-unhighlight 1)
-	(kill-buffer t3php-outline-buffer-name)
+        (select-window outline-window)
+        (t3php-unhighlight 1)
+        (kill-buffer t3php-outline-buffer-name)
         (unless (one-window-p)
-	  (delete-window))
-	(if (window-live-p show-window)
-	    (set-buffer show-buffer)
-	  (switch-to-buffer show-buffer))
-	(t3php-re-enlarge))
+          (delete-window))
+        (if (window-live-p show-window)
+            (set-buffer show-buffer)
+          (switch-to-buffer show-buffer))
+        (t3php-re-enlarge))
        (t nil)))))
 
 (provide 't3php-mode)
