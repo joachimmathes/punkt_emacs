@@ -390,7 +390,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 
   (when (not t3php-mode-syntax-table)
     (setq t3php-mode-syntax-table (make-syntax-table))
-    ;; Parenthesis
+    ;; Parentheses
     (modify-syntax-entry ?\( "()" t3php-mode-syntax-table)
     (modify-syntax-entry ?\) ")(" t3php-mode-syntax-table)
     (modify-syntax-entry ?\[ "(]" t3php-mode-syntax-table)
@@ -417,6 +417,11 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map "\r"        't3php-newline)
     (define-key t3php-mode-map "}"         't3php-electric-brace)
     (define-key t3php-mode-map ")"         't3php-electric-brace)
+    (define-key t3php-mode-map "{"         't3php-insert-pair-of-curly-braces)
+    (define-key t3php-mode-map "("         't3php-insert-pair-of-parentheses)
+    (define-key t3php-mode-map "["         't3php-insert-pair-of-braces)
+    (define-key t3php-mode-map "'"         't3php-insert-pair-of-quotes)
+    (define-key t3php-mode-map "\""        't3php-insert-pair-of-quotes)
     (define-key t3php-mode-map "\C-ct"     't3php-outline)
     (define-key t3php-mode-map "\C-c\C-ic" 't3php-insert-class)
     (define-key t3php-mode-map "\C-c\C-if" 't3php-insert-method)
@@ -434,7 +439,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
         comment-start-skip "// "
         indent-line-function 't3php-indent-line
         indent-tabs-mode t
-        tab-width 4 
+        tab-width 4
         show-trailing-whitespace nil
         parse-sexp-ignore-comments t
         show-paren-mode t)
@@ -807,6 +812,43 @@ Argument ARG prefix."
   (when (and (looking-at "[ \t]*$")
              (looking-back "^[ \t]*[})]"))
     (t3php-indent-line)))
+
+(defun t3php-insert-pair-of-curly-braces (arg)
+  (interactive "P")
+  "Insert pair of curly braces and place point in between, if ARG is empty."
+  (if (not (eq arg nil))
+      (self-insert-command (prefix-numeric-value arg))
+    (self-insert-command 1)
+    (insert "\n\n}")
+    (t3php-indent-line)
+    (forward-line -1)
+    (t3php-indent-line)))
+
+(defun t3php-insert-pair-of-parentheses (arg)
+  (interactive "P")
+  "Insert pair of parentheses and place point in between, if ARG is empty."
+  (if (not (eq arg nil))
+      (self-insert-command (prefix-numeric-value arg))
+    (self-insert-command 1)
+    (insert ")")
+    (backward-char 1)))
+
+(defun t3php-insert-pair-of-braces (arg)
+  (interactive "P")
+  "Insert pair of braces and place point in between, if ARG is empty."
+  (if (not (eq arg nil))
+      (self-insert-command (prefix-numeric-value arg))
+    (self-insert-command 1)
+    (insert "]")
+    (backward-char 1)))
+
+(defun t3php-insert-pair-of-quotes (arg)
+  (interactive "P")
+  "Insert pair of quotes and place point in between, if ARG is empty."
+  (if (not (eq arg nil))
+      (self-insert-command (prefix-numeric-value arg))
+    (self-insert-command 2)
+    (backward-char 1)))
 
 (defun t3php-newline ()
   "Call the dedicated newline function.
