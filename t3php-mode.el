@@ -54,11 +54,6 @@
   :prefix "t3php-"
   :group 'languages)
 
-(defcustom t3php-author "Lisa Fremont <lisa@fremont.de>"
-  "Author for php-doc."
-  :type 'string
-  :group 't3php)
-
 (defcustom t3php-typo3-extension-directory "ext/"
   "TYPO3 extension directory."
   :type 'string
@@ -69,33 +64,16 @@
   :type 'string
   :group 't3php)
 
-(defcustom t3php-date-format "%Y-%m-%d"
-  "Date format for php-doc.
-See `format-time-string' function for further detail."
-  :type 'string
-  :group 't3php)
-
-(defcustom t3php-year-format "%Y"
-  "Year format for php-doc.
-See `format-time-string' function for further detail."
-  :type 'string
-  :group 't3php)
-
 (defcustom t3php-block-indentation 4
   "The indentation relative to a predecessing line which begins a new block."
   :type 'integer
-  :group 'typoscript)
+  :group 't3php)
 
 (defcustom t3php-newline-function 'newline-and-indent
   "Function to be called upon pressing `RET'."
   :type '(choice (const newline)
                  (const newline-and-indent)
                  (const reindent-then-newline-and-indent))
-  :group 't3php)
-
-(defcustom t3php-phpdoc-align t
-  "Alignment of PHPDoc parameters."
-  :type 'boolean
   :group 't3php)
 
 (defcustom t3php-php-manual-url "http://www.php.net/manual/en/"
@@ -109,13 +87,18 @@ You can replace \"en\" with your ISO language code."
   :type 'string
   :group 't3php)
 
+(defgroup t3php-outline nil
+  "T3PHP mode outline buffer."
+  :prefix "t3php-outline"
+  :group 't3php)
+
 (defcustom t3php-outline-keep-other-windows t
   "If true, split the selected window to display the *t3php-outline* buffer.
 
 When nil, all other windows except the selected one will be deleted, so that the
 *t3php-outline* window fills half the frame."
   :type 'boolean
-  :group 't3php)
+  :group 't3php-outline)
 
 (defcustom t3php-outline-split-windows-horizontally nil
   "If true, create outline windows by splitting horizontally.
@@ -142,12 +125,12 @@ Splitting a window `horizontally' looks like this:
 |       |         |   |   |
 +-------+         +---+---+"
   :type 'boolean
-  :group 't3php)
+  :group 't3php-outline)
 
 (defcustom t3php-outline-split-windows-fraction .3
   "Fraction of the width or height of the window to be used for outline window."
   :type 'number
-  :group 't3php)
+  :group 't3php-outline)
 
 (defcustom t3php-outline-follow-mode nil
   "If true, point in *t3php-outline* will make PHP window to follow.
@@ -155,7 +138,7 @@ Splitting a window `horizontally' looks like this:
 It will show the corresponding part of the document.  This flag can be toggled
 from within the *t3php-outline* buffer with the `f' key."
   :type 'boolean
-  :group 't3php)
+  :group 't3php-outline)
 
 (defcustom t3php-outline-hl-line-color "DarkSlateBlue"
   "The color used to highlight the horizontal line.
@@ -163,7 +146,7 @@ from within the *t3php-outline* buffer with the `f' key."
   The default value is `DarkSlateBlue'. For a list of all available colors use `M-x
 list-colors-display"
   :type 'color
-  :group 't3php)
+  :group 't3php-outline)
 
 (defcustom t3php-outline-method-name-color "sea green"
   "The color used to highlight method names in the OUTLINE.
@@ -171,7 +154,34 @@ list-colors-display"
   The default value is `sea green'.  For a list of all available colors use `M-x
 `list-colors-display'"
   :type 'color
+  :group 't3php-outline)
+
+(defgroup t3php-doc nil
+  "T3PHP mode php documentation."
+  :prefix "t3php-doc"
   :group 't3php)
+
+(defcustom t3php-doc-author "Lisa Fremont <lisa@fremont.de>"
+  "Author for php-doc."
+  :type 'string
+  :group 't3php-doc)
+
+(defcustom t3php-doc-date-format "%Y-%m-%d"
+  "Date format for php-doc.
+See `format-time-string' function for further detail."
+  :type 'string
+  :group 't3php-doc)
+
+(defcustom t3php-doc-year-format "%Y"
+  "Year format for php-doc.
+See `format-time-string' function for further detail."
+  :type 'string
+  :group 't3php-doc)
+
+(defcustom t3php-doc-method-tags nil
+  "Method tags"
+  :type '(repeat string)
+  :group 't3php-doc)
 
 ;;;; Constants
 
@@ -465,7 +475,7 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
   "Insert class into empty php buffer.
 This function inserts:
 * php tags
-* copyright with current date and t3php-author
+* copyright with current date and t3php-doc-author
 * a comment block which contains SCM version ID tag, author, date
   and leaves room for a class description
 * a special comment for inserting a function index automatically
@@ -478,7 +488,7 @@ This function inserts:
           "/***************************************************************\n"
           " *  Copyright notice\n"
           " *\n"
-          " *  (c) "  (t3php-current-year) " " t3php-author "\n"
+          " *  (c) "  (t3php-current-year) " " t3php-doc-author "\n"
           " *  All rights reserved\n"
           " *\n"
           " *  This script is part of the TYPO3 project. The TYPO3 project is\n"
@@ -670,18 +680,18 @@ This function inserts:
 
  (defun t3php-current-date ()
    "Return the current date.
-Uses customizable `t3php-date-format' for formatting the date."
-   (format-time-string t3php-date-format (current-time)))
+Uses customizable `t3php-doc-date-format' for formatting the date."
+   (format-time-string t3php-doc-date-format (current-time)))
 
 (defun t3php-insert-current-year ()
   "Insert the current date into buffer."
   (interactive)
-  (insert (format-time-string t3php-year-format (current-time))))
+  (insert (format-time-string t3php-doc-year-format (current-time))))
 
 (defun t3php-current-year ()
    "Return the current year.
-Uses customizable `t3php-year-format' for formatting the year."
-   (format-time-string t3php-year-format (current-time)))
+Uses customizable `t3php-doc-year-format' for formatting the year."
+   (format-time-string t3php-doc-year-format (current-time)))
 
 (defun t3php-toggle-trailing-whitespace-visibilty ()
   "Toggle visbility of trailing whitespaces."
