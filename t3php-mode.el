@@ -510,16 +510,13 @@ This function inserts:
           "/**\n"
           " *\n"
           " *\n"
-          " * @author"
-          (t3php-return-phpdoc-alignment 3)
-          t3php-author
+          " * @author "
+          t3php-doc-author
           "\n"
-          " * @since"
-          (t3php-return-phpdoc-alignment 4)
+          " * @since "
           (t3php-current-date)
           "\n"
-          " * @version"
-          (t3php-return-phpdoc-alignment 2)
+          " * @version "
           "$" "Id" "$\n"
           " */\n"
           "/**\n"
@@ -531,19 +528,15 @@ This function inserts:
           "/**\n"
           " *\n"
           " *\n"
-          " * @author"
-          (t3php-return-phpdoc-alignment 9)
-          t3php-author
+          " * @author "
+          t3php-doc-author
           "\n"
-          " * @package"
-          (t3php-return-phpdoc-alignment 8)
+          " * @package "
           "TYPO3\n"
-          " * @subpackage"
-          (t3php-return-phpdoc-alignment 2)
+          " * @subpackage "
           (t3php-get-subpackage-name)
           "\n"
-          " * @since"
-          (t3php-return-phpdoc-alignment 10)
+          " * @since "
           (t3php-current-date)
           "\n"
           " */\n"
@@ -619,13 +612,11 @@ This function inserts:
                     "*\n*\n"))
     (if (not (eq method-arguments nil))
         (dolist (argument method-arguments)
-          (insert "* @param"
-                  (t3php-return-phpdoc-alignment 3)
+          (insert "* @param "
                   "$"
                   argument
                   "\n"))
-      (insert "* @param"
-              (t3php-return-phpdoc-alignment 3)
+      (insert "* @param "
               "void\n"))
     (insert "* @return\n"
             "* @author"
@@ -877,12 +868,6 @@ use."
   "Bring up manual for PHP."
   (interactive)
   (browse-url t3php-php-manual-url))
-
-(defun t3php-return-phpdoc-alignment (number-of-spaces)
-  "Returns NUMBER-OF-SPACES as PHPDoc aligment if t3php-phpdoc-align is not nil."
-  (if t3php-phpdoc-align
-      (make-string number-of-spaces ?\s)
-    (make-string 1 ?\s)))
 
 (defun t3php-outline-mode ()
   "Major mode for managing the outline of php files.
