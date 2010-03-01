@@ -618,17 +618,16 @@ This function inserts:
                   "\n"))
       (insert "* @param "
               "void\n"))
-    (insert "* @return\n"
-            "* @author"
-            (t3php-return-phpdoc-alignment 2)
-            t3php-author
-            "\n"
-            "* @since"
-            (t3php-return-phpdoc-alignment 3)
-            (t3php-current-date)
-            "\n"
-            "*/\n"
-            )
+    (insert "* @return\n")
+    (dolist (tag t3php-doc-method-tags)
+      (insert "* @" tag)
+      (cond
+       ((string= tag "author")
+	(insert (make-string 1 ?\s) t3php-doc-author))
+       ((string= tag "date")
+	(insert (make-string 1 ?\s) t3php-current-date)))
+      (insert "\n"))
+    (insert "*/\n")
     (insert
      (if (not (eq method-modifier nil))
                 (concat method-modifier " "))
