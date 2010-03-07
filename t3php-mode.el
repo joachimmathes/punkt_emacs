@@ -824,31 +824,44 @@ Argument ARG prefix."
     (forward-line -1)
     (t3php-indent-line)))
 
-(defun t3php-insert-pair-of-parentheses (arg)
-  (interactive "P")
-  "Insert pair of parentheses and place point in between, if ARG is empty."
-  (if (not (eq arg nil))
-      (self-insert-command (prefix-numeric-value arg))
-    (self-insert-command 1)
-    (insert ")")
-    (backward-char 1)))
+(defun t3php-insert-pair-of-parentheses (&optional arg)
+  "Enclose following ARG sexps in parentheses.
+Leave point after open-paren.
+A negative ARG encloses the preceding ARG sexps instead.
+No argument is equivalent to zero: just insert `()' and leave point between.
+If `parens-require-spaces' is non-nil, this command also inserts a space
+before and after, depending on the surrounding characters.
+If region is active, insert enclosing characters at region boundaries.
 
-(defun t3php-insert-pair-of-braces (arg)
+This command assumes point is not in a string or comment."
   (interactive "P")
-  "Insert pair of braces and place point in between, if ARG is empty."
-  (if (not (eq arg nil))
-      (self-insert-command (prefix-numeric-value arg))
-    (self-insert-command 1)
-    (insert "]")
-    (backward-char 1)))
+  (insert-pair arg ?\( ?\)))
 
-(defun t3php-insert-pair-of-quotes (arg)
+(defun t3php-insert-pair-of-braces (&optional arg)
+  "Enclose following ARG sexps in braces.
+Leave point after open-paren.
+A negative ARG encloses the preceding ARG sexps instead.
+No argument is equivalent to zero: just insert `()' and leave point between.
+If `parens-require-spaces' is non-nil, this command also inserts a space
+before and after, depending on the surrounding characters.
+If region is active, insert enclosing characters at region boundaries.
+
+This command assumes point is not in a string or comment."
   (interactive "P")
-  "Insert pair of quotes and place point in between, if ARG is empty."
-  (if (not (eq arg nil))
-      (self-insert-command (prefix-numeric-value arg))
-    (self-insert-command 2)
-    (backward-char 1)))
+  (insert-pair arg ?\[ ?\]))
+
+(defun t3php-insert-pair-of-quotes (&optional arg)
+  "Enclose following ARG sexps in quotes.
+Leave point after open-paren.
+A negative ARG encloses the preceding ARG sexps instead.
+No argument is equivalent to zero: just insert `()' and leave point between.
+If `parens-require-spaces' is non-nil, this command also inserts a space
+before and after, depending on the surrounding characters.
+If region is active, insert enclosing characters at region boundaries.
+
+This command assumes point is not in a string or comment."
+  (interactive "P")
+  (insert-pair arg))
 
 (defun t3php-newline ()
   "Call the dedicated newline function.
