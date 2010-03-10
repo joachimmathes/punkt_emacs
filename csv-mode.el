@@ -1,4 +1,4 @@
-;;; csv-align.el --- A collection of usefull functions
+;;; csv-align.el --- A major mode for editing CSV files
 
 ;; Copyright (C) 2009  Joachim Mathes
 ;;
