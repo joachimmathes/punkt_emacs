@@ -100,7 +100,8 @@ VARIABLES"
     (setq csv-mode-map (make-sparse-keymap))
     (define-key csv-mode-map "\C-cf" 'csv-forward-column)
     (define-key csv-mode-map "\C-cb" 'csv-backward-column)
-    (define-key csv-mode-map "\C-ca" 'csv-align-records)
+    (define-key csv-mode-map "\C-c\C-ar" 'csv-align-records-in-region)
+    (define-key csv-mode-map "\C-c\C-ab" 'csv-align-records-in-buffer)
     (define-key csv-mode-map "\C-cs" 'csv-set-separator))
   (use-local-map csv-mode-map)
 
@@ -120,17 +121,34 @@ VARIABLES"
 	font-lock-keywords (list `(,(symbol-value 'csv-current-separator) . font-lock-comment-face)))
   (font-lock-default-fontify-buffer))
 
-(defun csv-align-records ()
+(defun csv-align-records-in-buffer ()
   "Align columns of a buffer visting a csv file."
   (interactive)
+  (csv-align-records-in-region (point-min) (point-max)))
+
+(defun csv-align-records-in-region (start end)
+  "Align columns in a region of a buffer visting a csv file."
+  (interactive "r")
+  (let (block-start block-end)
+    (save-excursion
+      (goto-char start)
+      (beginning-of-line)
+      (setq block-start (point))
+      (goto-char end)
+      (end-of-line)
+      (setq block-end (point)))
+    (csv-align-records block-start block-end)))
+
+(defun csv-align-records (start end)
+  "Align columns of a buffer visting a csv file."
   (message "Operating...")
 
   ;; Analyze csv lines
   (let ((formatter (list))
         (line-elements-lengths (list)))
     (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
+      (goto-char start)
+      (while (< (point) end)
         (let ((element-position 0)
               (line-elements-lengths-temp (list)))
           (beginning-of-line)
@@ -161,8 +179,8 @@ VARIABLES"
 
     ;; Align csv lines
     (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
+      (goto-char start)
+      (while (< (point) end)
         (let ((element-position 0))
         (beginning-of-line)
     	(setq line-elements (split-string
