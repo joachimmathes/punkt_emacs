@@ -180,7 +180,7 @@ VARIABLES"
     ;; Align csv lines
     (save-excursion
       (goto-char start)
-      (while (< (point) end)
+      (while (not (eobp))
         (let ((element-position 0))
         (beginning-of-line)
     	(setq line-elements (split-string
