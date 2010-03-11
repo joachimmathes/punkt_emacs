@@ -170,7 +170,8 @@ VARIABLES"
 
   ;; Analyze csv lines
   (let ((formatter (list))
-        (line-elements-lengths (list)))
+        (line-elements-lengths (list))
+	(last-line (line-number-at-pos end)))
     (save-excursion
       (goto-char start)
       (while (< (point) end)
@@ -205,7 +206,7 @@ VARIABLES"
     ;; Align csv lines
     (save-excursion
       (goto-char start)
-      (while (not (eobp))
+      (while (<= (line-number-at-pos (point)) last-line)
         (let ((element-position 0))
         (beginning-of-line)
     	(setq line-elements (split-string
