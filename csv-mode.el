@@ -53,6 +53,13 @@
   :type 'string
   :group 'csv)
 
+(defcustom csv-field-color "DarkSlateBlue"
+  "The color used to highlight a field.
+The default value is `DarkSlateBlue'. For a list of all available colors use `M-x
+list-colors-display"
+  :type 'color
+  :group 'csv)
+
 ;;;; Constants
 
 (defconst csv-font-lock-keywords
@@ -73,6 +80,10 @@
 
 (defvar csv-mode-hook nil
   "Hook called by `csv-mode'.")
+
+(defvar csv-highlight-overlays [nil nil]
+  "A vector of different overlay to do highlighting.
+This vector concerns only highlighting of horizontal lines.")
 
 ;;;; Functions
 
@@ -104,6 +115,20 @@ VARIABLES"
     (define-key csv-mode-map "\C-c\C-ab" 'csv-align-records-in-buffer)
     (define-key csv-mode-map "\C-cs" 'csv-set-separator))
   (use-local-map csv-mode-map)
+
+  (add-hook 'pre-command-hook
+            'csv-pre-command-hook nil t)
+  (add-hook 'post-command-hook
+            'csv-post-command-hook nil t)
+
+  ;; Initialize the overlays for highlighting fields.
+  (dotimes (index (length csv-highlight-overlays))
+    (when (not (aref csv-highlight-overlays index))
+      (aset csv-highlight-overlays index (make-overlay 1 1))
+      (overlay-put (aref csv-highlight-overlays index)
+                   'category 'csv-field-overlay)
+      (overlay-put (aref csv-highlight-overlays index)
+                   'font-lock-face `(:background ,csv-field-color))))
 
   (setq major-mode 'csv-mode
         mode-name "CSV"
@@ -205,6 +230,39 @@ VARIABLES"
   (re-search-backward csv-current-separator nil t)
   (if (re-search-backward csv-current-separator nil 'limit arg)
       (forward-char)))
+
+(defun csv-pre-command-hook ()
+  "Deactivates the overlay of the current field.
+Used in `pre-command-hook'."
+  (csv-unhighlight 0))
+
+(defun csv-post-command-hook ()
+  "Activates the field overlay of the current line.
+Used in `post-command-hook'."
+  (let (field-start field-end)
+    (save-excursion
+      (re-search-backward csv-current-separator (line-beginning-position) 'foo 1)
+      (setq field-start (point))
+      (if (not (eobp))
+	  (forward-char))
+      (re-search-forward csv-current-separator (line-end-position) 'foo 1)
+      (setq field-end (point)))
+    (csv-highlight 0
+		   field-start
+		   field-end)))
+
+(defun csv-highlight (index begin end)
+  "Highlight a region with overlay INDEX.
+The region is described by the delimiters BEGIN and END.
+Highlighting is handled with overlays.  Different indices map to different
+overlays."
+  (move-overlay (aref csv-highlight-overlays index)
+                begin end (current-buffer)))
+
+(defun csv-unhighlight (index)
+  "Detach overlay INDEX."
+  (delete-overlay (aref csv-highlight-overlays index)))
+
 
 (provide 'csv-mode)
 
