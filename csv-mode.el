@@ -123,9 +123,9 @@ VARIABLES"
   (use-local-map csv-mode-map)
 
   (add-hook 'pre-command-hook
-            'csv-pre-command-hook nil t)
+            'csv-pre-command-overlay-hook nil t)
   (add-hook 'post-command-hook
-            'csv-post-command-hook nil t)
+            'csv-post-command-overlay-hook nil t)
 
   ;; Initialize the overlays for highlighting fields.
   (dotimes (index (length csv-highlight-overlays))
@@ -239,12 +239,12 @@ VARIABLES"
   (if (re-search-backward csv-current-separator nil 'limit arg)
       (forward-char)))
 
-(defun csv-pre-command-hook ()
+(defun csv-pre-command-overlay-hook ()
   "Deactivates the overlay of the current field.
 Used in `pre-command-hook'."
   (csv-unhighlight 0))
 
-(defun csv-post-command-hook ()
+(defun csv-post-command-overlay-hook ()
   "Activates the field overlay of the current line.
 Used in `post-command-hook'."
   (let (field-start field-end)
