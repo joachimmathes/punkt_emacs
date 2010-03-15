@@ -85,6 +85,9 @@ list-colors-display"
   "A vector of different overlay to do highlighting.
 This vector concerns only highlighting of horizontal lines.")
 
+(defvar csv-field-position 1
+  "Field position at point in line.")
+
 ;;;; Functions
 
 ;;;###autoload
@@ -264,6 +267,22 @@ overlays."
   "Detach overlay INDEX."
   (delete-overlay (aref csv-highlight-overlays index)))
 
+(defun csv-echo-column-number ()
+  "Echo column number in echo area."
+  (interactive)
+  (message "Field %d" (csv-evaluate-column-number)))
+
+(defun csv-evaluate-column-number ()
+  "Evaluate column number."
+  (let ((csv-number-of-columns 1))
+    (save-excursion
+      (if (not (eq (point) (line-beginning-position)))
+	  (backward-char))
+      (while (not (eq (point) (line-beginning-position)))
+	(if (string= (char-to-string (char-after (point))) csv-current-separator)
+	    (setq csv-number-of-columns (1+ csv-number-of-columns)))
+	(backward-char)))
+  csv-number-of-columns))
 
 (provide 'csv-mode)
 
