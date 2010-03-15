@@ -119,7 +119,13 @@ VARIABLES"
     (define-key csv-mode-map "\C-cb" 'csv-backward-column)
     (define-key csv-mode-map "\C-c\C-ar" 'csv-align-records-in-region)
     (define-key csv-mode-map "\C-c\C-ab" 'csv-align-records-in-buffer)
-    (define-key csv-mode-map "\C-cs" 'csv-set-separator))
+    (define-key csv-mode-map "\C-c\C-ss" 'csv-set-separator)
+    (define-key csv-mode-map "\C-c\C-tm" 'csv-toggle-motion-mode)
+    (define-key csv-mode-map "\C-c\C-f" 'csv-echo-column-number)
+    (substitute-key-definition
+     'forward-char 'csv-move-right csv-mode-map global-map)
+    (substitute-key-definition
+     'backward-char 'csv-move-left csv-mode-map global-map))
   (use-local-map csv-mode-map)
 
   (add-hook 'pre-command-hook
