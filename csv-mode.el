@@ -88,6 +88,9 @@ This vector concerns only highlighting of horizontal lines.")
 (defvar csv-field-position 1
   "Field position at point in line.")
 
+(defvar csv-motion-mode 'field
+  "Motion mode.")
+
 ;;;; Functions
 
 ;;;###autoload
@@ -137,7 +140,8 @@ VARIABLES"
         mode-name "CSV"
 	csv-current-separator csv-separator
         font-lock-defaults '(csv-font-lock-keywords)
-        show-paren-mode t)
+        show-paren-mode t
+	cursor-type nil)
 
   (if csv-mode-hook
       (run-hooks 'csv-mode-hook)))
@@ -266,6 +270,31 @@ overlays."
 (defun csv-unhighlight (index)
   "Detach overlay INDEX."
   (delete-overlay (aref csv-highlight-overlays index)))
+
+(defun csv-toggle-motion-mode ()
+  "Toggle motion mode."
+  (interactive)
+  (if (eq csv-motion-mode 'field)
+      (progn
+	(substitute-key-definition 'csv-move-right 'forward-char csv-mode-map)
+	(substitute-key-definition 'csv-move-left 'backward-char csv-mode-map)
+	(setq cursor-type t)
+	(setq csv-motion-mode 'char))
+    (substitute-key-definition 'forward-char 'csv-move-right csv-mode-map global-map)
+    (substitute-key-definition 'backward-char 'csv-move-left csv-mode-map global-map)
+    (setq cursor-type nil)
+    (setq csv-motion-mode 'field)))
+
+(defun csv-move-right ()
+  "Move right in terms of fields"
+  (interactive)
+  (re-search-forward csv-current-separator (line-end-position) 'foo 2)
+  (backward-char))
+
+(defun csv-move-left ()
+  "Move right in terms of fields"
+  (interactive)
+  (re-search-backward csv-current-separator (line-beginning-position) 'foo 1))
 
 (defun csv-echo-column-number ()
   "Echo column number in echo area."
