@@ -218,6 +218,8 @@ ts-fold-background-color\t\tbackground color of folded measurement block"
     (define-key ts-mode-map "\C-c\C-a"     'ts-unfold-block)
     (define-key ts-mode-map "\C-c\C-u\C-r" 'ts-unfold-region)
     (define-key ts-mode-map "\C-c\C-u\C-b" 'ts-unfold-buffer)
+    (define-key ts-mode-map "{" 'ts-insert-pair-of-braces)
+    (define-key ts-mode-map "(" 'ts-insert-pair-of-braces)
     (define-key ts-mode-map "}" 'ts-electric-brace)
     (define-key ts-mode-map ")" 'ts-electric-brace))
   (use-local-map ts-mode-map)
@@ -333,6 +335,17 @@ Argument ARG prefix."
   (when (and (looking-at "[ \t]*$")
 	     (looking-back "^[ \t]*[})]"))
     (ts-indent-line)))
+
+(defun ts-insert-pair-of-braces (arg)
+  (interactive "P")
+  "Insert pair of braces and place point in between, if ARG is empty."
+  (if (not (eq arg nil))
+      (self-insert-command (prefix-numeric-value arg))
+    (self-insert-command 1)
+    (insert "\n\n}")
+    (t3php-indent-line)
+    (forward-line -1)
+    (t3php-indent-line)))
 
 ;;;; Folding
 
