@@ -645,6 +645,18 @@ This function inserts:
     (beginning-of-line)
     (indent-for-tab-command)))
 
+(defun t3php-insert-test-method (test-method-name)
+  "Insert test method skeleton for TEST-METHOD-NAME."
+  (interactive "sMethod name: ")
+  (let ((start-point (point)))  
+	(insert "public function test"
+			test-method-name
+			"() {\n\n}")
+    (indent-region start-point (point))
+    (previous-line)
+    (beginning-of-line)
+    (indent-for-tab-command)))
+
 (defun t3php-read-method-modifier ()
   "Read METHOD-MODIFIER from minibuffer."
   (let ((method-modifier (completing-read "Modifier: "
