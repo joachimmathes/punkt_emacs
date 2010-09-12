@@ -436,6 +436,8 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map "\C-c\C-ic" 't3php-insert-class)
     (define-key t3php-mode-map "\C-c\C-if" 't3php-insert-method)
     (define-key t3php-mode-map "\C-c\C-id" 't3php-insert-current-date)
+    (define-key t3php-mode-map "\C-c\C-sc" 't3php-switch-to-class-buffer)
+    (define-key t3php-mode-map "\C-c\C-st" 't3php-switch-to-test-buffer)
     (define-key t3php-mode-map "\C-cd"     't3php-search-documentation)
     (define-key t3php-mode-map "\C-cw"     't3php-browse-manual)
     (define-key t3php-mode-map "\C-c\C-tw" 't3php-toggle-trailing-whitespace-visibilty))
