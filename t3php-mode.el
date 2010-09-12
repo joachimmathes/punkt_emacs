@@ -476,13 +476,8 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
 This function inserts:
 * php tags
 * copyright with current date and t3php-doc-author
-* a comment block which contains SCM version ID tag, author, date
-  and leaves room for a class description
-* a special comment for inserting a function index automatically
-  with the TYPO3 extension `Extension Development Evaluator'
 * a class header comment
-* the class skeleton
-* a TYPO3 XCLASS inclusion section"
+* the class skeleton"
   (interactive)
   (insert "<?php\n"
           "/***************************************************************\n"
@@ -506,53 +501,20 @@ This function inserts:
           " *  GNU General Public License for more details.\n"
           " *\n"
           " *  This copyright notice MUST APPEAR in all copies of the script!\n"
-          " ***************************************************************/\n"
+          " **************************************************************/\n"
+          "\n"
           "/**\n"
           " *\n"
           " *\n"
-          " * @author "
-          t3php-doc-author
-          "\n"
-          " * @since "
-          (t3php-current-date)
-          "\n"
-          " * @version "
-          "$" "Id" "$\n"
-          " */\n"
-          "/**\n"
-          " * [CLASS/FUNCTION INDEX of SCRIPT]\n"
-          " *\n"
-          " * Hint: use extdeveval to insert/update function index above.\n"
-          " */\n"
-          "\n\n\n\n\n"
-          "/**\n"
-          " *\n"
-          " *\n"
-          " * @author "
-          t3php-doc-author
-          "\n"
           " * @package "
           "TYPO3\n"
           " * @subpackage "
           (t3php-get-subpackage-name)
           "\n"
-          " * @since "
-          (t3php-current-date)
-          "\n"
           " */\n"
           "class "
           (t3php-get-class-name)
           " {\n\n"
-          "}\n\n\n"
-          "/*******************************************************************************\n"
-          " * TYPO3 XCLASS INCLUSION (for class extension/overriding)\n"
-          " ******************************************************************************/\n"
-          "if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
-          (t3php-path-to-extension-file)
-          "']) {\n"
-          "    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['"
-          (t3php-path-to-extension-file)
-          "']);\n"
           "}\n"
           "?>"))
 
