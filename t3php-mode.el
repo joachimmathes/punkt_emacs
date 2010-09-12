@@ -569,23 +569,76 @@ This function inserts:
                           t3php-typo3-extension-directory
                           "\\(.*?\\)/")
                   (file-name-directory buffer-file-name))
-    (match-string 1 (file-name-directory buffer-file-name))
-    ))
+    (match-string 1 (file-name-directory buffer-file-name))))
 
 (defun t3php-get-class-name ()
-  "Return class name derived from buffer file name."
+  "Return class name."
+  (if (t3php-get-extension-key)
+	  (t3php-get-extbase-class-name)
+	"<CLASSNAME>"))
+
+(defun t3php-get-extbase-class-name ()
+  "Return Extbase class name derived from buffer file name."
+  (concat 
+   "Tx_"
+   (t3php-get-condensed-ucc-extension-key)
+   "_"
+   (t3php-get-underscored-class-path)
+   (file-name-sans-extension (file-name-nondirectory buffer-file-name))
+   (t3php-get-class-path-suffix)))
+
+(defun t3php-get-underscored-class-path ()
+  "Return class path with slashes replaced by underscores."
+   (replace-regexp-in-string "/" "_" (t3php-get-class-path)))
+
+(defun t3php-get-condensed-ucc-extension-key ()
+  "Return condensed upper camel case extension key."
+  (let ((extension-key (t3php-get-extension-key)))
+	(if (not extension-key)
+		nil
+	  (mapconcat 'capitalize (split-string extension-key "_") ""))))
+
+(defun t3php-get-class-path ()
+  (if (not (string-match-p
+			t3php-path-to-typo3-extension-directory
+			buffer-file-name))
+	  nil
+    (string-match (concat t3php-path-to-typo3-extension-directory
+                          t3php-typo3-extension-directory
+                          "\\(.+?/.+?/\\)"
+						  "\\(.*\\)")
+                  (file-name-directory buffer-file-name))
+	(match-string 2 (file-name-directory buffer-file-name))))
+
+(defun t3php-get-extension-key ()
+  "Return extension key."
+  (if (not (string-match-p
+			(concat
+			 t3php-path-to-typo3-extension-directory
+			 t3php-typo3-extension-directory
+			 ".*?/Classes")
+			buffer-file-name))
+	  nil
+    (string-match (concat t3php-path-to-typo3-extension-directory
+                          t3php-typo3-extension-directory
+                          "\\(.+?\\)/")
+                  (file-name-directory buffer-file-name))
+	(match-string 1 (file-name-directory buffer-file-name))))
+
+(defun t3php-get-class-path-suffix ()
+  "Return class path suffix."
   (if (string-match-p
-            "^class."
-            (file-name-nondirectory buffer-file-name))
-      (substring (file-name-sans-extension (file-name-nondirectory buffer-file-name)) 6 nil)
-    (file-name-sans-extension (file-name-nondirectory buffer-file-name))))
+	   (concat 
+		(t3php-get-extension-key)
+		"/Tests/")
+	   buffer-file-name)
+	  "_testcase extends Tx_Extbase_BaseTestCase"))
 
 (defun t3php-path-to-extension-file ()
   "Return path to extension file."
   (if (not (string-match-p
-            (concat
-             t3php-path-to-typo3-extension-directory
-             t3php-typo3-extension-directory) buffer-file-name))
+             t3php-path-to-typo3-extension-directory)
+		   buffer-file-name)
       (concat "<PATH-TO-FILE>/"
               (file-name-nondirectory buffer-file-name))
     (string-match (concat t3php-path-to-typo3-extension-directory
