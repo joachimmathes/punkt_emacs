@@ -698,6 +698,11 @@ This function inserts:
   (interactive)
   (insert (t3php-current-date)))
 
+(defun t3php-insert-current-timestamp ()
+  "Insert the current timestamp into buffer."
+  (interactive)
+  (insert (format-time-string "%s" (current-time))))
+
  (defun t3php-current-date ()
    "Return the current date.
 Uses customizable `t3php-doc-date-format' for formatting the date."
