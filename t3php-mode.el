@@ -3122,10 +3122,9 @@ by function `t3php-outline-content'"
   (interactive)
   (if (not (file-exists-p (t3php-get-derived-class-file-path)))
 	  (make-directory (t3php-get-derived-class-file-path)))
-  (buffer-name 
-   (find-file (concat
+  (find-file (concat
 			  (t3php-get-derived-class-file-path)
-			  (t3php-get-derived-class-file-name)))))
+			  (t3php-get-derived-class-file-name))))
 
 (defun t3php-get-derived-class-file-path ()
   "Get derived class file path from current test file path."
@@ -3146,7 +3145,7 @@ by function `t3php-outline-content'"
   (interactive)
   (if (not (file-exists-p (t3php-get-derived-test-file-path)))
 	  (make-directory (t3php-get-derived-test-file-path)))
-  (buffer-name (find-file (concat
+  (find-file (concat
 			  (t3php-get-derived-test-file-path)
 			  (t3php-get-derived-test-file-name)))))
 
