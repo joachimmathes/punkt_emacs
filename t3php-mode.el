@@ -3120,11 +3120,15 @@ by function `t3php-outline-content'"
 (defun t3php-switch-to-class-buffer ()
   "Switch to class buffer. Create one if it doesn't exist."
   (interactive)
-  (if (not (file-exists-p (t3php-get-derived-class-file-path)))
-	  (make-directory (t3php-get-derived-class-file-path)))
-  (find-file (concat
-			  (t3php-get-derived-class-file-path)
-			  (t3php-get-derived-class-file-name))))
+  (if (string-match 
+  	   (concat (t3php-get-extension-key) "/Classes/")
+  	   (file-name-directory buffer-file-name))
+  	  (message "You already seem to visit the class buffer.")
+	(if (not (file-exists-p (t3php-get-derived-class-file-path)))
+  	  (make-directory (t3php-get-derived-class-file-path)))
+	(find-file (concat
+				(t3php-get-derived-class-file-path)
+				(t3php-get-derived-class-file-name)))))
 
 (defun t3php-get-derived-class-file-path ()
   "Get derived class file path from current test file path."
@@ -3143,11 +3147,15 @@ by function `t3php-outline-content'"
 (defun t3php-switch-to-test-buffer ()
   "Switch to test buffer. Create one if it doesn't exist."
   (interactive)
-  (if (not (file-exists-p (t3php-get-derived-test-file-path)))
+  (if (string-match 
+  	   (concat (t3php-get-extension-key) "/Tests/")
+  	   (file-name-directory buffer-file-name))
+  	  (message "You already seem to visit the test buffer.")
+	(if (not (file-exists-p (t3php-get-derived-test-file-path)))
 	  (make-directory (t3php-get-derived-test-file-path)))
-  (find-file (concat
-			  (t3php-get-derived-test-file-path)
-			  (t3php-get-derived-test-file-name)))))
+	(find-file (concat
+				(t3php-get-derived-test-file-path)
+				(t3php-get-derived-test-file-name)))))
 
 (defun t3php-get-derived-test-file-path ()
   "Get derived test file path from current class file path."
