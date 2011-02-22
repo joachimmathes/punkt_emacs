@@ -505,7 +505,7 @@ This function inserts:
           "*  GNU General Public License for more details.\n"
           "*\n"
           "*  This copyright notice MUST APPEAR in all copies of the script!\n"
-          "****************************************************************/\n"
+          "***************************************************************/\n"
           "\n"
           "/**\n"
           " *\n"
