@@ -511,10 +511,8 @@ This function inserts:
           "/**\n"
           " *\n"
           " *\n"
-          " * @package "
-          "TYPO3\n"
+          " * @package " (t3php-get-package-name) "\n"
           " * @subpackage "
-          (t3php-get-subpackage-name)
           "\n"
           " */\n"
           "class "
@@ -523,7 +521,7 @@ This function inserts:
           "}\n"
           "?>"))
 
-(defun t3php-get-subpackage-name ()
+(defun t3php-get-package-name ()
   "Return subpackage name derived from extension path."
   (if (not (string-match-p
             (concat
