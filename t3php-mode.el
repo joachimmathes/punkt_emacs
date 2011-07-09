@@ -1451,8 +1451,6 @@ by function `t3php-outline-content'"
 (defun t3php-switch-to-test-buffer ()
   "Switch to test buffer. Create one if it doesn't exist."
   (interactive)
-  efun t3php-path-to-extension-file ()
-  "Return path to extension file."
   (if (not (string-match-p
              t3php-path-to-typo3-extension-directory)
 		   buffer-file-name)
@@ -2286,21 +2284,6 @@ by function `t3php-outline-content'"
   "Switch to test buffer. Create one if it doesn't exist."
   (interactive)
   
-efun t3php-path-to-extension-file ()
-  "Return path to extension file."
-  (if (not (string-match-p
-             t3php-path-to-typo3-extension-directory)
-		   buffer-file-name)
-      (concat "<PATH-TO-FILE>/"
-              (file-name-nondirectory buffer-file-name))
-    (string-match (concat t3php-path-to-typo3-extension-directory
-                          "\\("
-                          t3php-typo3-extension-directory
-                          ".*\\)")
-                  (file-name-directory buffer-file-name))
-    (concat (match-string 1 (file-name-directory buffer-file-name))
-            (file-name-nondirectory buffer-file-name))))
-
 (defun t3php-insert-method (method-name)
   "Insert signature and header comment for METHOD-NAME."
   (interactive "sMethod name: ")
