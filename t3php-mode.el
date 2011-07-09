@@ -662,6 +662,36 @@ This function inserts:
     (beginning-of-line)
     (indent-for-tab-command)))
 
+(defun t3php-insert-getter-method ()
+  "Insert getter method."
+  (interactive)
+  (let ((start-point (point))
+		(property (t3php-read-class-property)))
+	(insert "/**\n"
+			"* Get " property "\n"
+			"*\n"
+			"* return \n"
+			"*/\n"
+			"public function get" (upcase-initials property) "() {\n"
+			"return $this->" property ";"
+			"\n}")
+	(indent-region start-point (point))))
+
+(defun t3php-insert-setter-method ()
+  "Insert setter method."
+  (interactive)
+  (let ((start-point (point))
+		(property (t3php-read-class-property)))
+	(insert "/**\n"
+			"* Set " property "\n"
+			"*\n"
+			"* return void\n"
+			"*/\n"
+			"public function set" (upcase-initials property) "($" property	") {\n"
+			"$this->" property " = $" property	";"
+			"\n}")
+	(indent-region start-point (point))))
+
 (defun t3php-insert-test-method (test-method-name)
   "Insert test method skeleton for TEST-METHOD-NAME."
   (interactive "sMethod name: ")
