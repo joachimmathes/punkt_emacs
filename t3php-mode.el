@@ -437,7 +437,8 @@ t3php-newline-function\t\tbehaviour after pressing `RET'"
     (define-key t3php-mode-map "\C-c\C-if" 't3php-insert-method)
     (define-key t3php-mode-map "\C-c\C-it" 't3php-insert-test-method)
     (define-key t3php-mode-map "\C-c\C-id" 't3php-insert-current-date)
-    (define-key t3php-mode-map "\C-c\C-is" 't3php-insert-current-timestamp)
+    (define-key t3php-mode-map "\C-c\C-is" 't3php-insert-setter-method)
+    (define-key t3php-mode-map "\C-c\C-ig" 't3php-insert-getter-method)
     (define-key t3php-mode-map "\C-c\C-sc" 't3php-switch-to-class-buffer)
     (define-key t3php-mode-map "\C-c\C-st" 't3php-switch-to-test-buffer)
     (define-key t3php-mode-map "\C-cd"     't3php-search-documentation)
@@ -545,7 +546,7 @@ This function inserts:
 
 (defun t3php-get-extbase-class-name ()
   "Return Extbase class name derived from buffer file name."
-  (concat 
+  (concat
    "Tx_"
    (t3php-get-condensed-ucc-extension-key)
    "_"
@@ -594,7 +595,7 @@ This function inserts:
 (defun t3php-get-class-path-suffix ()
   "Return class path suffix."
   (if (string-match-p
-	   (concat 
+	   (concat
 		(t3php-get-extension-key)
 		"/Tests/")
 	   buffer-file-name)
@@ -695,7 +696,7 @@ This function inserts:
 (defun t3php-insert-test-method (test-method-name)
   "Insert test method skeleton for TEST-METHOD-NAME."
   (interactive "sMethod name: ")
-  (let ((start-point (point)))  
+  (let ((start-point (point)))
 	(insert "public function test"
 			test-method-name
 			"() {\n\n}")
@@ -726,9 +727,9 @@ This function inserts:
 	  (goto-char (point-min))
 	  (while (< (point) (point-max))
 		(re-search-forward
-		 	"^\\s-*\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)\\$\\(\\sw+\\)\\s-*;" nil 1)
+			"^\\s-*\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)\\$\\(\\sw+\\)\\s-*;" nil 1)
 		(add-to-list  'list-of-properties (list (match-string 1) counter) )
-		(setq counter (1+ counter)))) 
+		(setq counter (1+ counter))))
 	  (completing-read "Property: "
 					   list-of-properties
 					   nil
@@ -1499,7 +1500,7 @@ by function `t3php-outline-content'"
 (defun t3php-switch-to-class-buffer ()
   "Switch to class buffer. Create one if it doesn't exist."
   (interactive)
-  (if (string-match 
+  (if (string-match
   	   (concat (t3php-get-extension-key) "/Classes/")
   	   (file-name-directory buffer-file-name))
   	  (message "You already seem to visit the class buffer.")
@@ -1511,9 +1512,9 @@ by function `t3php-outline-content'"
 
 (defun t3php-get-derived-class-file-path ()
   "Get derived class file path from current test file path."
-  (replace-regexp-in-string (concat (t3php-get-extension-key) 
+  (replace-regexp-in-string (concat (t3php-get-extension-key)
 									"/Tests/")
-							(concat (t3php-get-extension-key) 
+							(concat (t3php-get-extension-key)
 									"/Classes/")
 							(file-name-directory buffer-file-name)))
 
@@ -1526,7 +1527,7 @@ by function `t3php-outline-content'"
 (defun t3php-switch-to-test-buffer ()
   "Switch to test buffer. Create one if it doesn't exist."
   (interactive)
-  (if (string-match 
+  (if (string-match
   	   (concat (t3php-get-extension-key) "/Tests/")
   	   (file-name-directory buffer-file-name))
   	  (message "You already seem to visit the test buffer.")
@@ -1538,9 +1539,9 @@ by function `t3php-outline-content'"
 
 (defun t3php-get-derived-test-file-path ()
   "Get derived test file path from current class file path."
-  (replace-regexp-in-string (concat (t3php-get-extension-key) 
+  (replace-regexp-in-string (concat (t3php-get-extension-key)
 									"/Classes/")
-							(concat (t3php-get-extension-key) 
+							(concat (t3php-get-extension-key)
 									"/Tests/")
 							(file-name-directory buffer-file-name)))
 
