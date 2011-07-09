@@ -687,6 +687,26 @@ This function inserts:
                                              nil)))
     method-modifier))
 
+(defun t3php-read-class-property ()
+  "Collect class properties"
+  (interactive)
+  (let ((list-of-properties (list))
+		(counter 1))
+	  (save-excursion
+	  (goto-char (point-min))
+	  (while (< (point) (point-max))
+		(re-search-forward
+		 	"^\\s-*\\(?:\\(?:private\\|protected\\|public\\)\\s-+\\)\\$\\(\\sw+\\)\\s-*;" nil 1)
+		(add-to-list  'list-of-properties (list (match-string 1) counter) )
+		(setq counter (1+ counter)))) 
+	  (completing-read "Property: "
+					   list-of-properties
+					   nil
+					   nil
+					   nil
+					   nil
+					   nil)))
+
 (defun t3php-read-method-arguments (method-argument)
   "Read METHOD-ARGUMENT from minibuffer."
   (interactive "sParameter: ")
