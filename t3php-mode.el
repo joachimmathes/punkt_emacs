@@ -514,7 +514,7 @@ This function inserts:
 	(setq cursor-point (point))
 	(insert "\n"
 			" *\n"
-			" * @package " (t3php-get-extension-key) "\n"
+			" * @package " (t3php-get-package-name) "\n"
 			" * @subpackage " (t3php-get-subpackage-path)
 			"\n"
 			" */\n"
@@ -525,27 +525,51 @@ This function inserts:
 			"?>")
 	(goto-char cursor-point)))
 
+(defun t3php-get-package-name ()
+  "Return package name"
+  (if (not (eq (t3php-get-extension-key) ""))
+	  (t3php-get-extension-key)
+	"<PACKAGE>"))
+
 (defun t3php-get-subpackage-path ()
   "Return subpackage path derived from extension path."
-  (if (not (string-match-p
+  (cond ((string-match-p
             (concat
              t3php-path-to-typo3-extension-directory
              t3php-typo3-extension-directory
-             ".*?/")
-            buffer-file-name))
-      "<SUBPACKAGE>"
-    (string-match (concat t3php-path-to-typo3-extension-directory
-                          t3php-typo3-extension-directory
-                          ".*?/" ; extension key
-						  "Classes/"
-                          "\\(.*\\)/")
-                  (file-name-directory buffer-file-name))
-	(replace-regexp-in-string "/" "\\\\" 
-							  (match-string 1 (file-name-directory buffer-file-name)))))
+             ".*?/" ; extension key
+			 "Classes/")
+            buffer-file-name)
+		 (string-match (concat t3php-path-to-typo3-extension-directory
+							   t3php-typo3-extension-directory
+							   ".*?/" ; extension key
+							   "Classes/"
+							   "\\(.*\\)/")
+					   (file-name-directory buffer-file-name))
+		 (replace-regexp-in-string "/" "\\\\"
+								   (match-string 1 (file-name-directory buffer-file-name))))
+		((string-match-p
+            (concat
+             t3php-path-to-typo3-extension-directory
+             t3php-typo3-extension-directory
+             ".*?/" ; extension key
+			 "Tests/")
+            buffer-file-name)
+		 (string-match (concat t3php-path-to-typo3-extension-directory
+							   t3php-typo3-extension-directory
+							   ".*?/" ; extension key
+							   "Tests/"
+							   "\\(.*\\)/")
+					   (file-name-directory buffer-file-name))
+		 (concat
+		  "Tests\\"
+		  (replace-regexp-in-string "/" "\\\\"
+									(match-string 1 (file-name-directory buffer-file-name)))))
+		(t "<SUBPACKAGE>")))
 
 (defun t3php-get-class-name ()
   "Return class name."
-  (if (t3php-get-extension-key)
+  (if (not (eq (t3php-get-extension-key) ""))
 	  (t3php-get-extbase-class-name)
 	"<CLASSNAME>"))
 
@@ -588,13 +612,13 @@ This function inserts:
 			(concat
 			 t3php-path-to-typo3-extension-directory
 			 t3php-typo3-extension-directory
-			 ".*?/Classes")
+			 ".+?/")
 			buffer-file-name))
-	  nil
-    (string-match (concat t3php-path-to-typo3-extension-directory
-                          t3php-typo3-extension-directory
-                          "\\(.+?\\)/")
-                  (file-name-directory buffer-file-name))
+	  ""
+	(string-match (concat t3php-path-to-typo3-extension-directory
+						  t3php-typo3-extension-directory
+						  "\\(.+?\\)/")
+				  (file-name-directory buffer-file-name))
 	(match-string 1 (file-name-directory buffer-file-name))))
 
 (defun t3php-get-class-path-suffix ()
