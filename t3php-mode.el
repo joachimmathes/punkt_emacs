@@ -484,45 +484,49 @@ This function inserts:
 * a class header comment
 * the class skeleton"
   (interactive)
-  (insert "<?php\n"
-          "/***************************************************************\n"
-          "*  Copyright notice\n"
-          "*\n"
-          "*  (c) "  (t3php-current-year) " " t3php-doc-author "\n"
-          "*  All rights reserved\n"
-          "*\n"
-          "*  This script is part of the TYPO3 project. The TYPO3 project is\n"
-          "*  free software; you can redistribute it and/or modify\n"
-          "*  it under the terms of the GNU General Public License as published by\n"
-          "*  the Free Software Foundation; either version 2 of the License, or\n"
-          "*  (at your option) any later version.\n"
-          "*\n"
-          "*  The GNU General Public License can be found at\n"
-          "*  http://www.gnu.org/copyleft/gpl.html.\n"
-          "*\n"
-          "*  This script is distributed in the hope that it will be useful,\n"
-          "*  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-          "*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-          "*  GNU General Public License for more details.\n"
-          "*\n"
-          "*  This copyright notice MUST APPEAR in all copies of the script!\n"
-          "***************************************************************/\n"
-          "\n"
-          "/**\n"
-          " *\n"
-          " *\n"
-          " * @package " (t3php-get-package-name) "\n"
-          " * @subpackage "
-          "\n"
-          " */\n"
-          "class "
-          (t3php-get-class-name)
-          " {\n\n"
-          "}\n"
-          "?>"))
+  (let (cursor-point)
+	(insert "<?php\n"
+			"/***************************************************************\n"
+			"*  Copyright notice\n"
+			"*\n"
+			"*  (c) "  (t3php-current-year) " " t3php-doc-author "\n"
+			"*  All rights reserved\n"
+			"*\n"
+			"*  This script is part of the TYPO3 project. The TYPO3 project is\n"
+			"*  free software; you can redistribute it and/or modify\n"
+			"*  it under the terms of the GNU General Public License as published by\n"
+			"*  the Free Software Foundation; either version 2 of the License, or\n"
+			"*  (at your option) any later version.\n"
+			"*\n"
+			"*  The GNU General Public License can be found at\n"
+			"*  http://www.gnu.org/copyleft/gpl.html.\n"
+			"*\n"
+			"*  This script is distributed in the hope that it will be useful,\n"
+			"*  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+			"*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+			"*  GNU General Public License for more details.\n"
+			"*\n"
+			"*  This copyright notice MUST APPEAR in all copies of the script!\n"
+			"***************************************************************/\n"
+			"\n"
+			"/**\n"
+			" * ")
+	(setq cursor-point (point))
+	(insert "\n"
+			" *\n"
+			" * @package " (t3php-get-extension-key) "\n"
+			" * @subpackage " (t3php-get-subpackage-path)
+			"\n"
+			" */\n"
+			"class "
+			(t3php-get-class-name)
+			" {\n\n"
+			"}\n"
+			"?>")
+	(goto-char cursor-point)))
 
-(defun t3php-get-package-name ()
-  "Return subpackage name derived from extension path."
+(defun t3php-get-subpackage-path ()
+  "Return subpackage path derived from extension path."
   (if (not (string-match-p
             (concat
              t3php-path-to-typo3-extension-directory
