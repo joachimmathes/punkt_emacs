@@ -532,9 +532,12 @@ This function inserts:
       "<SUBPACKAGE>"
     (string-match (concat t3php-path-to-typo3-extension-directory
                           t3php-typo3-extension-directory
-                          "\\(.*?\\)/")
+                          ".*?/" ; extension key
+						  "Classes/"
+                          "\\(.*\\)/")
                   (file-name-directory buffer-file-name))
-    (match-string 1 (file-name-directory buffer-file-name))))
+	(replace-regexp-in-string "/" "\\\\" 
+							  (match-string 1 (file-name-directory buffer-file-name)))))
 
 (defun t3php-get-class-name ()
   "Return class name."
