@@ -126,7 +126,7 @@ group directly
 
 The following user-customizable variables are provided.
 
- -- Variable: integer t3php-block-indentation
+ -- Variable: integer ts-block-indentation
      The indentation relative to a predecessing line which begins a new
      code block.
 
@@ -280,7 +280,7 @@ Variable Index
  [index ]
 * Menu:
 
-* t3php-block-indentation:               Customization.        (line 16)
+* ts-block-indentation:                  Customization.        (line 16)
 * ts-fold-background-color:              Customization.        (line 48)
 * ts-fold-foreground-color:              Customization.        (line 43)
 * ts-newline-function:                   Customization.        (line 22)
@@ -307,12 +307,12 @@ Node: Introduction2113
 Node: Installation2708
 Node: Using TS mode3719
 Node: Customization4047
-Ref: Customization-Footnote-15887
-Node: Syntax highlighting6155
-Node: Line indentation6771
-Node: Folding7529
-Node: Key Index9042
-Node: Variable Index9472
-Node: Function Index9913
+Ref: Customization-Footnote-15884
+Node: Syntax highlighting6152
+Node: Line indentation6768
+Node: Folding7526
+Node: Key Index9039
+Node: Variable Index9469
+Node: Function Index9910
 
 End Tag Table

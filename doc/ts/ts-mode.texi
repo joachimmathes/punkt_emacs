@@ -139,7 +139,7 @@ customize-group} with parameter @samp{typoscript} to enter the
 @noindent
 The following user-customizable variables are provided.
 
-@deftypevar integer t3php-block-indentation
+@deftypevar integer ts-block-indentation
 The indentation relative to a predecessing line which begins a new
 code block.
 
