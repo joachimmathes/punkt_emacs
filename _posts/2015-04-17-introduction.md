@@ -8,4 +8,3 @@ Let\'s start with a list
 
 * First item
 * Second item
-* Third item
